@@ -14,30 +14,31 @@
  * limitations under the License.
  */
 
-package org.napile.idea.plugin.util;
+package org.napile.idea.plugin.psi.file;
 
 import org.jetbrains.annotations.NotNull;
-import org.napile.compiler.NapileFileType;
-import com.intellij.openapi.fileTypes.FileTypeManager;
+import org.napile.compiler.psi.NXmlFileImpl;
+import com.intellij.openapi.fileTypes.BinaryFileDecompiler;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ProjectRootManager;
+import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.PsiManager;
 
 /**
  * @author VISTALL
- * @date 6:17/19.08.12
+ * @date 18:11/09.10.12
  */
-public class FileRootUtil
+public class NXmlFileDecompiler implements BinaryFileDecompiler
 {
-	public static boolean isNapileSourceFile(@NotNull Project project, @NotNull VirtualFile file)
+	@NotNull
+	@Override
+	public CharSequence decompile(VirtualFile virtualFile)
 	{
-		FileTypeManager fileTypeManager = FileTypeManager.getInstance();
-		if(file.isDirectory())
-			return false;
-		if(file.getFileType() != NapileFileType.INSTANCE)
-			return false;
-		if(fileTypeManager.isFileIgnored(file))
-			return false;
-		return ProjectRootManager.getInstance(project).getFileIndex().isInSource(file);
+		final Project[] projects = ProjectManager.getInstance().getOpenProjects();
+		if(projects.length == 0)
+			return "";
+
+		final Project project = projects[0];
+		return NXmlFileImpl.decompile(PsiManager.getInstance(project), virtualFile);
 	}
 }
