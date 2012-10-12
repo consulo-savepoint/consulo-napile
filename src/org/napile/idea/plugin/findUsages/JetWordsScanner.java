@@ -16,7 +16,7 @@
 
 package org.napile.idea.plugin.findUsages;
 
-import org.napile.compiler.lexer.JetLexer;
+import org.napile.compiler.lang.lexer.NapileLexer;
 import org.napile.compiler.lexer.NapileTokens;
 import com.intellij.lang.cacheBuilder.DefaultWordsScanner;
 import com.intellij.psi.tree.TokenSet;
@@ -28,6 +28,6 @@ public class JetWordsScanner extends DefaultWordsScanner
 {
 	public JetWordsScanner()
 	{
-		super(new JetLexer(), TokenSet.create(NapileTokens.IDENTIFIER), NapileTokens.COMMENTS, NapileTokens.STRINGS);
+		super(new NapileLexer(), TokenSet.create(NapileTokens.IDENTIFIER), NapileTokens.COMMENTS, NapileTokens.STRINGS);
 	}
 }
