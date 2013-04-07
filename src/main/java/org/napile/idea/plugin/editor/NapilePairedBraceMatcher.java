@@ -17,22 +17,25 @@
 /*
  * @author max
  */
-package org.napile.idea.plugin;
+package org.napile.idea.plugin.editor;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.napile.compiler.injection.lexer.InjectionTokens;
 import org.napile.compiler.lang.lexer.NapileTokens;
 import com.intellij.lang.BracePair;
 import com.intellij.lang.PairedBraceMatcher;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.IElementType;
 
-public class JetPairMatcher implements PairedBraceMatcher
+public class NapilePairedBraceMatcher implements PairedBraceMatcher
 {
-	private final BracePair[] pairs = new BracePair[]{
+	private final BracePair[] pairs = new BracePair[]
+	{
 			new BracePair(NapileTokens.LPAR, NapileTokens.RPAR, false),
 			new BracePair(NapileTokens.LBRACE, NapileTokens.RBRACE, true),
-			new BracePair(NapileTokens.LBRACKET, NapileTokens.RBRACKET, false)
+			new BracePair(NapileTokens.LBRACKET, NapileTokens.RBRACKET, false),
+			new BracePair(InjectionTokens.INNER_EXPRESSION_START, InjectionTokens.INNER_EXPRESSION_STOP, false)
 	};
 
 	@Override
