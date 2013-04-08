@@ -16,14 +16,8 @@
 
 package org.napile.idea.plugin.actions;
 
-import java.io.IOException;
-
-import org.napile.compiler.NapileFileType;
-import org.napile.java2napile.converter.Java2NapileConvertAction;
-import org.napile.java2napile.converter.Java2NapileConverter;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.vcsUtil.VcsUtil;
 
@@ -38,7 +32,7 @@ public class ConvertJavaToNapileAction extends AnAction
 	{
 		VirtualFile[] virtualFiles = VcsUtil.getVirtualFiles(e);
 
-		Java2NapileConverter converter = new Java2NapileConverter(e.getProject());
+	/*	Java2NapileConverter converter = new Java2NapileConverter(e.getProject());
 
 		for(VirtualFile virtualFile : virtualFiles)
 		{
@@ -65,6 +59,6 @@ public class ConvertJavaToNapileAction extends AnAction
 					});
 				}
 			});
-		}
+		}  */
 	}
 }
