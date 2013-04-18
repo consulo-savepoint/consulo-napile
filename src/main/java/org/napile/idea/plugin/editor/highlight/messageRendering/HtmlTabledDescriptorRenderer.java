@@ -28,7 +28,7 @@ import org.napile.compiler.lang.diagnostics.rendering.TabledDescriptorRenderer.T
 import org.napile.compiler.lang.diagnostics.rendering.TabledDescriptorRenderer.TableRenderer.FunctionArgumentsRow;
 import org.napile.compiler.lang.diagnostics.rendering.TabledDescriptorRenderer.TableRenderer.TableRow;
 import org.napile.compiler.lang.resolve.calls.inference.ConstraintPosition;
-import org.napile.compiler.lang.types.JetType;
+import org.napile.compiler.lang.types.NapileType;
 import org.napile.compiler.render.DescriptorRenderer;
 import com.google.common.base.Predicate;
 
@@ -124,7 +124,7 @@ public class HtmlTabledDescriptorRenderer extends TabledDescriptorRenderer
 		result.append("</table>");
 	}
 
-	private void renderFunctionArguments(@NotNull List<JetType> argumentTypes, Predicate<ConstraintPosition> isErrorPosition, StringBuilder result)
+	private void renderFunctionArguments(@NotNull List<NapileType> argumentTypes, Predicate<ConstraintPosition> isErrorPosition, StringBuilder result)
 	{
 		tdSpace(result);
 		String receiver = "";
@@ -138,9 +138,9 @@ public class HtmlTabledDescriptorRenderer extends TabledDescriptorRenderer
 
 		td(result, IdeRenderers.strong("("));
 		int i = 0;
-		for(Iterator<JetType> iterator = argumentTypes.iterator(); iterator.hasNext(); )
+		for(Iterator<NapileType> iterator = argumentTypes.iterator(); iterator.hasNext(); )
 		{
-			JetType argumentType = iterator.next();
+			NapileType argumentType = iterator.next();
 			boolean error = false;
 			if(isErrorPosition.apply(ConstraintPosition.getValueParameterPosition(i)))
 			{

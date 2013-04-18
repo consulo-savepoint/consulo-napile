@@ -16,7 +16,7 @@
 
 package org.napile.idea.plugin.editor.completion.lookup;
 
-import org.napile.compiler.lang.types.JetType;
+import org.napile.compiler.lang.types.NapileType;
 import org.napile.compiler.render.DescriptorRenderer;
 
 /**
@@ -28,7 +28,7 @@ public class CompletionRender extends DescriptorRenderer
 	public static final CompletionRender INSTANCE = new CompletionRender();
 
 	@Override
-	public String renderType(JetType type)
+	public String renderType(NapileType type)
 	{
 		return renderType(type, true);
 	}

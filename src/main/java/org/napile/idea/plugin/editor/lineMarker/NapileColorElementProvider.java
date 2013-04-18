@@ -41,7 +41,7 @@ import org.napile.compiler.lang.resolve.BindingTraceKeys;
 import org.napile.compiler.lang.resolve.BindingTrace;
 import org.napile.compiler.lang.resolve.DescriptorUtils;
 import org.napile.compiler.lang.resolve.calls.ResolvedCall;
-import org.napile.compiler.lang.types.JetType;
+import org.napile.compiler.lang.types.NapileType;
 import org.napile.compiler.lang.types.TypeUtils;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
 import com.intellij.openapi.editor.ElementColorProvider;
@@ -135,7 +135,7 @@ public class NapileColorElementProvider implements ElementColorProvider
 		{
 			final AnalyzeExhaust analyzeExhaust = ModuleAnalyzerUtil.lastAnalyze((NapileFile) element.getContainingFile());
 
-			final JetType type = analyzeExhaust.getBindingTrace().get(BindingTraceKeys.TYPE, ((NapileDelegationToSuperCall) element).getTypeReference());
+			final NapileType type = analyzeExhaust.getBindingTrace().get(BindingTraceKeys.TYPE, ((NapileDelegationToSuperCall) element).getTypeReference());
 			if(type == null)
 			{
 				return null;

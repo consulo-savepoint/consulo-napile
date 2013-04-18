@@ -36,8 +36,8 @@ import org.napile.compiler.lang.resolve.BindingTraceKeys;
 import org.napile.compiler.lang.resolve.BindingTraceUtil;
 import org.napile.compiler.lang.resolve.BindingTrace;
 import org.napile.compiler.lang.resolve.DescriptorUtils;
-import org.napile.compiler.lang.types.JetType;
-import org.napile.idea.plugin.JetBundle;
+import org.napile.compiler.lang.types.NapileType;
+import org.napile.idea.plugin.NapileBundle;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
 import com.intellij.codeInsight.navigation.NavigationUtil;
 import com.intellij.codeInsight.navigation.actions.GotoSuperAction;
@@ -82,11 +82,11 @@ public class GotoSuperActionHandler implements LanguageCodeInsightActionHandler
 		String message;
 		if(descriptor instanceof ClassDescriptor)
 		{
-			Collection<? extends JetType> supertypes = ((ClassDescriptor) descriptor).getTypeConstructor().getSupertypes();
-			List<ClassDescriptor> superclasses = ContainerUtil.mapNotNull(supertypes, new Function<JetType, ClassDescriptor>()
+			Collection<? extends NapileType> supertypes = ((ClassDescriptor) descriptor).getTypeConstructor().getSupertypes();
+			List<ClassDescriptor> superclasses = ContainerUtil.mapNotNull(supertypes, new Function<NapileType, ClassDescriptor>()
 			{
 				@Override
-				public ClassDescriptor fun(JetType type)
+				public ClassDescriptor fun(NapileType type)
 				{
 					ClassifierDescriptor descriptor = type.getConstructor().getDeclarationDescriptor();
 					if(descriptor instanceof ClassDescriptor)
@@ -98,18 +98,18 @@ public class GotoSuperActionHandler implements LanguageCodeInsightActionHandler
 			});
 			ContainerUtil.removeDuplicates(superclasses);
 			superDescriptors = superclasses;
-			message = JetBundle.message("goto.super.class.chooser.title");
+			message = NapileBundle.message("goto.super.class.chooser.title");
 		}
 		else if(descriptor instanceof CallableMemberDescriptor)
 		{
 			superDescriptors = ((CallableMemberDescriptor) descriptor).getOverriddenDescriptors();
 			if(descriptor instanceof VariableDescriptorImpl)
 			{
-				message = JetBundle.message("goto.super.property.chooser.title");
+				message = NapileBundle.message("goto.super.property.chooser.title");
 			}
 			else if(descriptor instanceof SimpleMethodDescriptor)
 			{
-				message = JetBundle.message("goto.super.function.chooser.title");
+				message = NapileBundle.message("goto.super.function.chooser.title");
 			}
 			else
 			{
@@ -146,7 +146,7 @@ public class GotoSuperActionHandler implements LanguageCodeInsightActionHandler
 		else
 		{
 			PsiElement[] superDeclarationsArray = PsiUtilCore.toPsiElementArray(superDeclarations);
-			JBPopup popup = descriptor instanceof ClassDescriptor ? NavigationUtil.getPsiElementPopup(superDeclarationsArray, message) : NavigationUtil.getPsiElementPopup(superDeclarationsArray, new JetFunctionPsiElementCellRenderer(bindingContext), message);
+			JBPopup popup = descriptor instanceof ClassDescriptor ? NavigationUtil.getPsiElementPopup(superDeclarationsArray, message) : NavigationUtil.getPsiElementPopup(superDeclarationsArray, new NapileFunctionPsiElementCellRenderer(bindingContext), message);
 			popup.showInBestPositionFor(editor);
 		}
 	}

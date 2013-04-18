@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import org.napile.compiler.lang.descriptors.CallableMemberDescriptor;
 import org.napile.compiler.lang.descriptors.MutableClassDescriptor;
 import org.napile.compiler.lang.resolve.processors.OverrideResolver;
-import org.napile.idea.plugin.JetBundle;
+import org.napile.idea.plugin.NapileBundle;
 import com.google.common.collect.Sets;
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.openapi.editor.Editor;
@@ -59,14 +59,14 @@ public class ImplementMethodsHandler extends OverrideImplementMethodsHandler imp
 	@Override
 	public String getText()
 	{
-		return JetBundle.message("implement.members");
+		return NapileBundle.message("implement.members");
 	}
 
 	@NotNull
 	@Override
 	public String getFamilyName()
 	{
-		return JetBundle.message("implement.members");
+		return NapileBundle.message("implement.members");
 	}
 
 	@Override

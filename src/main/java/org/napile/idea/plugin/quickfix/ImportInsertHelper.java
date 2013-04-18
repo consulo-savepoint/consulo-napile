@@ -34,11 +34,11 @@ import org.napile.compiler.lang.resolve.BindingTraceUtil;
 import org.napile.compiler.lang.resolve.BindingTrace;
 import org.napile.compiler.lang.resolve.DescriptorUtils;
 import org.napile.compiler.lang.types.ErrorUtils;
-import org.napile.compiler.lang.types.JetType;
+import org.napile.compiler.lang.types.NapileType;
 import org.napile.compiler.lang.types.TypeUtils;
 import org.napile.compiler.util.QualifiedNamesUtil;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
-import org.napile.idea.plugin.references.JetPsiReference;
+import org.napile.idea.plugin.references.NapilePsiReference;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.util.TextRange;
@@ -62,7 +62,7 @@ public class ImportInsertHelper
 	 * @param type type to import
 	 * @param file file where import directive should be added
 	 */
-	public static void addImportDirectivesIfNeeded(@NotNull JetType type, @NotNull NapileFile file)
+	public static void addImportDirectivesIfNeeded(@NotNull NapileType type, @NotNull NapileFile file)
 	{
 		if(ErrorUtils.isErrorType(type))
 		{
@@ -99,7 +99,7 @@ public class ImportInsertHelper
 	public static void addImportDirectiveOrChangeToFqName(@NotNull FqName importFqn, @NotNull NapileFile file, int refOffset, @NotNull PsiElement targetElement)
 	{
 		PsiReference reference = file.findReferenceAt(refOffset);
-		if(reference instanceof JetPsiReference)
+		if(reference instanceof NapilePsiReference)
 		{
 			PsiElement target = reference.resolve();
 			if(target != null)

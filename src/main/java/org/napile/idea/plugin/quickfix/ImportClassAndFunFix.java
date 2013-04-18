@@ -30,7 +30,7 @@ import org.napile.compiler.lang.psi.NapileNamedDeclaration;
 import org.napile.compiler.lang.psi.NapileSimpleNameExpression;
 import org.napile.compiler.lang.resolve.BindingTraceKeys;
 import org.napile.compiler.lang.resolve.DescriptorUtils;
-import org.napile.idea.plugin.JetBundle;
+import org.napile.idea.plugin.NapileBundle;
 import org.napile.idea.plugin.actions.NapileAddImportAction;
 import org.napile.idea.plugin.caches.NapileClassResolver;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
@@ -53,7 +53,7 @@ import com.intellij.util.IncorrectOperationException;
  * @author Nikolay Krasko
  * @author VISTALL
  */
-public class ImportClassAndFunFix extends JetHintAction<NapileSimpleNameExpression> implements HighPriorityAction
+public class ImportClassAndFunFix extends NapileHintAction<NapileSimpleNameExpression> implements HighPriorityAction
 {
 	@NotNull
 	private final List<Pair<DeclarationDescriptor, NapileNamedDeclaration>> suggestions;
@@ -156,14 +156,14 @@ public class ImportClassAndFunFix extends JetHintAction<NapileSimpleNameExpressi
 	@NotNull
 	public String getText()
 	{
-		return JetBundle.message("import.fix");
+		return NapileBundle.message("import.fix");
 	}
 
 	@Override
 	@NotNull
 	public String getFamilyName()
 	{
-		return JetBundle.message("import.fix");
+		return NapileBundle.message("import.fix");
 	}
 
 	@Override
@@ -198,13 +198,13 @@ public class ImportClassAndFunFix extends JetHintAction<NapileSimpleNameExpressi
 	}
 
 	@Nullable
-	public static JetIntentionActionFactory createFactory()
+	public static NapileIntentionActionFactory createFactory()
 	{
-		return new JetIntentionActionFactory()
+		return new NapileIntentionActionFactory()
 		{
 			@Nullable
 			@Override
-			public JetIntentionAction<NapileSimpleNameExpression> createAction(@NotNull Diagnostic diagnostic)
+			public NapileIntentionAction<NapileSimpleNameExpression> createAction(@NotNull Diagnostic diagnostic)
 			{
 				// There could be different psi elements (i.e. NapileArrayAccessExpressionImpl), but we can fix only NapileSimpleNameExpressionImpl case
 				if(diagnostic.getPsiElement() instanceof NapileSimpleNameExpression)

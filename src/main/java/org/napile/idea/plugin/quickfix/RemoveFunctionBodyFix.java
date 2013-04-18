@@ -22,7 +22,7 @@ import org.napile.compiler.lang.diagnostics.Diagnostic;
 import org.napile.compiler.lang.psi.NapileExpression;
 import org.napile.compiler.lang.psi.NapileMethod;
 import org.napile.compiler.lang.lexer.NapileTokens;
-import org.napile.idea.plugin.JetBundle;
+import org.napile.idea.plugin.NapileBundle;
 import com.intellij.extapi.psi.ASTDelegatePsiElement;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
@@ -34,7 +34,7 @@ import com.intellij.util.IncorrectOperationException;
 /**
  * @author svtk
  */
-public class RemoveFunctionBodyFix extends JetIntentionAction<NapileMethod>
+public class RemoveFunctionBodyFix extends NapileIntentionAction<NapileMethod>
 {
 
 	public RemoveFunctionBodyFix(@NotNull NapileMethod element)
@@ -46,14 +46,14 @@ public class RemoveFunctionBodyFix extends JetIntentionAction<NapileMethod>
 	@Override
 	public String getText()
 	{
-		return JetBundle.message("remove.function.body");
+		return NapileBundle.message("remove.function.body");
 	}
 
 	@NotNull
 	@Override
 	public String getFamilyName()
 	{
-		return JetBundle.message("remove.function.body");
+		return NapileBundle.message("remove.function.body");
 	}
 
 	@Override
@@ -99,12 +99,12 @@ public class RemoveFunctionBodyFix extends JetIntentionAction<NapileMethod>
 		return false;
 	}
 
-	public static JetIntentionActionFactory createFactory()
+	public static NapileIntentionActionFactory createFactory()
 	{
-		return new JetIntentionActionFactory()
+		return new NapileIntentionActionFactory()
 		{
 			@Override
-			public JetIntentionAction<NapileMethod> createAction(Diagnostic diagnostic)
+			public NapileIntentionAction<NapileMethod> createAction(Diagnostic diagnostic)
 			{
 				NapileMethod function = QuickFixUtil.getParentElementOfType(diagnostic, NapileMethod.class);
 				if(function == null)

@@ -24,7 +24,7 @@ import org.napile.compiler.lang.psi.NapileNamedDeclaration;
 import org.napile.compiler.lang.resolve.BindingTraceKeys;
 import org.napile.compiler.lang.resolve.BindingTrace;
 import org.napile.compiler.lang.types.DeferredType;
-import org.napile.compiler.lang.types.JetType;
+import org.napile.compiler.lang.types.NapileType;
 import org.napile.compiler.lang.psi.NapileFile;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
 import com.intellij.extapi.psi.ASTDelegatePsiElement;
@@ -59,7 +59,7 @@ public class QuickFixUtil
 	}
 
 	@Nullable
-	public static JetType getDeclarationReturnType(NapileNamedDeclaration declaration)
+	public static NapileType getDeclarationReturnType(NapileNamedDeclaration declaration)
 	{
 		PsiFile file = declaration.getContainingFile();
 		if(!(file instanceof NapileFile))
@@ -68,7 +68,7 @@ public class QuickFixUtil
 		DeclarationDescriptor descriptor = bindingContext.get(BindingTraceKeys.DECLARATION_TO_DESCRIPTOR, declaration);
 		if(!(descriptor instanceof CallableDescriptor))
 			return null;
-		JetType type = ((CallableDescriptor) descriptor).getReturnType();
+		NapileType type = ((CallableDescriptor) descriptor).getReturnType();
 		if(type instanceof DeferredType)
 		{
 			type = ((DeferredType) type).getActualType();

@@ -22,7 +22,7 @@ import org.napile.compiler.lang.psi.NapileBinaryExpressionWithTypeRHS;
 import org.napile.compiler.lang.psi.NapileExpression;
 import org.napile.compiler.lang.psi.NapilePsiFactory;
 import org.napile.compiler.lang.psi.NapileTypeReference;
-import org.napile.idea.plugin.JetBundle;
+import org.napile.idea.plugin.NapileBundle;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiFile;
@@ -31,7 +31,7 @@ import com.intellij.util.IncorrectOperationException;
 /**
  * @author svtk
  */
-public abstract class ReplaceOperationInBinaryExpressionFix<T extends NapileExpression> extends JetIntentionAction<T>
+public abstract class ReplaceOperationInBinaryExpressionFix<T extends NapileExpression> extends NapileIntentionAction<T>
 {
 	private final String operation;
 
@@ -45,7 +45,7 @@ public abstract class ReplaceOperationInBinaryExpressionFix<T extends NapileExpr
 	@Override
 	public String getFamilyName()
 	{
-		return JetBundle.message("replace.operation.in.binary.expression");
+		return NapileBundle.message("replace.operation.in.binary.expression");
 	}
 
 	@Override
@@ -63,12 +63,12 @@ public abstract class ReplaceOperationInBinaryExpressionFix<T extends NapileExpr
 		}
 	}
 
-	public static JetIntentionActionFactory createChangeCastToStaticAssertFactory()
+	public static NapileIntentionActionFactory createChangeCastToStaticAssertFactory()
 	{
-		return new JetIntentionActionFactory()
+		return new NapileIntentionActionFactory()
 		{
 			@Override
-			public JetIntentionAction<NapileBinaryExpressionWithTypeRHS> createAction(Diagnostic diagnostic)
+			public NapileIntentionAction<NapileBinaryExpressionWithTypeRHS> createAction(Diagnostic diagnostic)
 			{
 				NapileBinaryExpressionWithTypeRHS expression = QuickFixUtil.getParentElementOfType(diagnostic, NapileBinaryExpressionWithTypeRHS.class);
 				if(expression == null)
@@ -79,7 +79,7 @@ public abstract class ReplaceOperationInBinaryExpressionFix<T extends NapileExpr
 					@Override
 					public String getText()
 					{
-						return JetBundle.message("replace.cast.with.static.assert");
+						return NapileBundle.message("replace.cast.with.static.assert");
 					}
 				};
 			}

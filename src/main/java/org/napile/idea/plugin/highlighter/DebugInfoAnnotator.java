@@ -37,7 +37,7 @@ import org.napile.compiler.lang.psi.NapileSimpleNameExpression;
 import org.napile.compiler.lang.psi.NapileVisitorVoid;
 import org.napile.compiler.lang.resolve.BindingTrace;
 import org.napile.compiler.lang.types.ErrorUtils;
-import org.napile.compiler.lang.types.JetType;
+import org.napile.compiler.lang.types.NapileType;
 import org.napile.idea.plugin.editor.highlight.NapileHighlightPass;
 import org.napile.idea.plugin.editor.highlight.NapileHighlightingColors;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
@@ -69,7 +69,7 @@ public class DebugInfoAnnotator implements Annotator
 	@Override
 	public void annotate(@NotNull PsiElement element, @NotNull final AnnotationHolder holder)
 	{
-		if(!isDebugInfoEnabled() || !JetPsiChecker.isErrorReportingEnabled())
+		if(!isDebugInfoEnabled() || !NapilePsiChecker.isErrorReportingEnabled())
 		{
 			return;
 		}
@@ -142,7 +142,7 @@ public class DebugInfoAnnotator implements Annotator
 						}
 						boolean resolved = target != null;
 						boolean unresolved = unresolvedReferences.contains(expression);
-						JetType expressionType = bindingContext.get(EXPRESSION_TYPE, expression);
+						NapileType expressionType = bindingContext.get(EXPRESSION_TYPE, expression);
 						if(declarationDescriptor != null &&
 								!ApplicationManager.getApplication().isUnitTestMode() &&
 								(ErrorUtils.isError(declarationDescriptor) || ErrorUtils.containsErrorType(expressionType)))

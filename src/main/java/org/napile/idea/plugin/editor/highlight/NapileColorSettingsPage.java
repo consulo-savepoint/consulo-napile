@@ -26,7 +26,7 @@ import javax.swing.Icon;
 import org.jetbrains.annotations.NotNull;
 import org.napile.compiler.NapileFileType;
 import org.napile.compiler.lang.NapileLanguage;
-import org.napile.idea.plugin.JetBundle;
+import org.napile.idea.plugin.NapileBundle;
 import org.napile.idea.plugin.highlighter.InjectionHighlightColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
@@ -161,19 +161,19 @@ public class NapileColorSettingsPage implements ColorSettingsPage, DisplayPriori
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.number"), NapileHighlightingColors.NUMBER),
 
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.string"), NapileHighlightingColors.STRING),
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.string.escape"), NapileHighlightingColors.VALID_STRING_ESCAPE),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.string.escape"), NapileHighlightingColors.VALID_STRING_ESCAPE),
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.invalid.escape.in.string"), NapileHighlightingColors.INVALID_STRING_ESCAPE),
 
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.operator.sign"), NapileHighlightingColors.OPERATOR_SIGN),
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.parentheses"), NapileHighlightingColors.PARENTHESIS),
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.braces"), NapileHighlightingColors.BRACES),
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.closure.braces"), NapileHighlightingColors.METHOD_LITERAL_BRACES_AND_ARROW),
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.arrow"), NapileHighlightingColors.ARROW),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.closure.braces"), NapileHighlightingColors.METHOD_LITERAL_BRACES_AND_ARROW),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.arrow"), NapileHighlightingColors.ARROW),
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.brackets"), NapileHighlightingColors.BRACKETS),
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.comma"), NapileHighlightingColors.COMMA),
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.semicolon"), NapileHighlightingColors.SEMICOLON),
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.dot"), NapileHighlightingColors.DOT),
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.safe.access"), NapileHighlightingColors.SAFE_ACCESS),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.safe.access"), NapileHighlightingColors.SAFE_ACCESS),
 
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.line.comment"), NapileHighlightingColors.LINE_COMMENT),
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.block.comment"), NapileHighlightingColors.BLOCK_COMMENT),
@@ -181,33 +181,33 @@ public class NapileColorSettingsPage implements ColorSettingsPage, DisplayPriori
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.class"), NapileHighlightingColors.CLASS),
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.type.parameter"), NapileHighlightingColors.TYPE_PARAMETER),
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.abstract.class"), NapileHighlightingColors.ABSTRACT_CLASS),
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.annotation"), NapileHighlightingColors.ANNOTATION),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.annotation"), NapileHighlightingColors.ANNOTATION),
 
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.var"), NapileHighlightingColors.MUTABLE_VARIABLE),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.var"), NapileHighlightingColors.MUTABLE_VARIABLE),
 
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.local.variable"), NapileHighlightingColors.LOCAL_VARIABLE),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.local.variable"), NapileHighlightingColors.LOCAL_VARIABLE),
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.parameter"), NapileHighlightingColors.PARAMETER),
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.captured.variable"), NapileHighlightingColors.WRAPPED_INTO_REF),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.captured.variable"), NapileHighlightingColors.WRAPPED_INTO_REF),
 
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.instance.property"), NapileHighlightingColors.INSTANCE_VARIABLE),
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.namespace.property"), NapileHighlightingColors.STATIC_VARIABLE),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.instance.property"), NapileHighlightingColors.INSTANCE_VARIABLE),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.namespace.property"), NapileHighlightingColors.STATIC_VARIABLE),
 
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.injection.block"), InjectionHighlightColors.INJECTION_BLOCK),
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.injection.block"), InjectionHighlightColors.INJECTION_INNER_EXPRESSION_MARK),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.injection.block"), InjectionHighlightColors.INJECTION_BLOCK),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.injection.block"), InjectionHighlightColors.INJECTION_INNER_EXPRESSION_MARK),
 
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.it"), NapileHighlightingColors.AUTO_GENERATED_VAR),
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.fun"), NapileHighlightingColors.METHOD_DECLARATION),
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.method.call"), NapileHighlightingColors.METHOD_CALL),
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.macro.call"), NapileHighlightingColors.MACRO_CALL),
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.namespace.fun.call"), NapileHighlightingColors.STATIC_METHOD_CALL),
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.extension.fun.call"), NapileHighlightingColors.EXTENSION_METHOD_CALL),
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.constructor.call"), NapileHighlightingColors.CONSTRUCTOR_CALL),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.it"), NapileHighlightingColors.AUTO_GENERATED_VAR),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.fun"), NapileHighlightingColors.METHOD_DECLARATION),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.method.call"), NapileHighlightingColors.METHOD_CALL),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.macro.call"), NapileHighlightingColors.MACRO_CALL),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.namespace.fun.call"), NapileHighlightingColors.STATIC_METHOD_CALL),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.extension.fun.call"), NapileHighlightingColors.EXTENSION_METHOD_CALL),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.constructor.call"), NapileHighlightingColors.CONSTRUCTOR_CALL),
 
 				new AttributesDescriptor(OptionsBundle.message("options.java.attribute.descriptor.bad.character"), NapileHighlightingColors.BAD_CHARACTER),
 
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.auto.casted"), NapileHighlightingColors.AUTO_CASTED_VALUE),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.auto.casted"), NapileHighlightingColors.AUTO_CASTED_VALUE),
 
-				new AttributesDescriptor(JetBundle.message("options.idea.attribute.descriptor.label"), NapileHighlightingColors.LABEL),
+				new AttributesDescriptor(NapileBundle.message("options.idea.attribute.descriptor.label"), NapileHighlightingColors.LABEL),
 		};
 	}
 

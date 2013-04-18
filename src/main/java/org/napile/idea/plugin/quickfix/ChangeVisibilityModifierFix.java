@@ -29,7 +29,7 @@ import org.napile.compiler.lang.lexer.NapileTokens;
 import org.napile.compiler.lang.psi.NapileFile;
 import org.napile.compiler.lang.psi.NapileModifierListOwner;
 import org.napile.compiler.lang.resolve.BindingTrace;
-import org.napile.idea.plugin.JetBundle;
+import org.napile.idea.plugin.NapileBundle;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
@@ -40,7 +40,7 @@ import com.intellij.util.IncorrectOperationException;
 /**
  * @author svtk
  */
-public class ChangeVisibilityModifierFix extends JetIntentionAction<NapileModifierListOwner>
+public class ChangeVisibilityModifierFix extends NapileIntentionAction<NapileModifierListOwner>
 {
 	public ChangeVisibilityModifierFix(@NotNull NapileModifierListOwner element)
 	{
@@ -51,14 +51,14 @@ public class ChangeVisibilityModifierFix extends JetIntentionAction<NapileModifi
 	@Override
 	public String getText()
 	{
-		return JetBundle.message("change.visibility.modifier");
+		return NapileBundle.message("change.visibility.modifier");
 	}
 
 	@NotNull
 	@Override
 	public String getFamilyName()
 	{
-		return JetBundle.message("change.visibility.modifier");
+		return NapileBundle.message("change.visibility.modifier");
 	}
 
 	@Override
@@ -124,12 +124,12 @@ public class ChangeVisibilityModifierFix extends JetIntentionAction<NapileModifi
 		return modifier;
 	}
 
-	public static JetIntentionActionFactory createFactory()
+	public static NapileIntentionActionFactory createFactory()
 	{
-		return new JetIntentionActionFactory()
+		return new NapileIntentionActionFactory()
 		{
 			@Override
-			public JetIntentionAction<NapileModifierListOwner> createAction(Diagnostic diagnostic)
+			public NapileIntentionAction<NapileModifierListOwner> createAction(Diagnostic diagnostic)
 			{
 				PsiElement element = diagnostic.getPsiElement();
 				if(!(element instanceof NapileModifierListOwner))

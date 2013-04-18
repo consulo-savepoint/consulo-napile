@@ -34,7 +34,7 @@ import org.napile.compiler.lang.psi.NapileNamedDeclaration;
 import org.napile.compiler.lang.psi.NapileSimpleNameExpression;
 import org.napile.compiler.lang.psi.NapileVariable;
 import org.napile.compiler.lang.resolve.BindingTrace;
-import org.napile.compiler.lang.types.JetType;
+import org.napile.compiler.lang.types.NapileType;
 import org.napile.compiler.render.DescriptorRenderer;
 import org.napile.idea.plugin.editor.highlight.NapileHighlightingColors;
 import com.intellij.codeInsight.daemon.impl.HighlightInfo;
@@ -93,7 +93,7 @@ public class VariablesHighlightingVisitor extends PostHighlightVisitor
 	@Override
 	public void visitExpression(@NotNull NapileExpression expression)
 	{
-		JetType autoCast = bindingTrace.get(AUTOCAST, expression);
+		NapileType autoCast = bindingTrace.get(AUTOCAST, expression);
 		if(autoCast != null)
 		{
 			highlightInfo(expression, "Automatically cast to " + DescriptorRenderer.TEXT.renderType(autoCast) ,NapileHighlightingColors.AUTO_CASTED_VALUE);

@@ -31,7 +31,7 @@ import org.napile.compiler.lang.psi.NapilePsiFactory;
 import org.napile.compiler.lang.lexer.NapileKeywordToken;
 import org.napile.compiler.lang.lexer.NapileToken;
 import org.napile.compiler.lang.psi.NapileModifierListOwner;
-import org.napile.idea.plugin.JetBundle;
+import org.napile.idea.plugin.NapileBundle;
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
@@ -43,7 +43,7 @@ import com.intellij.util.IncorrectOperationException;
 /**
  * @author svtk
  */
-public class AddModifierFix extends JetIntentionAction<NapileModifierListOwner>
+public class AddModifierFix extends NapileIntentionAction<NapileModifierListOwner>
 {
 	private final NapileKeywordToken modifier;
 	private final NapileToken[] modifiersThanCanBeReplaced;
@@ -81,9 +81,9 @@ public class AddModifierFix extends JetIntentionAction<NapileModifierListOwner>
 	{
 		if(modifier == ABSTRACT_KEYWORD)
 		{
-			return JetBundle.message("make.element.modifier", getElementName(element), modifier.getValue());
+			return NapileBundle.message("make.element.modifier", getElementName(element), modifier.getValue());
 		}
-		return JetBundle.message("add.modifier", modifier.getValue());
+		return NapileBundle.message("add.modifier", modifier.getValue());
 	}
 
 	@NotNull
@@ -169,9 +169,9 @@ public class AddModifierFix extends JetIntentionAction<NapileModifierListOwner>
 		return true;
 	}
 
-	public static <T extends NapileModifierListOwner> JetIntentionActionFactory createFactory(final NapileKeywordToken modifier, final Class<T> modifierOwnerClass)
+	public static <T extends NapileModifierListOwner> NapileIntentionActionFactory createFactory(final NapileKeywordToken modifier, final Class<T> modifierOwnerClass)
 	{
-		return new JetIntentionActionFactory()
+		return new NapileIntentionActionFactory()
 		{
 			@Override
 			public IntentionAction createAction(Diagnostic diagnostic)
@@ -184,7 +184,7 @@ public class AddModifierFix extends JetIntentionAction<NapileModifierListOwner>
 		};
 	}
 
-	public static JetIntentionActionFactory createFactory(final NapileKeywordToken modifier)
+	public static NapileIntentionActionFactory createFactory(final NapileKeywordToken modifier)
 	{
 		return createFactory(modifier, NapileModifierListOwner.class);
 	}

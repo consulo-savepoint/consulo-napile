@@ -19,7 +19,7 @@ package org.napile.idea.plugin.actions;
 import org.napile.compiler.lang.NapileLanguage;
 import org.napile.compiler.lang.resolve.BindingTraceKeys;
 import org.napile.compiler.lang.resolve.BindingTrace;
-import org.napile.compiler.lang.types.JetType;
+import org.napile.compiler.lang.types.NapileType;
 import org.napile.compiler.lang.psi.NapileExpression;
 import org.napile.compiler.lang.psi.NapileFile;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
@@ -67,7 +67,7 @@ public class ShowExpressionTypeAction extends AnAction
 		}
 		if(expression != null)
 		{
-			JetType type = bindingContext.get(BindingTraceKeys.EXPRESSION_TYPE, expression);
+			NapileType type = bindingContext.get(BindingTraceKeys.EXPRESSION_TYPE, expression);
 			if(type != null)
 			{
 				HintManager.getInstance().showInformationHint(editor, type.toString());

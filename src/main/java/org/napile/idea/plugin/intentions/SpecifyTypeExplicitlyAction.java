@@ -30,9 +30,9 @@ import org.napile.compiler.lang.psi.*;
 import org.napile.compiler.lang.resolve.BindingTraceKeys;
 import org.napile.compiler.lang.resolve.BindingTrace;
 import org.napile.compiler.lang.types.ErrorUtils;
-import org.napile.compiler.lang.types.JetType;
+import org.napile.compiler.lang.types.NapileType;
 import org.napile.compiler.render.DescriptorRenderer;
-import org.napile.idea.plugin.JetBundle;
+import org.napile.idea.plugin.NapileBundle;
 import org.napile.idea.plugin.codeInsight.ReferenceToClassesShortening;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
 import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction;
@@ -54,7 +54,7 @@ public class SpecifyTypeExplicitlyAction extends PsiElementBaseIntentionAction
 	@Override
 	public String getFamilyName()
 	{
-		return JetBundle.message("specify.type.explicitly.action.family.name");
+		return NapileBundle.message("specify.type.explicitly.action.family.name");
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class SpecifyTypeExplicitlyAction extends PsiElementBaseIntentionAction
 			element = typeRefParent;
 		}
 		PsiElement parent = element.getParent();
-		JetType type = getTypeForDeclaration((NapileNamedDeclaration) parent);
+		NapileType type = getTypeForDeclaration((NapileNamedDeclaration) parent);
 		if(ErrorUtils.isErrorType(type))
 		{
 			return;
@@ -125,28 +125,28 @@ public class SpecifyTypeExplicitlyAction extends PsiElementBaseIntentionAction
 		{
 			if(((NapileVariable) declaration).getType() != null)
 			{
-				setText(JetBundle.message("specify.type.explicitly.remove.action.name"));
+				setText(NapileBundle.message("specify.type.explicitly.remove.action.name"));
 				return true;
 			}
 			else
 			{
-				setText(JetBundle.message("specify.type.explicitly.add.action.name"));
+				setText(NapileBundle.message("specify.type.explicitly.add.action.name"));
 			}
 		}
 		else if(declaration instanceof NapileNamedMethodOrMacro && ((NapileNamedMethodOrMacro) declaration).getReturnTypeRef() == null && !((NapileNamedMethodOrMacro) declaration).hasBlockBody())
 		{
-			setText(JetBundle.message("specify.type.explicitly.add.return.type.action.name"));
+			setText(NapileBundle.message("specify.type.explicitly.add.return.type.action.name"));
 		}
 		else if(declaration instanceof NapileCallParameterAsVariable && NapileNodes.CALL_PARAMETER_AS_VARIABLE == declaration.getNode().getElementType())
 		{
 			if(((NapileCallParameterAsVariable) declaration).getTypeReference() != null)
 			{
-				setText(JetBundle.message("specify.type.explicitly.remove.action.name"));
+				setText(NapileBundle.message("specify.type.explicitly.remove.action.name"));
 				return true;
 			}
 			else
 			{
-				setText(JetBundle.message("specify.type.explicitly.add.action.name"));
+				setText(NapileBundle.message("specify.type.explicitly.add.action.name"));
 			}
 		}
 		else
@@ -177,12 +177,12 @@ public class SpecifyTypeExplicitlyAction extends PsiElementBaseIntentionAction
 	}
 
 	@NotNull
-	private static JetType getTypeForDeclaration(@NotNull NapileNamedDeclaration declaration)
+	private static NapileType getTypeForDeclaration(@NotNull NapileNamedDeclaration declaration)
 	{
 		BindingTrace bindingContext = ModuleAnalyzerUtil.lastAnalyze((NapileFile) declaration.getContainingFile()).getBindingTrace();
 		DeclarationDescriptor descriptor = bindingContext.get(BindingTraceKeys.DECLARATION_TO_DESCRIPTOR, declaration);
 
-		JetType type;
+		NapileType type;
 		if(descriptor instanceof VariableDescriptor)
 		{
 			type = ((VariableDescriptor) descriptor).getType();
@@ -204,7 +204,7 @@ public class SpecifyTypeExplicitlyAction extends PsiElementBaseIntentionAction
 		return true;
 	}
 
-	public static void addTypeAnnotation(Project project, NapileVariable property, @NotNull JetType exprType)
+	public static void addTypeAnnotation(Project project, NapileVariable property, @NotNull NapileType exprType)
 	{
 		if(property.getType() != null)
 			return;
@@ -237,7 +237,7 @@ public class SpecifyTypeExplicitlyAction extends PsiElementBaseIntentionAction
 		ReferenceToClassesShortening.compactReferenceToClasses(Collections.singletonList(property));
 	}
 
-	public static void addTypeAnnotation(Project project, NapileMethod function, @NotNull JetType exprType)
+	public static void addTypeAnnotation(Project project, NapileMethod function, @NotNull NapileType exprType)
 	{
 		NapileTypeReference typeReference = NapilePsiFactory.createType(project, DescriptorRenderer.TEXT.renderType(exprType));
 		Pair<PsiElement, PsiElement> colon = NapilePsiFactory.createColon(project);
@@ -248,7 +248,7 @@ public class SpecifyTypeExplicitlyAction extends PsiElementBaseIntentionAction
 		ReferenceToClassesShortening.compactReferenceToClasses(Collections.singletonList(function));
 	}
 
-	public static void addTypeAnnotation(Project project, NapileCallParameterAsVariable parameter, @NotNull JetType exprType)
+	public static void addTypeAnnotation(Project project, NapileCallParameterAsVariable parameter, @NotNull NapileType exprType)
 	{
 		NapileTypeReference typeReference = NapilePsiFactory.createType(project, DescriptorRenderer.TEXT.renderType(exprType));
 		Pair<PsiElement, PsiElement> colon = NapilePsiFactory.createColon(project);

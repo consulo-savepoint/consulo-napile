@@ -40,8 +40,8 @@ import org.napile.compiler.lang.psi.NapileFile;
 import org.napile.compiler.lang.resolve.BindingTraceKeys;
 import org.napile.compiler.lang.resolve.BindingTrace;
 import org.napile.compiler.lang.resolve.BodiesResolveContext;
-import org.napile.compiler.lang.resolve.scopes.JetScope;
-import org.napile.compiler.lang.types.JetType;
+import org.napile.compiler.lang.resolve.scopes.NapileScope;
+import org.napile.compiler.lang.types.NapileType;
 import org.napile.compiler.lang.types.NamespaceType;
 import org.napile.idea.plugin.editor.completion.lookup.DescriptionLookupBuilder;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
@@ -103,7 +103,7 @@ public class NapileCompletionContributor extends CompletionContributor
 
 				BodiesResolveContext bodiesResolveContext = analyze.getBodiesResolveContext();
 
-				JetScope scope = analyze.getBindingTrace().get(BindingTraceKeys.RESOLUTION_SCOPE, declaration);
+				NapileScope scope = analyze.getBindingTrace().get(BindingTraceKeys.RESOLUTION_SCOPE, declaration);
 				if(scope == null)
 				{
 					return;
@@ -139,7 +139,7 @@ public class NapileCompletionContributor extends CompletionContributor
 
 				BindingTrace bindingTrace = analyze.getBindingTrace();
 
-				JetType type = bindingTrace.get(BindingTraceKeys.EXPRESSION_TYPE, dotQualifiedExpression.getReceiverExpression());
+				NapileType type = bindingTrace.get(BindingTraceKeys.EXPRESSION_TYPE, dotQualifiedExpression.getReceiverExpression());
 				if(type == null)
 					return;
 
@@ -181,7 +181,7 @@ public class NapileCompletionContributor extends CompletionContributor
 				if(e == null)
 					return;
 
-				JetScope scope = bindingContext.get(BindingTraceKeys.RESOLUTION_SCOPE, e);
+				NapileScope scope = bindingContext.get(BindingTraceKeys.RESOLUTION_SCOPE, e);
 				if(scope == null)
 				{
 					NapileDeclaration declaration = PsiTreeUtil.getParentOfType(position, NapileDeclaration.class);

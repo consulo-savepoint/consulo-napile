@@ -25,7 +25,7 @@ import org.napile.compiler.lang.psi.*;
 import org.napile.compiler.lang.resolve.BindingTraceKeys;
 import org.napile.compiler.lang.resolve.BindingTrace;
 import org.napile.compiler.lang.resolve.DescriptorUtils;
-import org.napile.compiler.lang.resolve.scopes.JetScope;
+import org.napile.compiler.lang.resolve.scopes.NapileScope;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
 import org.napile.idea.plugin.quickfix.ImportInsertHelper;
 
@@ -72,7 +72,7 @@ public class ReferenceToClassesShortening
 							ClassDescriptor targetClass = (ClassDescriptor) target;
 							ClassDescriptor targetTopLevelClass = ImportInsertHelper.getTopLevelClass(targetClass);
 
-							JetScope scope = bc.get(BindingTraceKeys.TYPE_RESOLUTION_SCOPE, typeReference);
+							NapileScope scope = bc.get(BindingTraceKeys.TYPE_RESOLUTION_SCOPE, typeReference);
 							ClassifierDescriptor classifier = scope.getClassifier(targetTopLevelClass.getName());
 							if(targetTopLevelClass == classifier)
 							{

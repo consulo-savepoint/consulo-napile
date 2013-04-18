@@ -25,7 +25,7 @@ import org.napile.compiler.lang.descriptors.DeclarationDescriptor;
 import org.napile.compiler.lang.psi.NapileFile;
 import org.napile.compiler.lang.psi.NapileNamedDeclaration;
 import org.napile.compiler.lang.resolve.DescriptorUtils;
-import org.napile.idea.plugin.JetBundle;
+import org.napile.idea.plugin.NapileBundle;
 import org.napile.idea.plugin.NapileIconProvider;
 import org.napile.idea.plugin.quickfix.ImportInsertHelper;
 import com.intellij.codeInsight.daemon.QuickFixBundle;
@@ -94,7 +94,7 @@ public class NapileAddImportAction implements QuestionAction
 
 	protected BaseListPopupStep getImportSelectionPopup()
 	{
-		return new BaseListPopupStep<Pair<DeclarationDescriptor, NapileNamedDeclaration>>(JetBundle.message("imports.chooser.title"), possibleImports)
+		return new BaseListPopupStep<Pair<DeclarationDescriptor, NapileNamedDeclaration>>(NapileBundle.message("imports.chooser.title"), possibleImports)
 		{
 			@Override
 			public boolean isAutoSelectionEnabled()

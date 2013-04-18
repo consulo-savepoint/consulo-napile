@@ -40,7 +40,7 @@ import org.napile.compiler.lang.psi.NapileFile;
 import org.napile.compiler.lang.psi.NapilePsiFactory;
 import org.napile.compiler.lang.resolve.BindingTraceKeys;
 import org.napile.compiler.lang.resolve.BindingTrace;
-import org.napile.compiler.lang.types.JetType;
+import org.napile.compiler.lang.types.NapileType;
 import org.napile.compiler.lang.types.TypeUtils;
 import org.napile.compiler.render.DescriptorRenderer;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
@@ -212,7 +212,7 @@ public abstract class OverrideImplementMethodsHandler implements LanguageCodeIns
 	}
 
 	//TODO [VISTALL] get from @DefaultValue =
-	private static String defaultInitializer(JetType returnType)
+	private static String defaultInitializer(NapileType returnType)
 	{
 		if(returnType.isNullable() || TypeUtils.isEqualFqName(returnType, NapileLangPackage.NULL))
 		{

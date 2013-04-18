@@ -21,7 +21,7 @@ import org.napile.compiler.lang.diagnostics.Diagnostic;
 import org.napile.compiler.lang.psi.NapileBinaryExpression;
 import org.napile.compiler.lang.psi.NapileBinaryExpressionWithTypeRHS;
 import org.napile.compiler.lang.psi.NapileExpression;
-import org.napile.idea.plugin.JetBundle;
+import org.napile.idea.plugin.NapileBundle;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiFile;
@@ -30,7 +30,7 @@ import com.intellij.util.IncorrectOperationException;
 /**
  * @author svtk
  */
-public class RemoveRightPartOfBinaryExpressionFix<T extends NapileExpression> extends JetIntentionAction<T>
+public class RemoveRightPartOfBinaryExpressionFix<T extends NapileExpression> extends NapileIntentionAction<T>
 {
 	private final String message;
 
@@ -49,7 +49,7 @@ public class RemoveRightPartOfBinaryExpressionFix<T extends NapileExpression> ex
 	@Override
 	public String getFamilyName()
 	{
-		return JetBundle.message("remove.right.part.of.binary.expression");
+		return NapileBundle.message("remove.right.part.of.binary.expression");
 	}
 
 	@Override
@@ -67,32 +67,32 @@ public class RemoveRightPartOfBinaryExpressionFix<T extends NapileExpression> ex
 		}
 	}
 
-	public static JetIntentionActionFactory createRemoveCastFactory()
+	public static NapileIntentionActionFactory createRemoveCastFactory()
 	{
-		return new JetIntentionActionFactory()
+		return new NapileIntentionActionFactory()
 		{
 			@Override
-			public JetIntentionAction<NapileBinaryExpressionWithTypeRHS> createAction(Diagnostic diagnostic)
+			public NapileIntentionAction<NapileBinaryExpressionWithTypeRHS> createAction(Diagnostic diagnostic)
 			{
 				NapileBinaryExpressionWithTypeRHS expression = QuickFixUtil.getParentElementOfType(diagnostic, NapileBinaryExpressionWithTypeRHS.class);
 				if(expression == null)
 					return null;
-				return new RemoveRightPartOfBinaryExpressionFix<NapileBinaryExpressionWithTypeRHS>(expression, JetBundle.message("remove.cast"));
+				return new RemoveRightPartOfBinaryExpressionFix<NapileBinaryExpressionWithTypeRHS>(expression, NapileBundle.message("remove.cast"));
 			}
 		};
 	}
 
-	public static JetIntentionActionFactory createRemoveElvisOperatorFactory()
+	public static NapileIntentionActionFactory createRemoveElvisOperatorFactory()
 	{
-		return new JetIntentionActionFactory()
+		return new NapileIntentionActionFactory()
 		{
 			@Override
-			public JetIntentionAction<NapileBinaryExpression> createAction(Diagnostic diagnostic)
+			public NapileIntentionAction<NapileBinaryExpression> createAction(Diagnostic diagnostic)
 			{
 				NapileBinaryExpression expression = QuickFixUtil.getParentElementOfType(diagnostic, NapileBinaryExpression.class);
 				if(expression == null)
 					return null;
-				return new RemoveRightPartOfBinaryExpressionFix<NapileBinaryExpression>(expression, JetBundle.message("remove.elvis.operator"));
+				return new RemoveRightPartOfBinaryExpressionFix<NapileBinaryExpression>(expression, NapileBundle.message("remove.elvis.operator"));
 			}
 		};
 	}

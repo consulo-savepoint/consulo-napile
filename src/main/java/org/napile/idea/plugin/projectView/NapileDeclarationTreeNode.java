@@ -27,7 +27,7 @@ import org.napile.compiler.lang.psi.NapileElement;
 import org.napile.compiler.lang.psi.NapileMethod;
 import org.napile.compiler.lang.psi.NapileTypeReference;
 import org.napile.compiler.lang.psi.NapileVariable;
-import org.napile.idea.plugin.formatter.JetCodeStyleSettings;
+import org.napile.idea.plugin.formatter.NapileCodeStyleSettings;
 import org.napile.idea.plugin.util.IdePsiUtil;
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.projectView.ViewSettings;
@@ -80,7 +80,7 @@ public class NapileDeclarationTreeNode extends AbstractPsiBasedNode<NapileDeclar
 			String text = declaration.getName();
 			if(text == null)
 				return;
-			JetCodeStyleSettings settings = CodeStyleSettingsManager.getInstance(getProject()).getCurrentSettings().getCustomSettings(JetCodeStyleSettings.class);
+			NapileCodeStyleSettings settings = CodeStyleSettingsManager.getInstance(getProject()).getCurrentSettings().getCustomSettings(NapileCodeStyleSettings.class);
 			if(declaration instanceof NapileVariable)
 			{
 				NapileVariable property = (NapileVariable) declaration;

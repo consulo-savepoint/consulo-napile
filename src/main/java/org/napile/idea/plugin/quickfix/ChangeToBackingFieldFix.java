@@ -23,7 +23,7 @@ import org.napile.compiler.lang.psi.NapilePsiFactory;
 import org.napile.compiler.lang.psi.NapileQualifiedExpressionImpl;
 import org.napile.compiler.lang.psi.NapileSimpleNameExpression;
 import org.napile.compiler.lang.psi.NapileThisExpression;
-import org.napile.idea.plugin.JetBundle;
+import org.napile.idea.plugin.NapileBundle;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
@@ -33,7 +33,7 @@ import com.intellij.util.IncorrectOperationException;
 /**
  * @author svtk
  */
-public class ChangeToBackingFieldFix extends JetIntentionAction<NapileSimpleNameExpression>
+public class ChangeToBackingFieldFix extends NapileIntentionAction<NapileSimpleNameExpression>
 {
 	public ChangeToBackingFieldFix(@NotNull NapileSimpleNameExpression element)
 	{
@@ -44,14 +44,14 @@ public class ChangeToBackingFieldFix extends JetIntentionAction<NapileSimpleName
 	@Override
 	public String getText()
 	{
-		return JetBundle.message("change.to.backing.field");
+		return NapileBundle.message("change.to.backing.field");
 	}
 
 	@NotNull
 	@Override
 	public String getFamilyName()
 	{
-		return JetBundle.message("change.to.backing.field");
+		return NapileBundle.message("change.to.backing.field");
 	}
 
 	@Override
@@ -61,12 +61,12 @@ public class ChangeToBackingFieldFix extends JetIntentionAction<NapileSimpleName
 		element.replace(backingField);
 	}
 
-	public static JetIntentionActionFactory createFactory()
+	public static NapileIntentionActionFactory createFactory()
 	{
-		return new JetIntentionActionFactory()
+		return new NapileIntentionActionFactory()
 		{
 			@Override
-			public JetIntentionAction<NapileSimpleNameExpression> createAction(Diagnostic diagnostic)
+			public NapileIntentionAction<NapileSimpleNameExpression> createAction(Diagnostic diagnostic)
 			{
 				NapileSimpleNameExpression expression = QuickFixUtil.getParentElementOfType(diagnostic, NapileSimpleNameExpression.class);
 				if(expression == null)

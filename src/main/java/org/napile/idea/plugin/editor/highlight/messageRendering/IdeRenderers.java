@@ -44,7 +44,7 @@ import org.napile.compiler.lang.resolve.calls.ResolvedCall;
 import org.napile.compiler.lang.resolve.calls.ResolvedCallImpl;
 import org.napile.compiler.lang.resolve.calls.ResolvedValueArgument;
 import org.napile.compiler.lang.resolve.calls.inference.InferenceErrorData;
-import org.napile.compiler.lang.types.JetType;
+import org.napile.compiler.lang.types.NapileType;
 import org.napile.compiler.render.DescriptorRenderer;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -89,11 +89,11 @@ public class IdeRenderers
 		}
 	};
 
-	public static final Renderer<JetType> HTML_RENDER_TYPE = new Renderer<JetType>()
+	public static final Renderer<NapileType> HTML_RENDER_TYPE = new Renderer<NapileType>()
 	{
 		@NotNull
 		@Override
-		public String render(@NotNull JetType type)
+		public String render(@NotNull NapileType type)
 		{
 			return DescriptorRenderer.HTML.renderType(type);
 		}
@@ -172,7 +172,7 @@ public class IdeRenderers
 					{
 						stringBuilder.append(", ");
 					}
-					JetType type = parameter.getType();
+					NapileType type = parameter.getType();
 
 					String paramString = htmlRenderer.renderType(type);
 					if(parameter.hasDefaultValue())

@@ -59,7 +59,7 @@ import org.napile.compiler.lang.resolve.calls.ResolvedCallWithTrace;
 import org.napile.compiler.lang.resolve.calls.ResolvedValueArgument;
 import org.napile.compiler.lang.resolve.calls.inference.BoundsOwner;
 import org.napile.compiler.lang.resolve.scopes.receivers.ReceiverDescriptor;
-import org.napile.compiler.lang.types.JetType;
+import org.napile.compiler.lang.types.NapileType;
 import org.napile.compiler.util.slicedmap.ReadOnlySlice;
 import org.napile.compiler.util.slicedmap.WritableSlice;
 import org.napile.idea.plugin.codeInsight.toolWindow.EditorLocation;
@@ -167,7 +167,7 @@ public class ResolveToolwindow extends JPanel implements Disposable
 			NapileExpression parentExpression = (elementAtOffset instanceof NapileExpression) ? (NapileExpression) elementAtOffset : PsiTreeUtil.getParentOfType(elementAtOffset, NapileExpression.class);
 			if(parentExpression != null)
 			{
-				JetType type = bindingContext.get(EXPRESSION_TYPE, parentExpression);
+				NapileType type = bindingContext.get(EXPRESSION_TYPE, parentExpression);
 				String text = parentExpression + "|" + parentExpression.getText() + "| : " + type;
 				if(parentExpression instanceof NapileReferenceExpression)
 				{
@@ -302,7 +302,7 @@ public class ResolveToolwindow extends JPanel implements Disposable
 			result.append("Log: \n").append(log).append(BAR);
 		}
 
-		Map<JetType, BoundsOwner> knowns = debugInfo.getByKey(BOUNDS_FOR_KNOWNS, resolvedCall);
+		Map<NapileType, BoundsOwner> knowns = debugInfo.getByKey(BOUNDS_FOR_KNOWNS, resolvedCall);
 		renderMap(knowns, result);
 		Map<TypeParameterDescriptor, BoundsOwner> unknowns = debugInfo.getByKey(BOUNDS_FOR_UNKNOWNS, resolvedCall);
 		renderMap(unknowns, result);
@@ -336,7 +336,7 @@ public class ResolveToolwindow extends JPanel implements Disposable
 
 		CallableDescriptor resultingDescriptor = resolvedCall.getResultingDescriptor();
 		ReceiverDescriptor thisObject = resolvedCall.getThisObject();
-		Map<TypeParameterDescriptor, JetType> typeArguments = resolvedCall.getTypeArguments();
+		Map<TypeParameterDescriptor, NapileType> typeArguments = resolvedCall.getTypeArguments();
 		Map<CallParameterDescriptor, ResolvedValueArgument> valueArguments = resolvedCall.getValueArguments();
 
 		builder.append(resultingDescriptor.getName());
@@ -389,19 +389,19 @@ public class ResolveToolwindow extends JPanel implements Disposable
 		builder.append(")");
 	}
 
-	private static void renderTypeArguments(Map<TypeParameterDescriptor, JetType> typeArguments, StringBuilder builder)
+	private static void renderTypeArguments(Map<TypeParameterDescriptor, NapileType> typeArguments, StringBuilder builder)
 	{
-		JetType[] args = new JetType[typeArguments.size()];
-		for(Map.Entry<TypeParameterDescriptor, JetType> entry : typeArguments.entrySet())
+		NapileType[] args = new NapileType[typeArguments.size()];
+		for(Map.Entry<TypeParameterDescriptor, NapileType> entry : typeArguments.entrySet())
 		{
 			TypeParameterDescriptor key = entry.getKey();
-			JetType value = entry.getValue();
+			NapileType value = entry.getValue();
 			args[key.getIndex()] = value;
 		}
 		builder.append("<");
 		for(int i = 0, argsLength = args.length; i < argsLength; i++)
 		{
-			JetType type = args[i];
+			NapileType type = args[i];
 			builder.append(type);
 			if(i != argsLength - 1)
 			{

@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import org.napile.compiler.lang.diagnostics.Diagnostic;
 import org.napile.compiler.lang.psi.NapileExpression;
 import org.napile.compiler.lang.psi.NapilePsiFactory;
-import org.napile.idea.plugin.JetBundle;
+import org.napile.idea.plugin.NapileBundle;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiFile;
@@ -29,7 +29,7 @@ import com.intellij.util.IncorrectOperationException;
 /**
  * @author svtk
  */
-public class ChangeToFunctionInvocationFix extends JetIntentionAction<NapileExpression>
+public class ChangeToFunctionInvocationFix extends NapileIntentionAction<NapileExpression>
 {
 
 	public ChangeToFunctionInvocationFix(@NotNull NapileExpression element)
@@ -41,14 +41,14 @@ public class ChangeToFunctionInvocationFix extends JetIntentionAction<NapileExpr
 	@Override
 	public String getText()
 	{
-		return JetBundle.message("change.to.function.invocation");
+		return NapileBundle.message("change.to.function.invocation");
 	}
 
 	@NotNull
 	@Override
 	public String getFamilyName()
 	{
-		return JetBundle.message("change.to.function.invocation");
+		return NapileBundle.message("change.to.function.invocation");
 	}
 
 	@Override
@@ -58,12 +58,12 @@ public class ChangeToFunctionInvocationFix extends JetIntentionAction<NapileExpr
 		element.replace(NapilePsiFactory.createExpression(project, reference.getText() + "()"));
 	}
 
-	public static JetIntentionActionFactory createFactory()
+	public static NapileIntentionActionFactory createFactory()
 	{
-		return new JetIntentionActionFactory()
+		return new NapileIntentionActionFactory()
 		{
 			@Override
-			public JetIntentionAction<NapileExpression> createAction(Diagnostic diagnostic)
+			public NapileIntentionAction<NapileExpression> createAction(Diagnostic diagnostic)
 			{
 				if(diagnostic.getPsiElement() instanceof NapileExpression)
 				{

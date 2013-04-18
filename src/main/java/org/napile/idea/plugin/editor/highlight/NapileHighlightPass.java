@@ -37,7 +37,7 @@ import org.napile.idea.plugin.editor.highlight.postHighlight.PostHighlightVisito
 import org.napile.idea.plugin.editor.highlight.postHighlight.SoftKeywordPostHighlightVisitor;
 import org.napile.idea.plugin.editor.highlight.postHighlight.TypeKindHighlightingVisitor;
 import org.napile.idea.plugin.editor.highlight.postHighlight.VariablesHighlightingVisitor;
-import org.napile.idea.plugin.highlighter.JetPsiChecker;
+import org.napile.idea.plugin.highlighter.NapilePsiChecker;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
 import com.google.common.collect.ImmutableSet;
 import com.intellij.codeHighlighting.TextEditorHighlightingPass;
@@ -128,8 +128,8 @@ public class NapileHighlightPass extends TextEditorHighlightingPass
 					{
 						final HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.INFORMATION);
 						builder.range(textRange);
-						builder.description(JetPsiChecker.getDefaultMessage(diagnostic));
-						builder.escapedToolTip(JetPsiChecker.getTooltipMessage(diagnostic));
+						builder.description(NapilePsiChecker.getDefaultMessage(diagnostic));
+						builder.escapedToolTip(NapilePsiChecker.getTooltipMessage(diagnostic));
 						if(diagnostic.getFactory() == Errors.VALID_STRING_ESCAPE)
 						{
 							builder.textAttributes(NapileHighlightingColors.VALID_STRING_ESCAPE);
@@ -150,8 +150,8 @@ public class NapileHighlightPass extends TextEditorHighlightingPass
 							{
 								final HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.ERROR);
 								builder.range(range.shiftRight(referenceExpression.getTextOffset()));
-								builder.description(JetPsiChecker.getDefaultMessage(diagnostic));
-								builder.escapedToolTip(JetPsiChecker.getTooltipMessage(diagnostic));
+								builder.description(NapilePsiChecker.getDefaultMessage(diagnostic));
+								builder.escapedToolTip(NapilePsiChecker.getTooltipMessage(diagnostic));
 								builder.textAttributes(CodeInsightColors.WRONG_REFERENCES_ATTRIBUTES);
 
 								putHighlightAndActions(builder, diagnostic);
@@ -163,8 +163,8 @@ public class NapileHighlightPass extends TextEditorHighlightingPass
 							{
 								final HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.ERROR);
 								builder.range(textRange);
-								builder.description(JetPsiChecker.getDefaultMessage(diagnostic));
-								builder.escapedToolTip(JetPsiChecker.getTooltipMessage(diagnostic));
+								builder.description(NapilePsiChecker.getDefaultMessage(diagnostic));
+								builder.escapedToolTip(NapilePsiChecker.getTooltipMessage(diagnostic));
 								builder.textAttributes(CodeInsightColors.WRONG_REFERENCES_ATTRIBUTES);
 
 								putHighlightAndActions(builder, diagnostic);
@@ -185,8 +185,8 @@ public class NapileHighlightPass extends TextEditorHighlightingPass
 					{
 						final HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(HighlightInfoType.ERROR);
 						builder.range(textRange);
-						builder.description(JetPsiChecker.getDefaultMessage(diagnostic));
-						builder.escapedToolTip(JetPsiChecker.getTooltipMessage(diagnostic));
+						builder.description(NapilePsiChecker.getDefaultMessage(diagnostic));
+						builder.escapedToolTip(NapilePsiChecker.getTooltipMessage(diagnostic));
 						if(diagnostic.getFactory() == Errors.INVALID_STRING_ESCAPE)
 						{
 							builder.textAttributes(NapileHighlightingColors.INVALID_STRING_ESCAPE);
@@ -200,8 +200,8 @@ public class NapileHighlightPass extends TextEditorHighlightingPass
 					{
 						final HighlightInfo.Builder builder = HighlightInfo.newHighlightInfo(WARNINGS_LIKE_UNUSED.contains(diagnostic.getFactory()) ? HighlightInfoType.UNUSED_SYMBOL : HighlightInfoType.WARNING);
 						builder.range(textRange);
-						builder.description(JetPsiChecker.getDefaultMessage(diagnostic));
-						builder.escapedToolTip(JetPsiChecker.getTooltipMessage(diagnostic));
+						builder.description(NapilePsiChecker.getDefaultMessage(diagnostic));
+						builder.escapedToolTip(NapilePsiChecker.getTooltipMessage(diagnostic));
 
 						putHighlightAndActions(builder, diagnostic);
 					}

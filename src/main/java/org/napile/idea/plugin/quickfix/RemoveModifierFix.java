@@ -25,7 +25,7 @@ import org.napile.compiler.lang.lexer.NapileKeywordToken;
 import org.napile.compiler.lang.lexer.NapileToken;
 import org.napile.compiler.lang.lexer.NapileTokens;
 import org.napile.compiler.lang.psi.NapileModifierListOwner;
-import org.napile.idea.plugin.JetBundle;
+import org.napile.idea.plugin.NapileBundle;
 import com.intellij.extapi.psi.ASTDelegatePsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.editor.Editor;
@@ -38,7 +38,7 @@ import com.intellij.util.IncorrectOperationException;
 /**
  * @author svtk
  */
-public class RemoveModifierFix extends JetIntentionAction<NapileModifierListOwner>
+public class RemoveModifierFix extends NapileIntentionAction<NapileModifierListOwner>
 {
 	private final NapileKeywordToken modifier;
 	private final boolean isRedundant;
@@ -54,20 +54,20 @@ public class RemoveModifierFix extends JetIntentionAction<NapileModifierListOwne
 	{
 		if(isRedundant)
 		{
-			return JetBundle.message("remove.redundant.modifier", modifier.getValue());
+			return NapileBundle.message("remove.redundant.modifier", modifier.getValue());
 		}
 		if(element != null && (modifier == NapileTokens.ABSTRACT_KEYWORD))
 		{
-			return JetBundle.message("make.element.not.modifier", AddModifierFix.getElementName(element), modifier.getValue());
+			return NapileBundle.message("make.element.not.modifier", AddModifierFix.getElementName(element), modifier.getValue());
 		}
-		return JetBundle.message("remove.modifier", modifier.getValue());
+		return NapileBundle.message("remove.modifier", modifier.getValue());
 	}
 
 	@NotNull
 	@Override
 	public String getFamilyName()
 	{
-		return JetBundle.message("remove.modifier.family");
+		return NapileBundle.message("remove.modifier.family");
 	}
 
 	@NotNull
@@ -116,18 +116,18 @@ public class RemoveModifierFix extends JetIntentionAction<NapileModifierListOwne
 	}
 
 
-	public static JetIntentionActionFactory createRemoveModifierFromListOwnerFactory(final NapileKeywordToken modifier)
+	public static NapileIntentionActionFactory createRemoveModifierFromListOwnerFactory(final NapileKeywordToken modifier)
 	{
 		return createRemoveModifierFromListOwnerFactory(modifier, false);
 	}
 
-	public static JetIntentionActionFactory createRemoveModifierFromListOwnerFactory(final NapileKeywordToken modifier, final boolean isRedundant)
+	public static NapileIntentionActionFactory createRemoveModifierFromListOwnerFactory(final NapileKeywordToken modifier, final boolean isRedundant)
 	{
-		return new JetIntentionActionFactory()
+		return new NapileIntentionActionFactory()
 		{
 			@Nullable
 			@Override
-			public JetIntentionAction<NapileModifierListOwner> createAction(Diagnostic diagnostic)
+			public NapileIntentionAction<NapileModifierListOwner> createAction(Diagnostic diagnostic)
 			{
 				NapileModifierListOwner modifierListOwner = QuickFixUtil.getParentElementOfType(diagnostic, NapileModifierListOwner.class);
 				if(modifierListOwner == null)
@@ -137,18 +137,18 @@ public class RemoveModifierFix extends JetIntentionAction<NapileModifierListOwne
 		};
 	}
 
-	public static JetIntentionActionFactory createRemoveModifierFactory()
+	public static NapileIntentionActionFactory createRemoveModifierFactory()
 	{
 		return createRemoveModifierFactory(false);
 	}
 
-	public static JetIntentionActionFactory createRemoveModifierFactory(final boolean isRedundant)
+	public static NapileIntentionActionFactory createRemoveModifierFactory(final boolean isRedundant)
 	{
-		return new JetIntentionActionFactory()
+		return new NapileIntentionActionFactory()
 		{
 			@Nullable
 			@Override
-			public JetIntentionAction<NapileModifierListOwner> createAction(Diagnostic diagnostic)
+			public NapileIntentionAction<NapileModifierListOwner> createAction(Diagnostic diagnostic)
 			{
 				NapileModifierListOwner modifierListOwner = QuickFixUtil.getParentElementOfType(diagnostic, NapileModifierListOwner.class);
 				if(modifierListOwner == null)

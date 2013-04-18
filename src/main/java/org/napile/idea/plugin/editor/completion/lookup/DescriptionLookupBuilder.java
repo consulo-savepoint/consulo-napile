@@ -26,7 +26,7 @@ import org.napile.compiler.lang.descriptors.MethodDescriptor;
 import org.napile.compiler.lang.descriptors.TypeParameterDescriptor;
 import org.napile.compiler.lang.descriptors.VariableDescriptor;
 import org.napile.compiler.lang.resolve.DescriptorUtils;
-import org.napile.compiler.lang.types.JetType;
+import org.napile.compiler.lang.types.NapileType;
 import org.napile.idea.plugin.NapileIconProvider2;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
@@ -107,12 +107,12 @@ public class DescriptionLookupBuilder
 		LookupElementBuilder elementBuilder = LookupElementBuilder.create(name.getIdentifier());
 
 		elementBuilder = elementBuilder.withIcon(NapileIconProvider2.getIcon(typeParameterDescriptor));
-		elementBuilder = elementBuilder.withTailText(" : " + StringUtil.join(typeParameterDescriptor.getUpperBounds(), new Function<JetType, String>()
+		elementBuilder = elementBuilder.withTailText(" : " + StringUtil.join(typeParameterDescriptor.getUpperBounds(), new Function<NapileType, String>()
 		{
 			@Override
-			public String fun(JetType jetType)
+			public String fun(NapileType NapileType)
 			{
-				return CompletionRender.INSTANCE.renderType(jetType);
+				return CompletionRender.INSTANCE.renderType(NapileType);
 			}
 		}, " & "), true);
 

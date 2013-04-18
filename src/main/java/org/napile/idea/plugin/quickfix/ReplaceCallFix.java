@@ -23,7 +23,7 @@ import org.napile.compiler.lang.psi.NapileQualifiedExpressionImpl;
 import org.napile.compiler.lang.psi.NapileSafeQualifiedExpressionImpl;
 import org.napile.compiler.lang.psi.NapileExpression;
 import org.napile.compiler.lang.psi.NapileFile;
-import org.napile.idea.plugin.JetBundle;
+import org.napile.idea.plugin.NapileBundle;
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
@@ -65,7 +65,7 @@ public class ReplaceCallFix implements IntentionAction
 	@Override
 	public String getText()
 	{
-		return toSafe ? JetBundle.message("replace.with.safe.call") : JetBundle.message("replace.with.dot.call");
+		return toSafe ? NapileBundle.message("replace.with.safe.call") : NapileBundle.message("replace.with.dot.call");
 	}
 
 	@NotNull
