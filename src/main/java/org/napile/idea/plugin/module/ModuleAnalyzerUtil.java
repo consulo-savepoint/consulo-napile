@@ -16,31 +16,18 @@
 
 package org.napile.idea.plugin.module;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.jetbrains.annotations.NotNull;
-import org.napile.compiler.NapileFileType;
 import org.napile.compiler.analyzer.AnalyzeExhaust;
 import org.napile.compiler.lang.descriptors.DeclarationDescriptor;
 import org.napile.compiler.lang.psi.NapileElement;
 import org.napile.compiler.lang.psi.NapileFile;
 import org.napile.compiler.lang.resolve.BindingTraceKeys;
-import com.intellij.openapi.compiler.ex.CompilerPathsEx;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.fileTypes.FileTypeManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.roots.OrderEntry;
-import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.roots.libraries.LibraryUtil;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.search.GlobalSearchScope;
 
 /**
  * @author VISTALL
@@ -72,35 +59,6 @@ public class ModuleAnalyzerUtil
 		DeclarationDescriptor declarationDescriptor = analyzeExhaust.getBindingTrace().get(BindingTraceKeys.DECLARATION_TO_DESCRIPTOR, napileElement);
 
 		return (T) declarationDescriptor;
-	}
-
-	@NotNull
-	public static List<NapileFile> getFilesInScope(PsiElement element, final GlobalSearchScope searchScopes)
-	{
-		final List<NapileFile> answer = new ArrayList<NapileFile>();
-
-		final FileTypeManager fileTypeManager = FileTypeManager.getInstance();
-		List<VirtualFile> contentRoots = Arrays.asList(ProjectRootManager.getInstance(element.getProject()).getContentRoots());
-		final PsiManager manager = PsiManager.getInstance(element.getProject());
-
-		CompilerPathsEx.visitFiles(contentRoots, new CompilerPathsEx.FileVisitor()
-		{
-			@Override
-			protected void acceptFile(VirtualFile file, String fileRoot, String filePath)
-			{
-				final FileType fileType = fileTypeManager.getFileTypeByFile(file);
-				if(fileType != NapileFileType.INSTANCE)
-					return;
-
-				if(searchScopes.accept(file))
-				{
-					final PsiFile psiFile = manager.findFile(file);
-					if(psiFile instanceof NapileFile)
-						answer.add((NapileFile) psiFile);
-				}
-			}
-		});
-		return answer;
 	}
 
 	@NotNull
