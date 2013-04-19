@@ -162,6 +162,9 @@
 		<liveTemplateContext implementation="org.napile.idea.plugin.liveTemplates.context.NapileGenericLiveTemplateContextType"/>
 		<liveTemplateContext implementation="org.napile.idea.plugin.liveTemplates.context.NapileClassLiveTemplateContextType"/>
 
+		<!--Hierarchy-->
+		<typeHierarchyProvider language="NAPILE" implementationClass="org.napile.idea.plugin.editor.hierarchy.NapileTypeHierarchyProvider"/>
+
 		<!--NXML support-->
 		<filetype.decompiler filetype="NXML" implementationClass="org.napile.idea.plugin.psi.file.NXmlFileDecompiler"/>
 		<fileType.fileViewProviderFactory filetype="NXML" implementationClass="org.napile.compiler.lang.psi.impl.file.NXmlFileViewProviderFactory"/>
