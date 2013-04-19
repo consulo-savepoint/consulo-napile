@@ -14,9 +14,12 @@ import org.napile.idea.plugin.editor.hierarchy.tree.NapileSubtypesHierarchyTreeS
 import org.napile.idea.plugin.editor.hierarchy.tree.NapileSupertypesHierarchyTreeStructure;
 import org.napile.idea.plugin.editor.hierarchy.tree.NapileTypeHierarchyNodeDescriptor;
 import org.napile.idea.plugin.editor.hierarchy.tree.NapileTypeHierarchyTreeStructure;
+import org.napile.idea.plugin.editor.hierarchy.util.NapileSourceComparator;
+import com.intellij.ide.hierarchy.HierarchyBrowserManager;
 import com.intellij.ide.hierarchy.HierarchyNodeDescriptor;
 import com.intellij.ide.hierarchy.HierarchyTreeStructure;
 import com.intellij.ide.hierarchy.TypeHierarchyBrowserBase;
+import com.intellij.ide.util.treeView.AlphaComparator;
 import com.intellij.ide.util.treeView.NodeDescriptor;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.ActionManager;
@@ -122,6 +125,13 @@ public class NapileTypeHierarchyBrowser extends TypeHierarchyBrowserBase
 	@Override
 	protected Comparator<NodeDescriptor> getComparator()
 	{
-		return null;
+		if(HierarchyBrowserManager.getInstance(myProject).getState().SORT_ALPHABETICALLY)
+		{
+			return AlphaComparator.INSTANCE;
+		}
+		else
+		{
+			return NapileSourceComparator.INSTANCE;
+		}
 	}
 }
