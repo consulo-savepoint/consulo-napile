@@ -186,7 +186,7 @@ public class ImportInsertHelper
 
 	public static boolean doNeedImport(@NotNull ImportPath importPath, @Nullable String aliasName, @NotNull NapileFile file)
 	{
-		if(isImportedByDefault(importPath, null, NapilePsiUtil.getFQName(file)))
+		if(isImportedByDefault(importPath, null, file.getPackage().getFqName()))
 		{
 			return false;
 		}
@@ -198,7 +198,7 @@ public class ImportInsertHelper
 			// Check if import is already present
 			for(NapileImportDirective directive : importDirectives)
 			{
-				ImportPath existentImportPath = NapilePsiUtil.getImportPath(directive);
+				ImportPath existentImportPath = NapileImportUtil.getImportPath(directive);
 				if(directive.getAliasName() == null && aliasName == null)
 				{
 					if(existentImportPath != null && QualifiedNamesUtil.isImported(existentImportPath, importPath))

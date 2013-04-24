@@ -67,7 +67,7 @@ public class NapileTypeHierarchyNodeDescriptor extends HierarchyNodeDescriptor
 			classNameAttributes = new TextAttributes(myColor, null, null, null, Font.PLAIN);
 		}
 		myHighlightedText.getEnding().addText(napileClass.getName(), classNameAttributes);
-		myHighlightedText.getEnding().addText(" (" + napileClass.getContainingFile().getPackageName() + ")", HierarchyNodeDescriptor.getPackageNameAttributes());
+		myHighlightedText.getEnding().addText(" (" + napileClass.getContainingFile().getPackage().getFqName() + ")", HierarchyNodeDescriptor.getPackageNameAttributes());
 		myName = myHighlightedText.getText();
 
 		if(!Comparing.equal(myHighlightedText, oldText))

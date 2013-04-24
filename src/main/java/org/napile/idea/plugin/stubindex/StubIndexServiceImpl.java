@@ -36,9 +36,8 @@ public class StubIndexServiceImpl implements StubIndexService
 		if(name != null)
 			sink.occurrence(NapileIndexKeys.CLASSES_SHORT_NAME_KEY, name);
 
-		String fqn = stub.getQualifiedName();
-		if(fqn != null)
-			sink.occurrence(NapileIndexKeys.FQN_KEY, fqn);
+		String fqn = stub.getFqName().getFqName();
+		sink.occurrence(NapileIndexKeys.FQN_KEY, fqn);
 	}
 
 	@Override

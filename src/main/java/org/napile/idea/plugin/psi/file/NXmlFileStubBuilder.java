@@ -31,7 +31,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.stubs.BinaryFileStubBuilder;
 import com.intellij.psi.stubs.Stub;
-import com.intellij.util.io.StringRef;
 
 /**
  * @author VISTALL
@@ -78,7 +77,7 @@ public class NXmlFileStubBuilder implements BinaryFileStubBuilder
 		NapilePsiFileStub psiFileStub = null;
 		try
 		{
-			psiFileStub = new NapilePsiFileStub(null, StringRef.fromString(classNode.name.parent().getFqName()), true);
+			psiFileStub = new NapilePsiFileStub(null, classNode.name.parent(), true);
 
 			classNode.accept(builder, psiFileStub);
 		}

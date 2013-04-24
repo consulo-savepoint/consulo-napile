@@ -28,16 +28,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.napile.asm.resolve.ImportPath;
 import org.napile.asm.resolve.name.FqName;
-import org.napile.compiler.lang.psi.NapileFile;
-import org.napile.compiler.lang.psi.NapileImportDirective;
-import org.napile.compiler.lang.psi.NapileNamedDeclaration;
-import org.napile.compiler.lang.psi.NapilePackage;
-import org.napile.compiler.lang.psi.NapilePsiFactory;
-import org.napile.compiler.lang.psi.NapilePsiUtil;
-import org.napile.compiler.lang.psi.NapileReferenceExpression;
-import org.napile.compiler.lang.psi.NapileVisitorVoid;
+import org.napile.compiler.lang.psi.*;
 import org.napile.compiler.util.QualifiedNamesUtil;
 import org.napile.idea.plugin.quickfix.ImportInsertHelper;
+import org.napile.idea.plugin.quickfix.NapileImportUtil;
 import com.intellij.lang.ImportOptimizer;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.progress.ProgressIndicatorProvider;
@@ -79,8 +73,8 @@ public class NapileImportOptimizer implements ImportOptimizer
 					@Override
 					public int compare(NapileImportDirective directive1, NapileImportDirective directive2)
 					{
-						ImportPath firstPath = NapilePsiUtil.getImportPath(directive1);
-						ImportPath secondPath = NapilePsiUtil.getImportPath(directive2);
+						ImportPath firstPath = NapileImportUtil.getImportPath(directive1);
+						ImportPath secondPath = NapileImportUtil.getImportPath(directive2);
 
 						if(firstPath == null || secondPath == null)
 						{
@@ -132,7 +126,7 @@ public class NapileImportOptimizer implements ImportOptimizer
 						// Insert back only necessary imports in correct order
 						for(NapileImportDirective anImport : sortedDirectives)
 						{
-							ImportPath importPath = NapilePsiUtil.getImportPath(anImport);
+							ImportPath importPath = NapileImportUtil.getImportPath(anImport);
 							if(importPath == null)
 							{
 								continue;
@@ -228,12 +222,12 @@ public class NapileImportOptimizer implements ImportOptimizer
 	{
 		if(element instanceof NapileFile)
 		{
-			return NapilePsiUtil.getFQName((NapileFile) element);
+			return ((NapileFile) element).getPackage().getFqName();
 		}
 
 		if(element instanceof NapileNamedDeclaration)
 		{
-			return NapilePsiUtil.getFQName((NapileNamedDeclaration) element);
+			return ((NapileNamedDeclaration) element).getFqName();
 		}
 
 		return null;

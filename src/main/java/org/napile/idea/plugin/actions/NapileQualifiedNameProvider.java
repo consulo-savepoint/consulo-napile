@@ -17,10 +17,8 @@
 package org.napile.idea.plugin.actions;
 
 import org.jetbrains.annotations.Nullable;
-import org.napile.asm.resolve.name.FqName;
 import org.napile.compiler.lang.psi.NapileFile;
 import org.napile.compiler.lang.psi.NapileNamedDeclaration;
-import org.napile.compiler.lang.psi.NapilePsiUtil;
 import com.intellij.ide.actions.QualifiedNameProvider;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
@@ -44,14 +42,12 @@ public class NapileQualifiedNameProvider implements QualifiedNameProvider
 	public String getQualifiedName(PsiElement element)
 	{
 		if(element instanceof NapileFile)
-			return NapilePsiUtil.getFQName(((NapileFile) element)).getFqName();
+		{
+			return ((NapileFile) element).getPackage().getFqName().getFqName();
+		}
 		if(element instanceof NapileNamedDeclaration)
 		{
-			FqName fqName = NapilePsiUtil.getFQName(((NapileNamedDeclaration) element));
-			if(fqName !=  null)
-			{
-				return fqName.getFqName();
-			}
+			return ((NapileNamedDeclaration) element).getFqName().getFqName();
 		}
 		return null;
 	}
