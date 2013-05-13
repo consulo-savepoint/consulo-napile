@@ -17,13 +17,13 @@
 package org.napile.idea.plugin.quickfix;
 
 import org.jetbrains.annotations.NotNull;
-import org.napile.compiler.lang.psi.NapilePostfixExpression;
-import org.napile.compiler.lang.psi.NapilePsiFactory;
 import org.napile.compiler.lang.lexer.NapileTokens;
 import org.napile.compiler.lang.psi.NapileExpression;
 import org.napile.compiler.lang.psi.NapileFile;
+import org.napile.compiler.lang.psi.NapilePostfixExpression;
+import org.napile.compiler.lang.psi.NapilePsiFactory;
 import org.napile.idea.plugin.NapileBundle;
-import com.intellij.codeInsight.CodeInsightUtilBase;
+import com.intellij.codeInsight.FileModificationService;
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
@@ -92,7 +92,7 @@ public class ExclExclCallFix implements IntentionAction
 	@Override
 	public void invoke(@NotNull Project project, Editor editor, PsiFile file) throws IncorrectOperationException
 	{
-		if(!CodeInsightUtilBase.prepareFileForWrite(file))
+		if(!FileModificationService.getInstance().prepareFileForWrite(file))
 		{
 			return;
 		}

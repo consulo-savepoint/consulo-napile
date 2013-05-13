@@ -95,7 +95,7 @@ public class NapileClassResolver
 		for(String fqName : NapileFullClassNameIndex.getInstance().getAllKeys(project))
 		{
 			FqName classFQName = new FqName(fqName);
-			if(acceptedShortNameCondition.value(classFQName.shortName().getName()))
+			if(!classFQName.isRoot() && acceptedShortNameCondition.value(classFQName.shortName().getName()))
 			{
 				Collection<NapileClass> list = NapileFullClassNameIndex.getInstance().get(fqName, project, scope);
 				for(NapileClassLike classLike : list)
