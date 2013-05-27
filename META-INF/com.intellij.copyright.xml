@@ -1,7 +1,5 @@
 <idea-plugin version="2">
-	<extensionPoints>
-		<extensionPoint name="quickFix" beanClass="org.napile.idea.plugin.editor.highlight.NapileQuickFixProviderEP">
-			<with attribute="implementationClass" implements="org.napile.idea.plugin.editor.highlight.NapileQuickFixProvider"/>
-		</extensionPoint>
-	</extensionPoints>
+	<extensions defaultExtensionNs="com.intellij.copyright">
+		<updater filetype="Napile" implementationClass="org.napile.idea.plugin.editor.copyright.UpdateNapileCopyrightsProvider"/>
+	</extensions>
 </idea-plugin>

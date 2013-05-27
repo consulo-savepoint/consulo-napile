@@ -41,9 +41,12 @@
 		</action>
 	</actions>
 
-	<extensions defaultExtensionNs="com.intellij.copyright">
-		<updater filetype="Napile" implementationClass="org.napile.idea.plugin.editor.copyright.UpdateNapileCopyrightsProvider"/>
-	</extensions>
+
+	<extensionPoints>
+		<extensionPoint name="quickFix" beanClass="org.napile.idea.plugin.editor.highlight.NapileQuickFixProviderEP">
+			<with attribute="implementationClass" implements="org.napile.idea.plugin.editor.highlight.NapileQuickFixProvider"/>
+		</extensionPoint>
+	</extensionPoints>
 
 	<extensions defaultExtensionNs="org.napile.idea.lang">
 		<quickFix diagnosticName="UNRESOLVED_REFERENCE" implementationClass="org.napile.idea.plugin.editor.highlight.quickFix.ImportClassQuickFixProvider"/>
