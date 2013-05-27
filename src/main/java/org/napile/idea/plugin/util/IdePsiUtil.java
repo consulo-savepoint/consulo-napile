@@ -21,7 +21,9 @@ public class IdePsiUtil extends RunUtil
 	{
 		DeclarationDescriptor descriptor = ModuleAnalyzerUtil.getDescriptorOrAnalyze(declaration);
 		if(descriptor == null)
+		{
 			return false;
+		}
 		return AnnotationUtils.hasAnnotation(descriptor, NapileAnnotationPackage.DEPRECATED);
 	}
 

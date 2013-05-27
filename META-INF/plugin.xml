@@ -79,6 +79,7 @@
 		<lang.findUsagesProvider language="NAPILE" implementationClass="org.napile.idea.plugin.findUsages.NapileFindUsagesProvider"/>
 		<lang.refactoringSupport language="NAPILE" implementationClass="org.napile.idea.plugin.refactoring.NapileRefactoringSupportProvider"/>
 		<qualifiedNameProvider implementation="org.napile.idea.plugin.actions.NapileQualifiedNameProvider"/>
+		<psi.packageSupportProvider implementation="org.napile.idea.plugin.psi.impl.NapilePackageSupportProvider" />
 
 		<refactoring.moveHandler implementation="org.napile.idea.plugin.refactoring.move.NapileMoveFilesOrDirectoriesHandler"/>
 		<refactoring.copyHandler implementation="org.napile.idea.plugin.refactoring.copy.NapileCopyClassHandler"/>

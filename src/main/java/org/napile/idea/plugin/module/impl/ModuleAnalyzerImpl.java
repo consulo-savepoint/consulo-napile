@@ -20,10 +20,13 @@ import org.jetbrains.annotations.NotNull;
 import org.napile.compiler.analyzer.AnalyzeExhaust;
 import org.napile.compiler.analyzer.AnalyzerFacade;
 import org.napile.compiler.lang.psi.NapileFile;
+import org.napile.compiler.lang.resolve.BindingTrace;
+import org.napile.compiler.lang.resolve.BodiesResolveContext;
 import org.napile.idea.plugin.module.ModuleAnalyzer;
 import org.napile.idea.plugin.module.ModuleCollector;
 import com.google.common.base.Predicates;
 import com.intellij.openapi.module.Module;
+import com.intellij.openapi.project.DumbService;
 
 /**
  * @author VISTALL
@@ -31,6 +34,8 @@ import com.intellij.openapi.module.Module;
  */
 public class ModuleAnalyzerImpl extends ModuleAnalyzer
 {
+	private static AnalyzeExhaust EMPTY_ANALYZER_EXHAUST = AnalyzeExhaust.success(BindingTrace.EMPTY, BodiesResolveContext.EMPTY, null);
+
 	private volatile AnalyzeExhaust srcAnalyzeExhaust;
 	private volatile AnalyzeExhaust testAnalyzeExhaust;
 
@@ -57,9 +62,16 @@ public class ModuleAnalyzerImpl extends ModuleAnalyzer
 		return testAnalyzeExhaust;
 	}
 
+	private static int callCount;
+
 	private AnalyzeExhaust getOrUpdate(boolean test, boolean needUpdate, AnalyzeExhaust old)
 	{
-		if(old == null || needUpdate)
+		if(DumbService.getInstance(module.getProject()).isDumb() || old == null)
+		{
+			return EMPTY_ANALYZER_EXHAUST;
+		}
+
+		if(needUpdate)
 		{
 			return AnalyzerFacade.analyzeFiles(module.getProject(), ModuleCollector.getAnalyzeContext(module.getProject(), null, test, module), Predicates.<NapileFile>alwaysTrue());
 		}
