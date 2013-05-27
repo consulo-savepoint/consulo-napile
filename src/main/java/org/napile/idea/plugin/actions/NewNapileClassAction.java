@@ -18,7 +18,7 @@ package org.napile.idea.plugin.actions;
 
 import org.napile.idea.plugin.NapileBundle;
 import org.napile.idea.plugin.NapileIcons;
-import org.napile.idea.plugin.module.type.NapileModuleType;
+import org.napile.idea.plugin.module.extension.NapileModuleExtension;
 import com.intellij.ide.IdeView;
 import com.intellij.ide.actions.CreateFileFromTemplateAction;
 import com.intellij.ide.actions.CreateFileFromTemplateDialog;
@@ -26,7 +26,7 @@ import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.actionSystem.LangDataKeys;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleType;
+import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectFileIndex;
 import com.intellij.openapi.roots.ProjectRootManager;
@@ -62,7 +62,7 @@ public class NewNapileClassAction extends CreateFileFromTemplateAction
 			IdeView ideView = LangDataKeys.IDE_VIEW.getData(dataContext);
 			Project project = PlatformDataKeys.PROJECT.getData(dataContext);
 			Module module = LangDataKeys.MODULE.getData(dataContext);
-			if(module == null || ModuleType.get(module) != NapileModuleType.getInstance())
+			if(module == null || ModuleUtil.getExtension(module, NapileModuleExtension.class) == null)
 				return false;
 			assert ideView != null && project != null;
 			ProjectFileIndex projectFileIndex = ProjectRootManager.getInstance(project).getFileIndex();

@@ -104,8 +104,7 @@
 		<renamePsiElementProcessor implementation="org.napile.idea.plugin.refactoring.rename.RenameNapileClassProcessor"/>
 		<renamePsiElementProcessor implementation="org.napile.idea.plugin.refactoring.rename.RenameNapileMethodProcessor"/>
 
-		<moduleType id="NAPILE_MODULE" implementationClass="org.napile.idea.plugin.module.type.NapileModuleType"/>
-		<moduleConfigurationEditorProvider implementation="org.napile.idea.plugin.module.type.DefaultModuleEditorsProvider"/>
+		<moduleExtensionProvider key="napile" implementationClass="org.napile.idea.plugin.module.extension.NapileModuleExtensionProvider" />
 
 		<extendWordSelectionHandler implementation="org.napile.idea.plugin.editor.wordSelection.NapileWordSelectioner" order="first"/>
 		<extendWordSelectionHandler implementation="org.napile.idea.plugin.editor.wordSelection.NapileStatementGroupSelectioner"/>

@@ -8,6 +8,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="napile.compiler-core" level="project" />
+    <orderEntry type="library" exported="" name="Consulo 1.SNAPSHOT" level="application" />
   </component>
 </module>
 

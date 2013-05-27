@@ -28,8 +28,8 @@ import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.roots.ui.configuration.JdkComboBox;
 import com.intellij.openapi.roots.ui.configuration.ProjectStructureConfigurable;
+import com.intellij.openapi.roots.ui.configuration.SdkComboBox;
 import com.intellij.openapi.roots.ui.configuration.projectRoot.ProjectSdksModel;
 
 /**
@@ -55,7 +55,7 @@ public class NapileRunSettingsEditor extends SettingsEditor<NapileRunConfigurati
 	}
 
 	private JPanel rootPanel;
-	private JdkComboBox jdkComboBox;
+	private SdkComboBox jdkComboBox;
 	private JComboBox moduleList;
 	private JTextField mainClassField;
 	private JTextField napileJvmField;
@@ -91,7 +91,7 @@ public class NapileRunSettingsEditor extends SettingsEditor<NapileRunConfigurati
 		if(!projectJdksModel.isInitialized())
 			projectJdksModel.reset(project);
 
-		jdkComboBox = new JdkComboBox(projectJdksModel);
+		jdkComboBox = new SdkComboBox(projectJdksModel);
 	}
 	@Override
 	protected void resetEditorFrom(NapileRunConfiguration napileRunConfiguration)

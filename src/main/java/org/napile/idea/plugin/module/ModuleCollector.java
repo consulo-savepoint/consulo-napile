@@ -23,12 +23,12 @@ import org.jetbrains.annotations.Nullable;
 import org.napile.compiler.NapileFileType;
 import org.napile.compiler.analyzer.AnalyzeContext;
 import org.napile.compiler.lang.psi.NapileFile;
-import org.napile.idea.plugin.module.type.NapileModuleType;
+import org.napile.idea.plugin.module.extension.NapileModuleExtension;
 import com.google.common.collect.Sets;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.fileTypes.FileTypeManager;
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleType;
+import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ContentIterator;
 import com.intellij.openapi.roots.LibraryOrderEntry;
@@ -104,7 +104,7 @@ public class ModuleCollector
 
 	private static void collectSourcesInModule(@NotNull final Project project, @NotNull final Module module, final boolean test, @NotNull final Set<NapileFile> files, final NapileFile rootFile)
 	{
-		if(ModuleType.get(module) != NapileModuleType.getInstance())
+		if(ModuleUtil.getExtension(module, NapileModuleExtension.class) == null)
 			return;
 
 		final ModuleFileIndex index = ModuleRootManager.getInstance(module).getFileIndex();

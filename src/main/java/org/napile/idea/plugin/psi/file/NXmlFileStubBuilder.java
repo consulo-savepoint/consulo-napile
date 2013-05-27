@@ -27,10 +27,10 @@ import org.napile.compiler.lang.psi.stubs.elements.NapileFileElementType;
 import org.napile.compiler.util.NodeToStubBuilder;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.stubs.BinaryFileStubBuilder;
 import com.intellij.psi.stubs.Stub;
+import com.intellij.util.indexing.FileContent;
 
 /**
  * @author VISTALL
@@ -50,14 +50,14 @@ public class NXmlFileStubBuilder implements BinaryFileStubBuilder
 
 	@Nullable
 	@Override
-	public Stub buildStubTree(VirtualFile virtualFile, byte[] content, Project project)
+	public Stub buildStubTree(FileContent fileContent)
 	{
 		AsmXmlFileReader reader = new AsmXmlFileReader();
 
 		ClassNode classNode;
 		try
 		{
-			classNode = reader.read(new ByteArrayInputStream(content));
+			classNode = reader.read(new ByteArrayInputStream(fileContent.getContent()));
 		}
 		catch(Throwable e)
 		{

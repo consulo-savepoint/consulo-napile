@@ -34,8 +34,6 @@ import com.intellij.execution.actions.ConfigurationContext;
 import com.intellij.execution.junit.RuntimeConfigurationProducer;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.psi.PsiElement;
 
 /**
@@ -107,17 +105,12 @@ public class NapileConfigurationProducer extends RuntimeConfigurationProducer im
 
 			FqName fqName = DescriptorUtils.getFQName(descriptor).toSafe();
 
-			ModuleRootManager rootManager = ModuleRootManager.getInstance(module);
-			Sdk sdk = rootManager.getSdk();
-			if(sdk == null)
-				return null;
-
 			RunnerAndConfigurationSettings settings = cloneTemplateConfiguration(location.getProject(), context);
 			NapileRunConfiguration configuration = (NapileRunConfiguration) settings.getConfiguration();
 			configuration.setModule(module);
 			configuration.setName(fqName.getFqName());
 			configuration.mainClass = fqName.getFqName();
-			configuration.jdkName = sdk.getName();
+			configuration.jdkName = "";
 
 			return settings;
 		}

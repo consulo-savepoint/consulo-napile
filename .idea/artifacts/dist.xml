@@ -1,0 +1,29 @@
+<component name="ArtifactManager">
+  <artifact name="dist">
+    <output-path>$PROJECT_DIR$/out/artifacts/dist</output-path>
+    <root id="root">
+      <element id="directory" name="napile">
+        <element id="directory" name="lib">
+          <element id="archive" name="napile.jar">
+            <element id="module-output" name="idea.napile-lang" />
+            <element id="module-output" name="injection.api" />
+            <element id="module-output" name="injection.text" />
+            <element id="module-output" name="injection.protobuf" />
+            <element id="module-output" name="injection.regexp" />
+            <element id="directory" name="META-INF">
+              <element id="dir-copy" path="$PROJECT_DIR$/META-INF" />
+            </element>
+          </element>
+          <element id="file-copy" path="$PROJECT_DIR$/lib/dom4j2.0dev.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/java2napile.runtime-0.1.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.inject.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/napile.asm-0.3.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/parboiled-core-1.1.4.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/parboiled-java-1.1.4.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/pegdown-1.2.1.jar" />
+          <element id="library" level="project" name="napile.compiler-core" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

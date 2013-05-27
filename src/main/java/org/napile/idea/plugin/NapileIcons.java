@@ -27,6 +27,8 @@ import com.intellij.util.PlatformIcons;
  */
 public interface NapileIcons
 {
+	Icon LOGO_16_16 = IconLoader.getIcon("/org/napile/icons/napile-logo16.png");
+
 	Icon CLASS = IconLoader.getIcon("/org/napile/icons/nodes/class.png");
 	Icon ABSTRACT_CLASS = IconLoader.getIcon("/org/napile/icons/nodes/abstractClass.png");
 
