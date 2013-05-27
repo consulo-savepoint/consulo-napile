@@ -5,7 +5,7 @@
 	<description>Napile language support</description>
 	<version>@snapshot@</version>
 	<vendor url="http://napile.org">napile.org</vendor>
-	<depends>com.intellij.copyright</depends>
+	<depends config-file="com.intellij.copyright.xml" optional="true">com.intellij.copyright</depends>
 
 	<project-components>
 		<component>
@@ -40,12 +40,6 @@
 			<add-to-group group-id="RefactoringMenu" anchor="last"/>
 		</action>
 	</actions>
-
-	<extensionPoints>
-		<extensionPoint name="quickFix" beanClass="org.napile.idea.plugin.editor.highlight.NapileQuickFixProviderEP">
-			<with attribute="implementationClass" implements="org.napile.idea.plugin.editor.highlight.NapileQuickFixProvider"/>
-		</extensionPoint>
-	</extensionPoints>
 
 	<extensions defaultExtensionNs="com.intellij.copyright">
 		<updater filetype="Napile" implementationClass="org.napile.idea.plugin.editor.copyright.UpdateNapileCopyrightsProvider"/>
