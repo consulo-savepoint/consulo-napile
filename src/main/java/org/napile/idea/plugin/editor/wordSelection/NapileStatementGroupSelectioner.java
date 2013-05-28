@@ -19,12 +19,12 @@ package org.napile.idea.plugin.editor.wordSelection;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.napile.compiler.lang.lexer.NapileTokens;
 import org.napile.compiler.lang.psi.NapileBlockExpression;
 import org.napile.compiler.lang.psi.NapileExpression;
 import org.napile.compiler.lang.psi.NapileWhenEntry;
 import org.napile.compiler.lang.psi.NapileWhenExpression;
-import org.napile.compiler.lang.lexer.NapileTokens;
-import com.intellij.codeInsight.editorActions.wordSelection.BasicSelectioner;
+import com.intellij.codeInsight.editorActions.ExtendWordSelectionHandlerBase;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.util.text.LineTokenizer;
@@ -35,7 +35,7 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement;
 /**
  * Originally from IDEA platform: StatementGroupSelectioner
  */
-public class NapileStatementGroupSelectioner extends BasicSelectioner
+public class NapileStatementGroupSelectioner extends ExtendWordSelectionHandlerBase
 {
 	@Override
 	public boolean canSelect(PsiElement e)

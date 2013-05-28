@@ -5,7 +5,7 @@
       <element id="directory" name="napile">
         <element id="directory" name="lib">
           <element id="archive" name="napile.jar">
-            <element id="module-output" name="idea.napile-lang" />
+            <element id="module-output" name="consulo-napile" />
             <element id="module-output" name="injection.api" />
             <element id="module-output" name="injection.text" />
             <element id="module-output" name="injection.protobuf" />
