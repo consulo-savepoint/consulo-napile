@@ -145,7 +145,7 @@
 		<referencesSearch implementation="org.napile.idea.plugin.search.NapileReferencesSearcher"/>
 
 		<compiler implementation="org.napile.idea.plugin.compiler.NapileCompiler"/>
-		<toolWindow id="Napile" factoryClass="org.napile.idea.plugin.codeInsight.toolWindow.NapileInternalToolWindowFactory" anchor="right" icon="/org/napile/icons/napile-logo13.png"/>
+		<toolWindow id="Napile" factoryClass="org.napile.idea.plugin.codeInsight.toolWindow.NapileInternalToolWindowFactory" conditionClass="org.napile.idea.plugin.codeInsight.toolWindow.NapileToolWindowCondition" anchor="right" icon="/org/napile/icons/napile-logo13.png"/>
 
 		<applicationService serviceInterface="org.napile.idea.plugin.editor.NapileEditorOptions" serviceImplementation="org.napile.idea.plugin.editor.NapileEditorOptions"/>
 		<exportable serviceInterface="org.napile.idea.plugin.editor.NapileEditorOptions"/>
