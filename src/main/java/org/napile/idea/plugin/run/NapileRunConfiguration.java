@@ -35,9 +35,8 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.projectRoots.ProjectSdkTable;
 import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.roots.ui.configuration.ProjectStructureConfigurable;
-import com.intellij.openapi.roots.ui.configuration.projectRoot.ProjectSdksModel;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
 import com.intellij.util.xmlb.XmlSerializer;
@@ -111,9 +110,6 @@ public class NapileRunConfiguration extends ModuleBasedConfiguration<NapileRunCo
 	@Nullable
 	public Sdk findSdk()
 	{
-		final ProjectSdksModel projectJdksModel = ProjectStructureConfigurable.getInstance(getProject()).getProjectJdksModel();
-		if(!projectJdksModel.isInitialized())
-			projectJdksModel.reset(getProject());
-		return projectJdksModel.findSdk(jdkName);
+		return ProjectSdkTable.getInstance().findSdk(jdkName);
 	}
 }

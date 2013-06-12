@@ -57,7 +57,7 @@ public class NapileConfigurationType implements ConfigurationType
 	@Override
 	public String getDisplayName()
 	{
-		return "Application (Napile)";
+		return "Napile Application";
 	}
 
 	@Override

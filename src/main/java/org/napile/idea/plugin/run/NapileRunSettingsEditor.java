@@ -87,7 +87,7 @@ public class NapileRunSettingsEditor extends SettingsEditor<NapileRunConfigurati
 
 	private void createUIComponents()
 	{
-		final ProjectSdksModel projectJdksModel = ProjectStructureConfigurable.getInstance(project).getProjectJdksModel();
+		final ProjectSdksModel projectJdksModel = ProjectStructureConfigurable.getInstance(project).getProjectSdksModel();
 		if(!projectJdksModel.isInitialized())
 			projectJdksModel.reset(project);
 
@@ -115,12 +115,7 @@ public class NapileRunSettingsEditor extends SettingsEditor<NapileRunConfigurati
 
 		napileJvmField.setText(napileRunConfiguration.napileJvm);
 		mainClassField.setText(napileRunConfiguration.mainClass);
-		final ProjectSdksModel projectJdksModel = ProjectStructureConfigurable.getInstance(project).getProjectJdksModel();
-		Sdk sdk = projectJdksModel.findSdk(napileRunConfiguration.jdkName);
-		if(sdk == null)
-			jdkComboBox.setInvalidJdk(napileRunConfiguration.jdkName);
-		else
-			jdkComboBox.setSelectedJdk(sdk);
+		jdkComboBox.setSelectedSdk(napileRunConfiguration.jdkName);
 	}
 
 	@Override
@@ -132,9 +127,11 @@ public class NapileRunSettingsEditor extends SettingsEditor<NapileRunConfigurati
 
 		napileRunConfiguration.mainClass = mainClassField.getText().trim();
 		napileRunConfiguration.napileJvm = napileJvmField.getText().trim();
-		Sdk jdk = jdkComboBox.getSelectedJdk();
+		Sdk jdk = jdkComboBox.getSelectedSdk();
 		if(jdk != null)
+		{
 			napileRunConfiguration.jdkName = jdk.getName();
+		}
 	}
 
 	@NotNull

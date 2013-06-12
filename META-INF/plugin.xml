@@ -6,6 +6,7 @@
 	<version>@snapshot@</version>
 	<vendor url="http://napile.org">napile.org</vendor>
 	<depends config-file="com.intellij.copyright.xml" optional="true">com.intellij.copyright</depends>
+	<depends>org.consulo.java</depends>
 
 	<project-components>
 		<component>

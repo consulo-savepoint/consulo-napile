@@ -63,7 +63,7 @@ public class NapileRunningState extends CommandLineState
 
 		final Module module = configuration.getConfigurationModule().getModule();
 		NapileClass[] classesByName = NapileClassResolver.getInstance(configuration.getProject()).getClassesByFqName(configuration.mainClass, GlobalSearchScope.moduleWithDependenciesScope(module));
-		if(classesByName.length != 1)
+		if(classesByName.length == 0)
 		{
 			throw new ExecutionException("Wrong class name");
 		}
