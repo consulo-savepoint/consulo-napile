@@ -41,9 +41,11 @@ import com.google.common.base.Predicates;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.compiler.CompileContext;
 import com.intellij.openapi.compiler.CompileScope;
+import com.intellij.openapi.compiler.CompilerManager;
 import com.intellij.openapi.compiler.CompilerMessageCategory;
 import com.intellij.openapi.compiler.TranslatingCompiler;
 import com.intellij.openapi.compiler.ex.CompileContextEx;
+import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
@@ -80,6 +82,11 @@ public class NapileCompiler implements TranslatingCompiler
 	}
 
 	@Override
+	public void init(@NotNull CompilerManager compilerManager)
+	{
+	}
+
+	@Override
 	public void compile(final CompileContext compileContext, Chunk<Module> moduleChunk, final VirtualFile[] virtualFiles, OutputSink outputSink)
 	{
 		if(virtualFiles.length == 0)
@@ -112,6 +119,20 @@ public class NapileCompiler implements TranslatingCompiler
 				runInProcess(compileContext, mergeContextForModules(compileContext.getProject(), testModules, true), compileContext.getModuleOutputDirectoryForTests(module));
 			}
 		});
+	}
+
+	@NotNull
+	@Override
+	public FileType[] getInputFileTypes()
+	{
+		return FileType.EMPTY_ARRAY;
+	}
+
+	@NotNull
+	@Override
+	public FileType[] getOutputFileTypes()
+	{
+		return FileType.EMPTY_ARRAY;
 	}
 
 	private static AnalyzeContext mergeContextForModules(Project project, Set<Module> modules, boolean test)
