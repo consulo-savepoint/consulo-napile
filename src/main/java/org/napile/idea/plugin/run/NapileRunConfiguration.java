@@ -16,12 +16,6 @@
 
 package org.napile.idea.plugin.run;
 
-import java.util.Arrays;
-import java.util.Collection;
-
-import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.ConfigurationFactory;
@@ -35,11 +29,17 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.projectRoots.ProjectSdkTable;
 import com.intellij.openapi.projectRoots.Sdk;
+import com.intellij.openapi.projectRoots.SdkTable;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
 import com.intellij.util.xmlb.XmlSerializer;
+import org.jdom.Element;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * @author VISTALL
@@ -110,6 +110,6 @@ public class NapileRunConfiguration extends ModuleBasedConfiguration<NapileRunCo
 	@Nullable
 	public Sdk findSdk()
 	{
-		return ProjectSdkTable.getInstance().findSdk(jdkName);
+		return SdkTable.getInstance().findSdk(jdkName);
 	}
 }
