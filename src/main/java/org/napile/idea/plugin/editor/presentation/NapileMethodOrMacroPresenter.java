@@ -16,19 +16,7 @@
 
 package org.napile.idea.plugin.editor.presentation;
 
-import javax.swing.Icon;
-
-import org.napile.asm.resolve.name.FqName;
-import org.napile.compiler.lang.psi.NapileCallParameterAsReference;
-import org.napile.compiler.lang.psi.NapileCallParameterAsVariable;
-import org.napile.compiler.lang.psi.NapileElement;
-import org.napile.compiler.lang.psi.NapileNamedMethodOrMacro;
-import org.napile.compiler.lang.psi.NapilePsiUtil;
-import org.napile.compiler.lang.psi.NapileSimpleNameExpression;
-import org.napile.compiler.lang.psi.NapileTypeReference;
-import org.napile.compiler.util.QualifiedNamesUtil;
-import org.napile.idea.plugin.NapileIconProvider;
-import org.napile.idea.plugin.util.IdePsiUtil;
+import com.intellij.ide.IconDescriptorUpdaters;
 import com.intellij.navigation.ColoredItemPresentation;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.navigation.ItemPresentationProvider;
@@ -37,6 +25,12 @@ import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.util.Iconable;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.Function;
+import org.napile.asm.resolve.name.FqName;
+import org.napile.compiler.lang.psi.*;
+import org.napile.compiler.util.QualifiedNamesUtil;
+import org.napile.idea.plugin.util.IdePsiUtil;
+
+import javax.swing.*;
 
 /**
  * @author Nikolay Krasko
@@ -106,7 +100,7 @@ public class NapileMethodOrMacroPresenter implements ItemPresentationProvider<Na
 			@Override
 			public Icon getIcon(boolean open)
 			{
-				return NapileIconProvider.INSTANCE.getIcon(function, Iconable.ICON_FLAG_VISIBILITY);
+				return IconDescriptorUpdaters.getIcon(function, Iconable.ICON_FLAG_VISIBILITY);
 			}
 		};
 	}

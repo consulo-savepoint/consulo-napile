@@ -16,21 +16,9 @@
 
 package org.napile.idea.plugin.actions;
 
-import java.util.List;
-
-import javax.swing.Icon;
-
-import org.jetbrains.annotations.NotNull;
-import org.napile.compiler.lang.descriptors.DeclarationDescriptor;
-import org.napile.compiler.lang.psi.NapileFile;
-import org.napile.compiler.lang.psi.NapileNamedDeclaration;
-import org.napile.compiler.lang.resolve.DescriptorUtils;
-import org.napile.idea.plugin.NapileBundle;
-import org.napile.idea.plugin.NapileIconProvider;
-import org.napile.idea.plugin.quickfix.ImportInsertHelper;
 import com.intellij.codeInsight.daemon.QuickFixBundle;
-import com.intellij.codeInsight.daemon.impl.actions.AddImportAction;
 import com.intellij.codeInsight.hint.QuestionAction;
+import com.intellij.ide.IconDescriptorUpdaters;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.editor.Editor;
@@ -42,6 +30,18 @@ import com.intellij.openapi.util.Pair;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
+import org.jetbrains.annotations.NotNull;
+import org.napile.compiler.lang.descriptors.DeclarationDescriptor;
+import org.napile.compiler.lang.psi.NapileFile;
+import org.napile.compiler.lang.psi.NapileNamedDeclaration;
+import org.napile.compiler.lang.resolve.DescriptorUtils;
+import org.napile.idea.plugin.NapileBundle;
+import org.napile.idea.plugin.NapileIconProvider;
+import org.napile.idea.plugin.quickfix.ImportInsertHelper;
+
+import javax.swing.*;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Automatically adds import directive to the file for resolving reference.
@@ -116,7 +116,7 @@ public class NapileAddImportAction implements QuestionAction
 					return FINAL_CHOICE;
 				}
 
-				List<String> toExclude = AddImportAction.getAllExcludableStrings(DescriptorUtils.getFQName(selectedValue.getFirst()).getFqName());
+				List<String> toExclude = Collections.emptyList();//AddImportAction.getAllExcludableStrings(DescriptorUtils.getFQName(selectedValue.getFirst()).getFqName());
 
 				return new BaseListPopupStep<String>(null, toExclude)
 				{
@@ -132,7 +132,7 @@ public class NapileAddImportAction implements QuestionAction
 					{
 						if(finalChoice)
 						{
-							AddImportAction.excludeFromImport(myProject, selectedValue);
+							//AddImportAction.excludeFromImport(myProject, selectedValue);
 						}
 
 						return super.onChosen(selectedValue, finalChoice);
@@ -156,7 +156,7 @@ public class NapileAddImportAction implements QuestionAction
 			@Override
 			public Icon getIconFor(Pair<DeclarationDescriptor, NapileNamedDeclaration> value)
 			{
-				return NapileIconProvider.INSTANCE.getIcon(value.getSecond(), 0);
+				return IconDescriptorUpdaters.getIcon(value.getSecond(), 0);
 			}
 		};
 	}

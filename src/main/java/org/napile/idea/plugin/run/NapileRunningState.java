@@ -16,12 +16,9 @@
 
 package org.napile.idea.plugin.run;
 
-import org.jetbrains.annotations.NotNull;
-import org.napile.compiler.lang.psi.NapileClass;
-import org.napile.idea.plugin.caches.NapileClassResolver;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.configurations.CommandLineState;
-import com.intellij.execution.configurations.JavaParameters;
+import com.intellij.execution.configurations.SimpleJavaParameters;
 import com.intellij.execution.process.OSProcessHandler;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.compiler.CompilerPaths;
@@ -30,6 +27,9 @@ import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.search.GlobalSearchScope;
+import org.jetbrains.annotations.NotNull;
+import org.napile.compiler.lang.psi.NapileClass;
+import org.napile.idea.plugin.caches.NapileClassResolver;
 
 /**
  * @author VISTALL
@@ -54,7 +54,7 @@ public class NapileRunningState extends CommandLineState
 			throw new ExecutionException("Cant find java.exe");
 		}
 
-		JavaParameters parameters = new JavaParameters();
+		SimpleJavaParameters parameters = new SimpleJavaParameters();
 
 		parameters.setJdk(sdk);
 		parameters.setMainClass("org.napile.vm.Main");

@@ -17,15 +17,8 @@
 package org.napile.idea.plugin.run.ui;
 
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.napile.compiler.lang.psi.NapileClassLike;
-import org.napile.idea.plugin.caches.NapileClassResolver;
-import org.napile.idea.plugin.psi.filter.NapileClassFilterWithScope;
-import org.napile.idea.plugin.util.IdePsiUtil;
 import com.intellij.execution.ExecutionBundle;
 import com.intellij.execution.configuration.BrowseModuleValueActionListener;
-import com.intellij.execution.ui.ConfigurationModuleSelector;
 import com.intellij.ide.util.TreeChooser;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.module.Module;
@@ -34,6 +27,12 @@ import com.intellij.openapi.ui.ex.MessagesEx;
 import com.intellij.openapi.util.Computable;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.search.GlobalSearchScope;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.napile.compiler.lang.psi.NapileClassLike;
+import org.napile.idea.plugin.caches.NapileClassResolver;
+import org.napile.idea.plugin.psi.filter.NapileClassFilterWithScope;
+import org.napile.idea.plugin.util.IdePsiUtil;
 
 /**
  * @author VISTALL
@@ -205,11 +204,11 @@ public abstract class NapileClassBrowser extends BrowseModuleValueActionListener
 			return myMessageInfo;
 		}
 
-		public static NoFilterException moduleDoesntExist(final ConfigurationModuleSelector moduleSelector)
+		/*public static NoFilterException moduleDoesntExist(final ConfigurationModuleSelector moduleSelector)
 		{
 			final Project project = moduleSelector.getProject();
 			final String moduleName = moduleSelector.getModuleName();
 			return new NoFilterException(new MessagesEx.MessageInfo(project, moduleName.isEmpty() ? "No module selected" : ExecutionBundle.message("module.does.not.exists", moduleName, project.getName()), ExecutionBundle.message("cannot.browse.test.inheritors.dialog.title")));
-		}
+		}  */
 	}
 }

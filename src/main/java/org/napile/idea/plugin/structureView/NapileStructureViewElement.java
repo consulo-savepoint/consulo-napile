@@ -16,31 +16,27 @@
 
 package org.napile.idea.plugin.structureView;
 
-import javax.swing.Icon;
-
-import org.jetbrains.annotations.NotNull;
-import org.napile.compiler.lang.descriptors.CallParameterDescriptor;
-import org.napile.compiler.lang.descriptors.ClassDescriptor;
-import org.napile.compiler.lang.descriptors.DeclarationDescriptor;
-import org.napile.compiler.lang.descriptors.MethodDescriptor;
-import org.napile.compiler.lang.descriptors.VariableDescriptor;
-import org.napile.compiler.lang.psi.NapileClass;
-import org.napile.compiler.lang.psi.NapileClassLike;
-import org.napile.compiler.lang.psi.NapileDeclaration;
-import org.napile.compiler.lang.psi.NapileFile;
-import org.napile.compiler.lang.resolve.BindingTraceKeys;
-import org.napile.compiler.lang.resolve.BindingTrace;
-import org.napile.compiler.lang.resolve.DescriptorUtils;
-import org.napile.compiler.lang.types.NapileType;
-import org.napile.compiler.render.DescriptorRenderer;
-import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
+import com.intellij.ide.IconDescriptorUpdaters;
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.util.treeView.smartTree.TreeElement;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.NavigatablePsiElement;
 import com.intellij.util.Function;
-import com.intellij.util.PsiIconUtil;
+import org.jetbrains.annotations.NotNull;
+import org.napile.compiler.lang.descriptors.*;
+import org.napile.compiler.lang.psi.NapileClass;
+import org.napile.compiler.lang.psi.NapileClassLike;
+import org.napile.compiler.lang.psi.NapileDeclaration;
+import org.napile.compiler.lang.psi.NapileFile;
+import org.napile.compiler.lang.resolve.BindingTrace;
+import org.napile.compiler.lang.resolve.BindingTraceKeys;
+import org.napile.compiler.lang.resolve.DescriptorUtils;
+import org.napile.compiler.lang.types.NapileType;
+import org.napile.compiler.render.DescriptorRenderer;
+import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
+
+import javax.swing.*;
 
 /**
  * @author yole
@@ -117,7 +113,7 @@ public class NapileStructureViewElement implements StructureViewTreeElement
 			{
 				if(myElement.isValid())
 				{
-					return PsiIconUtil.getProvidersIcon(myElement, 0);
+					return IconDescriptorUpdaters.getIcon(myElement, 0);
 				}
 
 				return null;

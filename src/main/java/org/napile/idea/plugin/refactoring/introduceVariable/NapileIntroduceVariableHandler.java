@@ -16,35 +16,6 @@
 
 package org.napile.idea.plugin.refactoring.introduceVariable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashSet;
-import java.util.List;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.napile.compiler.analyzer.AnalyzeExhaust;
-import org.napile.compiler.di.InjectorForTopDownAnalyzerBasic;
-import org.napile.compiler.lang.descriptors.DeclarationDescriptor;
-import org.napile.compiler.lang.lexer.NapileTokens;
-import org.napile.compiler.lang.psi.*;
-import org.napile.compiler.lang.resolve.BindingTraceKeys;
-import org.napile.compiler.lang.resolve.BindingTrace;
-import org.napile.compiler.lang.resolve.calls.autocasts.DataFlowInfo;
-import org.napile.compiler.lang.resolve.scopes.NapileScope;
-import org.napile.compiler.lang.types.NapileType;
-import org.napile.compiler.lang.types.NamespaceType;
-import org.napile.compiler.lang.types.TypeUtils;
-import org.napile.compiler.lang.types.checker.NapileTypeChecker;
-import org.napile.compiler.render.DescriptorRenderer;
-import org.napile.idea.plugin.codeInsight.ReferenceToClassesShortening;
-import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
-import org.napile.idea.plugin.refactoring.NapileIntroduceHandlerBase;
-import org.napile.idea.plugin.refactoring.NapileNameSuggester;
-import org.napile.idea.plugin.refactoring.NapileNameValidatorImpl;
-import org.napile.idea.plugin.refactoring.NapileRefactoringBundle;
-import org.napile.idea.plugin.refactoring.NapileRefactoringUtil;
 import com.intellij.codeInsight.PsiEquivalenceUtil;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.application.ApplicationManager;
@@ -58,9 +29,30 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiWhiteSpace;
 import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.refactoring.HelpID;
 import com.intellij.refactoring.introduce.inplace.OccurrencesChooser;
 import com.intellij.refactoring.util.CommonRefactoringUtil;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.napile.compiler.analyzer.AnalyzeExhaust;
+import org.napile.compiler.di.InjectorForTopDownAnalyzerBasic;
+import org.napile.compiler.lang.descriptors.DeclarationDescriptor;
+import org.napile.compiler.lang.lexer.NapileTokens;
+import org.napile.compiler.lang.psi.*;
+import org.napile.compiler.lang.resolve.BindingTrace;
+import org.napile.compiler.lang.resolve.BindingTraceKeys;
+import org.napile.compiler.lang.resolve.calls.autocasts.DataFlowInfo;
+import org.napile.compiler.lang.resolve.scopes.NapileScope;
+import org.napile.compiler.lang.types.NamespaceType;
+import org.napile.compiler.lang.types.NapileType;
+import org.napile.compiler.lang.types.TypeUtils;
+import org.napile.compiler.lang.types.checker.NapileTypeChecker;
+import org.napile.compiler.render.DescriptorRenderer;
+import org.napile.idea.plugin.NapileHelpID;
+import org.napile.idea.plugin.codeInsight.ReferenceToClassesShortening;
+import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
+import org.napile.idea.plugin.refactoring.*;
+
+import java.util.*;
 
 /**
  * User: Alefas
@@ -674,7 +666,7 @@ public class NapileIntroduceVariableHandler extends NapileIntroduceHandlerBase
 	{
 		if(ApplicationManager.getApplication().isUnitTestMode())
 			throw new RuntimeException(message);
-		CommonRefactoringUtil.showErrorHint(project, editor, message, INTRODUCE_VARIABLE, HelpID.INTRODUCE_VARIABLE);
+		CommonRefactoringUtil.showErrorHint(project, editor, message, INTRODUCE_VARIABLE, NapileHelpID.INTRODUCE_VARIABLE);
 	}
 
 	@Override

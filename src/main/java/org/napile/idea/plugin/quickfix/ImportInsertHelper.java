@@ -16,8 +16,12 @@
 
 package org.napile.idea.plugin.quickfix;
 
-import java.util.List;
-
+import com.intellij.openapi.editor.Document;
+import com.intellij.openapi.util.Pair;
+import com.intellij.openapi.util.TextRange;
+import com.intellij.psi.PsiDocumentManager;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiReference;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.napile.asm.resolve.ImportPath;
@@ -25,13 +29,9 @@ import org.napile.asm.resolve.name.FqName;
 import org.napile.compiler.lang.NapileLanguage;
 import org.napile.compiler.lang.descriptors.ClassDescriptor;
 import org.napile.compiler.lang.descriptors.DeclarationDescriptor;
-import org.napile.compiler.lang.psi.NapileFile;
-import org.napile.compiler.lang.psi.NapileImportDirective;
-import org.napile.compiler.lang.psi.NapileNamedDeclaration;
-import org.napile.compiler.lang.psi.NapilePsiFactory;
-import org.napile.compiler.lang.psi.NapilePsiUtil;
-import org.napile.compiler.lang.resolve.BindingTraceUtil;
+import org.napile.compiler.lang.psi.*;
 import org.napile.compiler.lang.resolve.BindingTrace;
+import org.napile.compiler.lang.resolve.BindingTraceUtil;
 import org.napile.compiler.lang.resolve.DescriptorUtils;
 import org.napile.compiler.lang.types.ErrorUtils;
 import org.napile.compiler.lang.types.NapileType;
@@ -39,13 +39,8 @@ import org.napile.compiler.lang.types.TypeUtils;
 import org.napile.compiler.util.QualifiedNamesUtil;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
 import org.napile.idea.plugin.references.NapilePsiReference;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.util.Pair;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReference;
+
+import java.util.List;
 
 /**
  * @author svtk
@@ -105,7 +100,7 @@ public class ImportInsertHelper
 			if(target != null)
 			{
 				boolean same = file.getManager().areElementsEquivalent(target, targetElement);
-				same |= target instanceof PsiClass && importFqn.getFqName().equals(((PsiClass) target).getQualifiedName());
+				same |= target instanceof NapileClass && importFqn.getFqName().equals(((NapileClass) target).getFqName().getFqName());
 				if(!same)
 				{
 					Document document = PsiDocumentManager.getInstance(file.getProject()).getDocument(file);

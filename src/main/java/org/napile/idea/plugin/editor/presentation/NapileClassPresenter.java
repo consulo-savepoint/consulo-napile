@@ -16,19 +16,19 @@
 
 package org.napile.idea.plugin.editor.presentation;
 
-import javax.swing.Icon;
-
-import org.napile.asm.resolve.name.FqName;
-import org.napile.compiler.lang.psi.NapileClass;
-import org.napile.compiler.lang.psi.NapilePsiUtil;
-import org.napile.idea.plugin.NapileIconProvider;
-import org.napile.idea.plugin.util.IdePsiUtil;
+import com.intellij.ide.IconDescriptorUpdaters;
 import com.intellij.navigation.ColoredItemPresentation;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.navigation.ItemPresentationProvider;
 import com.intellij.openapi.editor.colors.CodeInsightColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.util.Iconable;
+import org.napile.asm.resolve.name.FqName;
+import org.napile.compiler.lang.psi.NapileClass;
+import org.napile.compiler.lang.psi.NapilePsiUtil;
+import org.napile.idea.plugin.util.IdePsiUtil;
+
+import javax.swing.*;
 
 /**
  * @author Nikolay Krasko
@@ -67,7 +67,7 @@ public class NapileClassPresenter implements ItemPresentationProvider<NapileClas
 			@Override
 			public Icon getIcon(boolean open)
 			{
-				return NapileIconProvider.INSTANCE.getIcon(item, Iconable.ICON_FLAG_VISIBILITY);
+				return IconDescriptorUpdaters.getIcon(item, Iconable.ICON_FLAG_VISIBILITY);
 			}
 		};
 	}

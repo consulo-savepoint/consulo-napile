@@ -3,10 +3,10 @@
 
 	<name>napile : Language Support</name>
 	<description>Napile language support</description>
-	<version>@snapshot@</version>
+	<version>1.0</version>
 	<vendor url="http://napile.org">napile.org</vendor>
+	<depends>com.intellij.xml</depends>
 	<depends config-file="com.intellij.copyright.xml" optional="true">com.intellij.copyright</depends>
-	<depends>org.consulo.java</depends>
 
 	<project-components>
 		<component>
@@ -119,7 +119,7 @@
 		<codeInsight.lineMarkerProvider language="NAPILE" implementationClass="org.napile.idea.plugin.editor.lineMarker.NewLineMarkerProvider"/>
 		<codeInsight.lineMarkerProvider language="NAPILE" implementationClass="org.napile.idea.plugin.editor.lineMarker.RecursiveLineMarkerProvider"/>
 		<codeInsight.lineMarkerProvider language="NAPILE" implementationClass="org.napile.idea.plugin.editor.lineMarker.MethodSeparatorLineMarkerProvider"/>
-		<iconProvider implementation="org.napile.idea.plugin.NapileIconProvider"/>
+		<iconDescriptorUpdater implementation="org.napile.idea.plugin.NapileIconProvider"/>
 		<colorProvider implementation="org.napile.idea.plugin.editor.lineMarker.NapileColorElementProvider"/>
 
 		<itemPresentationProvider implementationClass="org.napile.idea.plugin.editor.presentation.NapileMethodOrMacroPresenter" forClass="org.napile.compiler.lang.psi.NapileNamedMethodOrMacro"/>

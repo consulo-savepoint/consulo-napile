@@ -16,11 +16,13 @@
 
 package org.napile.idea.plugin;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.Icon;
-
+import com.intellij.icons.AllIcons;
+import com.intellij.ide.IconDescriptor;
+import com.intellij.ide.IconDescriptorUpdater;
+import com.intellij.openapi.util.IconLoader;
+import com.intellij.openapi.util.Iconable;
+import com.intellij.psi.PsiElement;
+import com.intellij.util.BitUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.napile.asm.lib.NapileAnnotationPackage;
@@ -28,33 +30,18 @@ import org.napile.asm.lib.NapileLangPackage;
 import org.napile.compiler.lang.descriptors.MethodDescriptor;
 import org.napile.compiler.lang.descriptors.MutableClassDescriptor;
 import org.napile.compiler.lang.lexer.NapileTokens;
-import org.napile.compiler.lang.psi.NapileCallParameterAsVariable;
-import org.napile.compiler.lang.psi.NapileClass;
-import org.napile.compiler.lang.psi.NapileConstructor;
-import org.napile.compiler.lang.psi.NapileFile;
-import org.napile.compiler.lang.psi.NapileModifierListOwner;
-import org.napile.compiler.lang.psi.NapileNamedMethodOrMacro;
-import org.napile.compiler.lang.psi.NapileTypeParameter;
-import org.napile.compiler.lang.psi.NapileVariable;
+import org.napile.compiler.lang.psi.*;
 import org.napile.compiler.lang.resolve.AnnotationUtils;
 import org.napile.compiler.lang.resolve.DescriptorUtils;
 import org.napile.compiler.util.RunUtil;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
-import com.intellij.ide.IconLayerProvider;
-import com.intellij.ide.IconProvider;
-import com.intellij.openapi.extensions.Extensions;
-import com.intellij.openapi.util.IconLoader;
-import com.intellij.openapi.util.Iconable;
-import com.intellij.psi.PsiElement;
-import com.intellij.ui.LayeredIcon;
-import com.intellij.ui.RowIcon;
-import com.intellij.util.BitUtil;
-import com.intellij.util.PlatformIcons;
+
+import javax.swing.*;
 
 /**
  * @author yole
  */
-public class NapileIconProvider extends IconProvider
+public class NapileIconProvider implements IconDescriptorUpdater
 {
 	public static final Icon FINAL_MARK_ICON = IconLoader.getIcon("/nodes/finalMark.png");
 	public static final Icon RUNNABLE_MARK = IconLoader.getIcon("/nodes/runnableMark.png");
@@ -62,7 +49,14 @@ public class NapileIconProvider extends IconProvider
 	public static NapileIconProvider INSTANCE = new NapileIconProvider();
 
 	@Override
-	public Icon getIcon(@NotNull PsiElement psiElement, int flags)
+	public void updateIcon(@NotNull IconDescriptor iconDescriptor, @NotNull PsiElement element, int flags) {
+		Icon icon = getIcon(element, iconDescriptor, flags);
+		if(icon != null) {
+			iconDescriptor.setMainIcon(icon);
+		}
+	}
+
+	private static Icon getIcon(@NotNull PsiElement psiElement, @NotNull IconDescriptor iconDescriptor,@NotNull int flags)
 	{
 		Icon icon = null;
 		boolean isRunnable = false;
@@ -71,14 +65,20 @@ public class NapileIconProvider extends IconProvider
 		{
 			NapileFile file = (NapileFile) psiElement;
 
-			icon = file.getDeclarations().length == 1 ? getIcon(file.getDeclarations()[0], flags) : NapileIcons.FILE;
+			icon = file.getDeclarations().length == 1 ? getIcon(file.getDeclarations()[0], iconDescriptor, flags) : NapileIcons.FILE;
 		}
 		else if(psiElement instanceof NapileNamedMethodOrMacro)
+		{
 			icon = NapileIcons.METHOD;
+		}
 		else if(psiElement instanceof NapileConstructor)
+		{
 			icon = NapileIcons.CONSTRUCTOR;
+		}
 		else if(psiElement instanceof NapileTypeParameter)
+		{
 			icon = NapileIcons.TYPE_PARAMETER;
+		}
 		else if(psiElement instanceof NapileClass)
 		{
 			NapileClass napileClass = (NapileClass) psiElement;
@@ -113,56 +113,48 @@ public class NapileIconProvider extends IconProvider
 			}
 		}
 		else if(psiElement instanceof NapileVariable || psiElement instanceof NapileCallParameterAsVariable)
+		{
 			icon = NapileIcons.VARIABLE;
-
-		return icon == null ? null : modifyIcon(psiElement instanceof NapileModifierListOwner ? ((NapileModifierListOwner) psiElement) : null, icon, flags, isRunnable);
-	}
-
-	public static Icon modifyIcon(@Nullable NapileModifierListOwner modifierList, Icon baseIcon, int flags, boolean isRunnable)
-	{
-		RowIcon icon = new RowIcon(2);
-
-		if(baseIcon != null)
-		{
-			boolean isFinal = modifierList != null && modifierList.hasModifier(NapileTokens.FINAL_KEYWORD);
-			boolean isLocked = false; //(flags & Iconable.ICON_FLAG_READ_STATUS) != 0;
-			if(isFinal || isRunnable || isLocked)
-			{
-				List<Icon> icons = new ArrayList<Icon>(2);
-				icons.add(baseIcon);
-				if(isFinal)
-					icons.add(FINAL_MARK_ICON);
-				if(isRunnable)
-					icons.add(RUNNABLE_MARK);
-
-				if(modifierList != null)
-					for(IconLayerProvider provider : Extensions.getExtensions(IconLayerProvider.EP_NAME))
-					{
-						final Icon layerIcon = provider.getLayerIcon(modifierList, isLocked);
-						if(layerIcon != null)
-						{
-							icons.add(layerIcon);
-						}
-					}
-
-				icon.setIcon(new LayeredIcon(icons.toArray(new Icon[icons.size()])), 0);
-			}
-			else
-				icon.setIcon(baseIcon, 0);
 		}
 
-		if(modifierList != null && BitUtil.isSet(flags, Iconable.ICON_FLAG_VISIBILITY))
-		{
-			if(modifierList.hasModifier(NapileTokens.LOCAL_KEYWORD))
-				icon.setIcon(PlatformIcons.PRIVATE_ICON, 1);
-			else if(modifierList.hasModifier(NapileTokens.COVERED_KEYWORD))
-				icon.setIcon(PlatformIcons.PROTECTED_ICON, 1);
-			else if(modifierList.hasModifier(NapileTokens.HERITABLE_KEYWORD))
-				icon.setIcon(NapileIcons.C_HERITABLE, 1);
-			else
-				icon.setIcon(PlatformIcons.PUBLIC_ICON, 1);
-		}
+		modifyIcon(psiElement instanceof NapileModifierListOwner ? ((NapileModifierListOwner) psiElement) : null, iconDescriptor, flags, isRunnable);
 
 		return icon;
+	}
+
+	private static void modifyIcon(@Nullable NapileModifierListOwner modifierList, IconDescriptor descriptor, int flags, boolean isRunnable)
+	{
+		if(modifierList != null)
+		{
+			if(modifierList.hasModifier(NapileTokens.FINAL_KEYWORD))
+			{
+				descriptor.addLayerIcon(AllIcons.Nodes.FinalMark);
+			}
+
+			if(isRunnable)
+			{
+				descriptor.addLayerIcon(AllIcons.Nodes.RunnableMark);
+			}
+
+			if(BitUtil.isSet(flags, Iconable.ICON_FLAG_VISIBILITY))
+			{
+				if(modifierList.hasModifier(NapileTokens.LOCAL_KEYWORD))
+				{
+					descriptor.setRightIcon(AllIcons.Nodes.C_private);
+				}
+				else if(modifierList.hasModifier(NapileTokens.COVERED_KEYWORD))
+				{
+					descriptor.setRightIcon(AllIcons.Nodes.C_protected);
+				}
+				else if(modifierList.hasModifier(NapileTokens.HERITABLE_KEYWORD))
+				{
+					descriptor.setRightIcon(NapileIcons.C_HERITABLE);
+				}
+				else
+				{
+					descriptor.setRightIcon(AllIcons.Nodes.C_public);
+				}
+			}
+		}
 	}
 }
