@@ -1,18 +1,22 @@
 package org.napile.idea.plugin.module.extension;
 
-import javax.swing.JComponent;
-
-import org.consulo.module.extension.MutableModuleExtension;
+import com.intellij.openapi.module.Module;
+import com.intellij.openapi.projectRoots.Sdk;
+import com.intellij.openapi.roots.ModifiableRootModel;
+import org.consulo.module.extension.MutableModuleExtensionWithSdk;
+import org.consulo.module.extension.MutableModuleInheritableNamedPointer;
+import org.consulo.module.extension.ui.ModuleExtensionWithSdkPanel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.roots.ModifiableRootModel;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * @author VISTALL
  * @since 12:24/27.05.13
  */
-public class NapileMutableModuleExtension extends NapileModuleExtension implements MutableModuleExtension<NapileModuleExtension>
+public class NapileMutableModuleExtension extends NapileModuleExtension implements MutableModuleExtensionWithSdk<NapileModuleExtension>
 {
 	@NotNull
 	private final NapileModuleExtension moduleExtension;
@@ -29,7 +33,16 @@ public class NapileMutableModuleExtension extends NapileModuleExtension implemen
 	@Override
 	public JComponent createConfigurablePanel(@NotNull ModifiableRootModel modifiableRootModel, @Nullable Runnable runnable)
 	{
-		return null;
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.add(new ModuleExtensionWithSdkPanel(this, runnable), BorderLayout.NORTH);
+		return panel;
+	}
+
+	@NotNull
+	@Override
+	public MutableModuleInheritableNamedPointer<Sdk> getInheritableSdk()
+	{
+		return (MutableModuleInheritableNamedPointer<Sdk>) super.getInheritableSdk();
 	}
 
 	@Override
@@ -41,7 +54,7 @@ public class NapileMutableModuleExtension extends NapileModuleExtension implemen
 	@Override
 	public boolean isModified()
 	{
-		return myIsEnabled != moduleExtension.isEnabled();
+		return isModifiedImpl(moduleExtension);
 	}
 
 	@Override
