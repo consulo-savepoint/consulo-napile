@@ -1,18 +1,14 @@
 package org.napile.idea.plugin.psi.impl;
 
-import java.util.Collection;
-import java.util.Collections;
-
+import com.intellij.lang.Language;
+import com.intellij.psi.PsiManager;
+import com.intellij.psi.impl.file.PsiPackageBase;
+import com.intellij.util.ArrayFactory;
 import org.consulo.module.extension.ModuleExtension;
 import org.consulo.psi.PsiPackage;
 import org.consulo.psi.PsiPackageManager;
 import org.jetbrains.annotations.NotNull;
 import org.napile.compiler.lang.NapileLanguage;
-import com.intellij.lang.Language;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.impl.file.PsiPackageBase;
-import com.intellij.util.ArrayFactory;
 
 /**
  * @author VISTALL
@@ -34,12 +30,6 @@ public class NapilePackage extends PsiPackageBase
 	public NapilePackage(PsiManager manager, PsiPackageManager packageManager, Class<? extends ModuleExtension> extensionClass, String qualifiedName)
 	{
 		super(manager, packageManager, extensionClass, qualifiedName);
-	}
-
-	@Override
-	protected Collection<PsiDirectory> getAllDirectories()
-	{
-		return Collections.emptyList();
 	}
 
 	@Override
