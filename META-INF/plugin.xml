@@ -4,6 +4,7 @@
 	<name>napile : Language Support</name>
 	<description>Napile language support</description>
 	<version>1.0</version>
+	<category>Custom Languages</category>
 	<vendor url="http://napile.org">napile.org</vendor>
 	<depends>com.intellij.xml</depends>
 	<depends config-file="com.intellij.copyright.xml" optional="true">com.intellij.copyright</depends>
