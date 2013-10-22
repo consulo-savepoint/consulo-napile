@@ -10,6 +10,7 @@
               <element id="dir-copy" path="$PROJECT_DIR$/META-INF" />
             </element>
             <element id="module-output" name="injection.api" />
+            <element id="module-production-resource-output" name="consulo-napile" />
           </element>
           <element id="file-copy" path="$PROJECT_DIR$/lib/dom4j2.0dev.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/lib/java2napile.runtime-0.1.jar" />

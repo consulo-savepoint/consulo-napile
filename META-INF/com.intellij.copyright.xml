@@ -1,5 +1,0 @@
-<idea-plugin version="2">
-	<extensions defaultExtensionNs="com.intellij.copyright">
-		<updater filetype="Napile" implementationClass="org.napile.idea.plugin.editor.copyright.UpdateNapileCopyrightsProvider"/>
-	</extensions>
-</idea-plugin>

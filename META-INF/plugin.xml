@@ -7,7 +7,6 @@
 	<category>Custom Languages</category>
 	<vendor url="http://napile.org">napile.org</vendor>
 	<depends>com.intellij.xml</depends>
-	<depends config-file="com.intellij.copyright.xml" optional="true">com.intellij.copyright</depends>
 
 	<project-components>
 		<component>
