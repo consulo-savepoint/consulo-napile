@@ -36,13 +36,13 @@ import org.napile.compiler.codegen.Progress;
 import org.napile.idea.plugin.codeInsight.toolWindow.EditorLocation;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
 import org.napile.idea.plugin.util.LongRunningReadTask;
-import com.intellij.ide.highlighter.XmlFileType;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.Result;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.fileEditor.FileEditorManager;
+import com.intellij.openapi.fileTypes.FileTypeManager;
 import com.intellij.openapi.progress.ProcessCanceledException;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.Alarm;
@@ -180,7 +180,7 @@ public class BytecodeToolwindow extends JPanel implements Disposable
 	{
 		super(new BorderLayout());
 		myProject = project;
-		myEditor = EditorFactory.getInstance().createEditor(EditorFactory.getInstance().createDocument(""), project, XmlFileType.INSTANCE, true);
+		myEditor = EditorFactory.getInstance().createEditor(EditorFactory.getInstance().createDocument(""), project, FileTypeManager.getInstance().getStdFileType("XML"), true);
 		add(myEditor.getComponent());
 
 		myUpdateAlarm = new Alarm(Alarm.ThreadToUse.SWING_THREAD, this);
