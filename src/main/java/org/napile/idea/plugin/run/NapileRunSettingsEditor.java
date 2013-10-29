@@ -27,10 +27,6 @@ import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.roots.ui.configuration.ProjectStructureConfigurable;
-import com.intellij.openapi.roots.ui.configuration.SdkComboBox;
-import com.intellij.openapi.roots.ui.configuration.projectRoot.ProjectSdksModel;
 
 /**
  * @author VISTALL
@@ -55,10 +51,8 @@ public class NapileRunSettingsEditor extends SettingsEditor<NapileRunConfigurati
 	}
 
 	private JPanel rootPanel;
-	private SdkComboBox jdkComboBox;
 	private JComboBox moduleList;
 	private JTextField mainClassField;
-	private JTextField napileJvmField;
 
 	private final Project project;
 
@@ -68,7 +62,9 @@ public class NapileRunSettingsEditor extends SettingsEditor<NapileRunConfigurati
 
 		ModuleManager moduleManager = ModuleManager.getInstance(project);
 		for(Module m : moduleManager.getModules())
+		{
 			moduleList.addItem(new ModuleItem(m));
+		}
 
 		/*mainClassField.addActionListener(new ActionListener()
 		{
@@ -87,12 +83,8 @@ public class NapileRunSettingsEditor extends SettingsEditor<NapileRunConfigurati
 
 	private void createUIComponents()
 	{
-		final ProjectSdksModel projectJdksModel = ProjectStructureConfigurable.getInstance(project).getProjectSdksModel();
-		if(!projectJdksModel.isInitialized())
-			projectJdksModel.reset(project);
-
-		jdkComboBox = new SdkComboBox(projectJdksModel);
 	}
+
 	@Override
 	protected void resetEditorFrom(NapileRunConfiguration napileRunConfiguration)
 	{
@@ -113,9 +105,7 @@ public class NapileRunSettingsEditor extends SettingsEditor<NapileRunConfigurati
 				}
 		}
 
-		napileJvmField.setText(napileRunConfiguration.napileJvm);
 		mainClassField.setText(napileRunConfiguration.mainClass);
-		jdkComboBox.setSelectedSdk(napileRunConfiguration.jdkName);
 	}
 
 	@Override
@@ -123,15 +113,11 @@ public class NapileRunSettingsEditor extends SettingsEditor<NapileRunConfigurati
 	{
 		ModuleItem moduleItem = (ModuleItem) moduleList.getSelectedItem();
 		if(moduleItem != null)
+		{
 			napileRunConfiguration.setModule(moduleItem.module);
+		}
 
 		napileRunConfiguration.mainClass = mainClassField.getText().trim();
-		napileRunConfiguration.napileJvm = napileJvmField.getText().trim();
-		Sdk jdk = jdkComboBox.getSelectedSdk();
-		if(jdk != null)
-		{
-			napileRunConfiguration.jdkName = jdk.getName();
-		}
 	}
 
 	@NotNull

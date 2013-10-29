@@ -16,10 +16,16 @@
 
 package org.napile.idea.plugin.run;
 
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.jdom.Element;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
+import com.intellij.execution.configuration.AbstractRunConfiguration;
 import com.intellij.execution.configurations.ConfigurationFactory;
-import com.intellij.execution.configurations.ModuleBasedConfiguration;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.execution.configurations.RunProfileState;
 import com.intellij.execution.filters.TextConsoleBuilder;
@@ -29,33 +35,24 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.projectRoots.SdkTable;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
 import com.intellij.util.xmlb.XmlSerializer;
-import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 /**
  * @author VISTALL
  * @since 20:30/22.09.12
  */
-public class NapileRunConfiguration extends ModuleBasedConfiguration<NapileRunConfigurationModule>
+public class NapileRunConfiguration extends AbstractRunConfiguration
 {
 	public String mainClass;
-	public String jdkName;
-	public String napileJvm = "C:/napile.jvm/*;";
 
-	public NapileRunConfiguration(Project project, String name, ConfigurationFactory f)
+	public NapileRunConfiguration(Project project, ConfigurationFactory f)
 	{
-		super(name, new NapileRunConfigurationModule(project), f);
+		super(project, f);
 	}
 
+	@NotNull
 	@Override
 	public SettingsEditor<? extends RunConfiguration> getConfigurationEditor()
 	{
@@ -67,12 +64,6 @@ public class NapileRunConfiguration extends ModuleBasedConfiguration<NapileRunCo
 	{
 		Module[] modules = ModuleManager.getInstance(getProject()).getModules();
 		return Arrays.asList(modules);
-	}
-
-	@Override
-	protected ModuleBasedConfiguration createInstance()
-	{
-		return new NapileRunConfiguration(getProject(), getName(), getFactory());
 	}
 
 	@Nullable
@@ -107,9 +98,4 @@ public class NapileRunConfiguration extends ModuleBasedConfiguration<NapileRunCo
 		XmlSerializer.serializeInto(this, element);
 	}
 
-	@Nullable
-	public Sdk findSdk()
-	{
-		return SdkTable.getInstance().findSdk(jdkName);
-	}
 }

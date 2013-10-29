@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact name="dist">
+  <artifact build-on-make="true" name="dist">
     <output-path>$PROJECT_DIR$/out/artifacts/dist</output-path>
     <root id="root">
       <element id="directory" name="napile">
@@ -12,17 +12,6 @@
             <element id="module-output" name="injection.api" />
             <element id="module-production-resource-output" name="consulo-napile" />
           </element>
-          <element id="file-copy" path="$PROJECT_DIR$/lib/dom4j2.0dev.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/lib/java2napile.runtime-0.1.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/lib/javax.inject.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/lib/napile.asm-0.3.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/lib/napile.compiler-core.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/lib/napile.injection.protobuf.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/lib/napile.injection.regexp.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/lib/napile.injection.text.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/lib/parboiled-core-1.1.4.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/lib/parboiled-java-1.1.4.jar" />
-          <element id="file-copy" path="$PROJECT_DIR$/lib/pegdown-1.2.1.jar" />
           <element id="zip-archive" name="injection.protobuf.jar">
             <element id="module-output" name="injection.protobuf" />
           </element>
@@ -32,7 +21,7 @@
           <element id="zip-archive" name="injection.text.jar">
             <element id="module-output" name="injection.text" />
           </element>
-          <element id="file-copy" path="$PROJECT_DIR$/lib/asm-all-4.1.jar" />
+          <element id="dir-copy" path="$PROJECT_DIR$/lib" />
         </element>
       </element>
     </root>

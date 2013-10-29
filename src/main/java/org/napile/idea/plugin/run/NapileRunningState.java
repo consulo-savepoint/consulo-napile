@@ -16,20 +16,29 @@
 
 package org.napile.idea.plugin.run;
 
+import java.io.File;
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.napile.compiler.lang.psi.NapileClass;
+import org.napile.idea.plugin.caches.NapileClassResolver;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.configurations.CommandLineState;
 import com.intellij.execution.configurations.SimpleJavaParameters;
 import com.intellij.execution.process.OSProcessHandler;
 import com.intellij.execution.runners.ExecutionEnvironment;
+import com.intellij.ide.plugins.IdeaPluginDescriptorImpl;
+import com.intellij.ide.plugins.PluginManager;
+import com.intellij.openapi.application.PathManager;
 import com.intellij.openapi.compiler.CompilerPaths;
+import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.projectRoots.Sdk;
+import com.intellij.openapi.projectRoots.SimpleJavaSdkType;
 import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.search.GlobalSearchScope;
-import org.jetbrains.annotations.NotNull;
-import org.napile.compiler.lang.psi.NapileClass;
-import org.napile.idea.plugin.caches.NapileClassResolver;
+import com.intellij.util.SystemProperties;
+import com.intellij.util.containers.ContainerUtilRt;
 
 /**
  * @author VISTALL
@@ -48,18 +57,23 @@ public class NapileRunningState extends CommandLineState
 	{
 		NapileRunConfiguration configuration = (NapileRunConfiguration) getEnvironment().getRunProfile();
 
-		final Sdk sdk = configuration.findSdk();
-		if(sdk == null)
+		final SimpleJavaParameters parameters = new SimpleJavaParameters();
+		parameters.setJdk(new SimpleJavaSdkType().createJdk("tmp", SystemProperties.getJavaHome()));
+		parameters.setWorkingDirectory(PathManager.getBinPath());
+		parameters.setMainClass("org.napile.vm.Main");
+
+		PluginId id = PluginId.getId("org.napile.idea.lang");
+		IdeaPluginDescriptorImpl plugin = (IdeaPluginDescriptorImpl) PluginManager.getPlugin(id);
+		assert plugin != null;
+
+		final List<String> classPath = ContainerUtilRt.newArrayList();
+		classPath.addAll(PathManager.getUtilClassPath());
+		for(File file : plugin.getClassPath())
 		{
-			throw new ExecutionException("Cant find java.exe");
+			classPath.add(file.getAbsolutePath());
 		}
 
-		SimpleJavaParameters parameters = new SimpleJavaParameters();
-
-		parameters.setJdk(sdk);
-		parameters.setMainClass("org.napile.vm.Main");
-		parameters.getVMParametersList().add("-classpath");
-		parameters.getVMParametersList().add(configuration.napileJvm);
+		parameters.getClassPath().addAll(classPath);
 
 		final Module module = configuration.getConfigurationModule().getModule();
 		NapileClass[] classesByName = NapileClassResolver.getInstance(configuration.getProject()).getClassesByFqName(configuration.mainClass, GlobalSearchScope.moduleWithDependenciesScope(module));

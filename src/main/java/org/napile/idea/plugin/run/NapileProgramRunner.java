@@ -59,6 +59,6 @@ public class NapileProgramRunner extends DefaultProgramRunner
 			return false;
 		}
 
-		return runConfiguration.getConfigurationModule().getModule() != null && runConfiguration.findSdk() != null;
+		return runConfiguration.getConfigurationModule().getModule() != null;
 	}
 }

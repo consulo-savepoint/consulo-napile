@@ -27,9 +27,6 @@ import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.projectRoots.SdkTable;
-import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.util.containers.ContainerUtil;
 
 /**
@@ -53,40 +50,7 @@ public class NapileConfigurationType implements ConfigurationType
 			@Override
 			public RunConfiguration createTemplateConfiguration(Project project)
 			{
-				return new NapileRunConfiguration(project, getName(), this);
-			}
-
-			@Override
-			public void onNewConfigurationCreated(@NotNull RunConfiguration configuration)
-			{
-				SdkType javaSdkType = null;
-				for(SdkType sdkType : SdkType.EP_NAME.getExtensions())
-				{
-					if(sdkType.getName().equals("JDK"))
-					{
-						javaSdkType = sdkType;
-						break;
-					}
-				}
-
-				// if no java plugin - dont add it
-				if(javaSdkType == null)
-				{
-					return;
-				}
-
-				Sdk sdk = SdkTable.getInstance().findBundleSdkByType(javaSdkType.getClass());
-				if(sdk == null)
-				{
-					sdk = SdkTable.getInstance().findMostRecentSdkOfType(javaSdkType);
-				}
-
-				if(sdk == null)
-				{
-					return;
-				}
-
-				((NapileRunConfiguration) configuration).jdkName = sdk.getName();
+				return new NapileRunConfiguration(project, this);
 			}
 		};
 	}

@@ -16,7 +16,6 @@
 
 package org.napile.idea.plugin.run;
 
-import org.jetbrains.annotations.Nullable;
 import org.napile.asm.resolve.name.FqName;
 import org.napile.compiler.analyzer.AnalyzeExhaust;
 import org.napile.compiler.lang.descriptors.MutableClassDescriptor;
@@ -28,61 +27,42 @@ import org.napile.compiler.lang.resolve.BindingTraceKeys;
 import org.napile.compiler.lang.resolve.DescriptorUtils;
 import org.napile.compiler.util.RunUtil;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
-import com.intellij.execution.Location;
-import com.intellij.execution.RunnerAndConfigurationSettings;
 import com.intellij.execution.actions.ConfigurationContext;
-import com.intellij.execution.junit.RuntimeConfigurationProducer;
+import com.intellij.execution.actions.RunConfigurationProducer;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtilCore;
+import com.intellij.openapi.util.Comparing;
+import com.intellij.openapi.util.Ref;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.util.PsiTreeUtil;
 
 /**
  * @author VISTALL
  * @since 13:22/08.01.13
  */
-public class NapileConfigurationProducer extends RuntimeConfigurationProducer implements Cloneable
+public class NapileConfigurationProducer extends RunConfigurationProducer<NapileRunConfiguration>
 {
-	private PsiElement element;
-
 	public NapileConfigurationProducer()
 	{
 		super(NapileConfigurationType.getInstance());
 	}
 
 	@Override
-	public PsiElement getSourceElement()
+	protected boolean setupConfigurationFromContext(NapileRunConfiguration runConfiguration, ConfigurationContext configurationContext, Ref<PsiElement> psiElementRef)
 	{
-		return element;
-	}
-
-	@Nullable
-	@Override
-	protected RunnerAndConfigurationSettings createConfigurationByElement(Location location, ConfigurationContext context)
-	{
-		PsiElement element = location.getPsiElement();
-		NapileClass napileClass = null;
-		AnalyzeExhaust analyzeExhaust = null;
-
-		if(element instanceof NapileFile)
+		NapileClass napileClass = findClass(psiElementRef.get());
+		if(napileClass == null)
 		{
-			analyzeExhaust = ModuleAnalyzerUtil.lastAnalyze((NapileFile) element);
-
-			if(((NapileFile) element).getDeclarations().length == 0)
-				return null;
-
-			napileClass = ((NapileFile) element).getDeclarations()[0];
+			return false;
 		}
-		else if(element instanceof NapileClass)
-		{
-			napileClass = (NapileClass) element;
-			analyzeExhaust = ModuleAnalyzerUtil.lastAnalyze(((NapileClass) element).getContainingFile());
-		}
-		else
-			return null;
+
+		AnalyzeExhaust analyzeExhaust = ModuleAnalyzerUtil.lastAnalyze(napileClass.getContainingFile());
 
 		MutableClassDescriptor descriptor = (MutableClassDescriptor) analyzeExhaust.getBindingTrace().get(BindingTraceKeys.CLASS, napileClass);
 		if(descriptor == null)
-			return null;
+		{
+			return false;
+		}
 
 		NapileDeclaration mainMethod = null;
 		for(NapileDeclaration inner : napileClass.getDeclarations())
@@ -97,30 +77,81 @@ public class NapileConfigurationProducer extends RuntimeConfigurationProducer im
 
 		if(mainMethod != null)
 		{
-			this.element = mainMethod;
-
 			Module module = mainMethod.isValid() ? ModuleUtilCore.findModuleForPsiElement(mainMethod) : null;
 			if(module == null)
-				return null;
+			{
+				return false;
+			}
 
 			FqName fqName = DescriptorUtils.getFQName(descriptor).toSafe();
 
-			RunnerAndConfigurationSettings settings = cloneTemplateConfiguration(location.getProject(), context);
-			NapileRunConfiguration configuration = (NapileRunConfiguration) settings.getConfiguration();
-			configuration.setModule(module);
-			configuration.setName(fqName.getFqName());
-			configuration.mainClass = fqName.getFqName();
-			configuration.jdkName = "";
+			runConfiguration.setModule(module);
+			runConfiguration.setName(fqName.getFqName());
+			runConfiguration.mainClass = fqName.getFqName();
 
-			return settings;
+			psiElementRef.set(napileClass);
+			return true;
 		}
 
-		return null;
+		return false;
 	}
 
 	@Override
-	public int compareTo(Object o)
+	public boolean isConfigurationFromContext(NapileRunConfiguration appConfiguration, ConfigurationContext context)
 	{
-		return PREFERED;
+		NapileClass psiLocation = findClass(context.getPsiLocation());
+		if(psiLocation != null)
+		{
+			if(psiLocation.getFqName().toString().equals(appConfiguration.mainClass))
+			{
+				final Module configurationModule = appConfiguration.getConfigurationModule().getModule();
+				if(Comparing.equal(context.getModule(), configurationModule))
+				{
+					return true;
+				}
+
+				NapileRunConfiguration template = (NapileRunConfiguration) context.getRunManager().getConfigurationTemplate(getConfigurationFactory()).getConfiguration();
+				final Module predefinedModule = template.getConfigurationModule().getModule();
+				if(Comparing.equal(predefinedModule, configurationModule))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	private NapileClass findClass(PsiElement element)
+	{
+		if(element == null)
+		{
+			return null;
+		}
+		NapileClass napileClass;
+		if(element instanceof NapileFile)
+		{
+			if(((NapileFile) element).getDeclarations().length == 0)
+			{
+				return null;
+			}
+
+			napileClass = ((NapileFile) element).getDeclarations()[0];
+		}
+		else if(element instanceof NapileClass)
+		{
+			return (NapileClass) element;
+		}
+		else
+		{
+			NapileClass clazz = PsiTreeUtil.getParentOfType(element, NapileClass.class);
+			if(clazz == null)
+			{
+				return null;
+			}
+			napileClass = clazz;
+		}
+
+		return napileClass;
 	}
 }
