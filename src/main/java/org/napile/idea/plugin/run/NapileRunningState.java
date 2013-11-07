@@ -20,6 +20,7 @@ import java.io.File;
 import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
+import org.mustbe.consulo.compiler.roots.CompilerPathsImpl;
 import org.napile.compiler.lang.psi.NapileClass;
 import org.napile.idea.plugin.caches.NapileClassResolver;
 import com.intellij.execution.ExecutionException;
@@ -30,7 +31,6 @@ import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.ide.plugins.IdeaPluginDescriptorImpl;
 import com.intellij.ide.plugins.PluginManager;
 import com.intellij.openapi.application.PathManager;
-import com.intellij.openapi.compiler.CompilerPaths;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.projectRoots.SimpleJavaSdkType;
@@ -84,7 +84,7 @@ public class NapileRunningState extends CommandLineState
 
 		ModuleRootManager moduleRootManager = ModuleRootManager.getInstance(module);
 
-		VirtualFile outpath = CompilerPaths.getModuleOutputDirectory(configuration.getConfigurationModule().getModule(),  moduleRootManager.getFileIndex().isInTestSourceContent(classesByName[0].getContainingFile().getVirtualFile()));
+		VirtualFile outpath = CompilerPathsImpl.getModuleOutputDirectory(configuration.getConfigurationModule().getModule(), moduleRootManager.getFileIndex().isInTestSourceContent(classesByName[0].getContainingFile().getVirtualFile()));
 		if(outpath == null)
 		{
 			throw new ExecutionException("Cant find module output");
