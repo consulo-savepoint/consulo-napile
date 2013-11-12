@@ -18,6 +18,7 @@ package org.napile.idea.plugin.run;
 
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.roots.LibraryOrderEntry;
+import com.intellij.openapi.roots.ModuleExtensionWithSdkOrderEntry;
 import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.roots.OrderEntry;
 import com.intellij.openapi.roots.OrderRootType;
@@ -40,6 +41,17 @@ public class NapileClasspathCollector extends RootPolicy<Object>
 		{
 			orderEntry.accept(this, null);
 		}
+	}
+
+	@Override
+	public Object visitModuleJdkOrderEntry(ModuleExtensionWithSdkOrderEntry jdkOrderEntry, Object value)
+	{
+		for(VirtualFile v : jdkOrderEntry.getFiles(OrderRootType.CLASSES))
+		{
+			builder.append(FileUtil.toSystemIndependentName(v.getPresentableUrl())).append(";");
+		}
+
+		return null;
 	}
 
 	@Override

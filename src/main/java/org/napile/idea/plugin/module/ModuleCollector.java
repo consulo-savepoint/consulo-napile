@@ -24,21 +24,15 @@ import org.napile.compiler.NapileFileType;
 import org.napile.compiler.analyzer.AnalyzeContext;
 import org.napile.compiler.lang.psi.NapileFile;
 import org.napile.idea.plugin.module.extension.NapileModuleExtension;
+import org.napile.idea.plugin.sdk.NapileSdkType;
 import com.google.common.collect.Sets;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.fileTypes.FileTypeManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ContentIterator;
-import com.intellij.openapi.roots.LibraryOrderEntry;
-import com.intellij.openapi.roots.ModuleFileIndex;
-import com.intellij.openapi.roots.ModuleOrderEntry;
-import com.intellij.openapi.roots.ModuleRootManager;
-import com.intellij.openapi.roots.ModuleSourceOrderEntry;
-import com.intellij.openapi.roots.OrderEntry;
-import com.intellij.openapi.roots.OrderRootType;
-import com.intellij.openapi.roots.RootPolicy;
+import com.intellij.openapi.projectRoots.Sdk;
+import com.intellij.openapi.roots.*;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
@@ -65,13 +59,24 @@ public class ModuleCollector
 				@Override
 				public Object visitLibraryOrderEntry(LibraryOrderEntry libraryOrderEntry, Object value)
 				{
-					for(VirtualFile v : libraryOrderEntry.getFiles(OrderRootType.CLASSES))
+					for(VirtualFile v : libraryOrderEntry.getFiles(OrderRootType.SOURCES))
 					{
-						String name = v.getName();
-						if(name.equals("napile.lang.nzip"))   //TODO [VISTALL] hardcode
-							bootpath.add(v);
-						else
-							classpath.add(v);
+						classpath.add(v);
+					}
+					return null;
+				}
+
+				@Override
+				public Object visitModuleJdkOrderEntry(ModuleExtensionWithSdkOrderEntry sdkOrderEntry, Object value)
+				{
+					Sdk sdk = sdkOrderEntry.getSdk();
+					if(sdk != null && sdk.getSdkType() instanceof NapileSdkType)
+					{
+						VirtualFile lib = sdk.getHomeDirectory().findChild("lib");
+						if(lib != null)
+						{
+							bootpath.add(lib);
+						}
 					}
 					return null;
 				}

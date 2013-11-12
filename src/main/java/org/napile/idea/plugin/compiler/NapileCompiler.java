@@ -63,7 +63,9 @@ public class NapileCompiler implements TranslatingCompiler
 	public boolean isCompilableFile(VirtualFile virtualFile, CompileContext compileContext)
 	{
 		if(!(virtualFile.getFileType() instanceof NapileFileType))
+		{
 			return false;
+		}
 
 		return true;
 	}
@@ -90,7 +92,9 @@ public class NapileCompiler implements TranslatingCompiler
 	public void compile(final CompileContext compileContext, Chunk<Module> moduleChunk, final VirtualFile[] virtualFiles, OutputSink outputSink)
 	{
 		if(virtualFiles.length == 0)
+		{
 			return;
+		}
 
 		final Set<Module> productionModules = new HashSet<Module>();
 		final Set<Module> testModules = new HashSet<Module>();
@@ -98,13 +102,19 @@ public class NapileCompiler implements TranslatingCompiler
 		{
 			final Module moduleForFile = ModuleUtil.findModuleForFile(file, compileContext.getProject());
 			if(moduleForFile == null)
+			{
 				continue;
+			}
 
 			final boolean inTests = ((CompileContextEx) compileContext).isInTestSourceContent(file);
 			if(inTests)
+			{
 				testModules.add(moduleForFile);
+			}
 			else
+			{
 				productionModules.add(moduleForFile);
+			}
 		}
 
 		@Deprecated
@@ -189,13 +199,17 @@ public class NapileCompiler implements TranslatingCompiler
 
 		AnalyzeExhaust analyzeExhaust = analyzerWithCompilerReport.hasErrors() ? null : analyzerWithCompilerReport.getAnalyzeExhaust();
 		if(analyzeExhaust == null)
+		{
 			return;
+		}
 
 		GenerationState generationState = new GenerationState(compileContext.getProject(), Progress.DEAF, analyzeExhaust, context.getFiles());
 		generationState.compileAndGenerate(CompilationErrorHandler.THROW_EXCEPTION);
 
 		AsmXmlFileWriter writer = new AsmXmlFileWriter(new File(outDir.getPath()));
 		for(ClassNode classNode : generationState.getClassNodes().values())
+		{
 			writer.write(LangVersion.CURRENT, classNode);
+		}
 	}
 }
