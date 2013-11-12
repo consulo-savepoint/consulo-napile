@@ -20,6 +20,8 @@ import javax.swing.Icon;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.mustbe.consulo.module.extension.ModuleExtensionHelper;
+import org.napile.idea.plugin.module.extension.NapileModuleExtension;
 import com.intellij.execution.configuration.ConfigurationFactoryEx;
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.ConfigurationType;
@@ -51,6 +53,12 @@ public class NapileConfigurationType implements ConfigurationType
 			public RunConfiguration createTemplateConfiguration(Project project)
 			{
 				return new NapileRunConfiguration(project, this);
+			}
+
+			@Override
+			public boolean isApplicable(@NotNull Project project)
+			{
+				return ModuleExtensionHelper.getInstance(project).hasModuleExtension(NapileModuleExtension.class);
 			}
 		};
 	}
