@@ -30,13 +30,6 @@ public class NapileModuleExtensionProvider implements ModuleExtensionProvider<Na
 
 	@NotNull
 	@Override
-	public Class<NapileModuleExtension> getImmutableClass()
-	{
-		return NapileModuleExtension.class;
-	}
-
-	@NotNull
-	@Override
 	public NapileModuleExtension createImmutable(@NotNull String s, @NotNull Module module)
 	{
 		return new NapileModuleExtension(s, module);

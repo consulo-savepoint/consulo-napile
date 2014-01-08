@@ -3,8 +3,8 @@
   <component name="ModuleManager">
     <modules>
       <module name="consulo-napile" dirurl="file://$PROJECT_DIR$">
-        <extension id="java" sdk-module-name="" sdk-name="1.6" language-level-module-name="" language-level-name="JDK_1_6" special-dir-location="MODULE_DIR" />
         <extension id="consulo-plugin" sdk-module-name="" sdk-name="Consulo 1.SNAPSHOT" />
+        <extension id="java" sdk-module-name="" sdk-name="1.6" language-level-module-name="" language-level-name="JDK_1_6" special-dir-location="MODULE_DIR" />
         <content url="file://$MODULE_DIR$">
           <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src/main/java" />
           <content-folder type="PRODUCTION_RESOURCE" url="file://$MODULE_DIR$/rsc/main/java" />
@@ -16,8 +16,8 @@
         <orderEntry type="library" name="napile.compiler-core" level="project" />
       </module>
       <module name="injection.api" dirurl="file://$PROJECT_DIR$/injection/injection.api">
-        <extension id="java" sdk-module-name="consulo-napile" sdk-name="" language-level-module-name="consulo-napile" language-level-name="" special-dir-location="MODULE_DIR" />
         <extension id="consulo-plugin" sdk-module-name="consulo-napile" sdk-name="" />
+        <extension id="java" sdk-module-name="consulo-napile" sdk-name="" language-level-module-name="consulo-napile" language-level-name="" special-dir-location="MODULE_DIR" />
         <content url="file://$MODULE_DIR$">
           <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src/main/java" />
         </content>
@@ -27,8 +27,8 @@
         <orderEntry type="library" exploded="" name="napile.compiler-core" level="project" />
       </module>
       <module name="injection.protobuf" dirurl="file://$PROJECT_DIR$/injection/injection.protobuf">
-        <extension id="java" sdk-module-name="consulo-napile" sdk-name="" language-level-module-name="consulo-napile" language-level-name="" special-dir-location="MODULE_DIR" />
         <extension id="consulo-plugin" sdk-module-name="consulo-napile" sdk-name="" />
+        <extension id="java" sdk-module-name="consulo-napile" sdk-name="" language-level-module-name="consulo-napile" language-level-name="" special-dir-location="MODULE_DIR" />
         <content url="file://$MODULE_DIR$">
           <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src/main/java" />
         </content>
@@ -38,8 +38,8 @@
         <orderEntry type="module" module-name="injection.api" />
       </module>
       <module name="injection.regexp" dirurl="file://$PROJECT_DIR$/injection/injection.regexp">
-        <extension id="java" sdk-module-name="consulo-napile" sdk-name="" language-level-module-name="consulo-napile" language-level-name="" special-dir-location="MODULE_DIR" />
         <extension id="consulo-plugin" sdk-module-name="consulo-napile" sdk-name="" />
+        <extension id="java" sdk-module-name="consulo-napile" sdk-name="" language-level-module-name="consulo-napile" language-level-name="" special-dir-location="MODULE_DIR" />
         <content url="file://$MODULE_DIR$">
           <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src/main/java" />
         </content>
@@ -49,8 +49,8 @@
         <orderEntry type="module" module-name="injection.api" />
       </module>
       <module name="injection.text" dirurl="file://$PROJECT_DIR$/injection/injection.text">
-        <extension id="java" sdk-module-name="consulo-napile" sdk-name="" language-level-module-name="consulo-napile" language-level-name="" special-dir-location="MODULE_DIR" />
         <extension id="consulo-plugin" sdk-module-name="consulo-napile" sdk-name="Consulo 1.SNAPSHOT" />
+        <extension id="java" sdk-module-name="consulo-napile" sdk-name="" language-level-module-name="consulo-napile" language-level-name="" special-dir-location="MODULE_DIR" />
         <content url="file://$MODULE_DIR$">
           <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src/main/java" />
         </content>
