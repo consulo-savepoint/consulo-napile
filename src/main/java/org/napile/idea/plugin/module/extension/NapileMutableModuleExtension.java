@@ -1,16 +1,15 @@
 package org.napile.idea.plugin.module.extension;
 
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.roots.ModifiableRootModel;
+import javax.swing.JComponent;
+
 import org.consulo.module.extension.MutableModuleExtensionWithSdk;
 import org.consulo.module.extension.MutableModuleInheritableNamedPointer;
 import org.consulo.module.extension.ui.ModuleExtensionWithSdkPanel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import java.awt.*;
+import com.intellij.openapi.module.Module;
+import com.intellij.openapi.projectRoots.Sdk;
+import com.intellij.openapi.roots.ModifiableRootModel;
 
 /**
  * @author VISTALL
@@ -18,24 +17,16 @@ import java.awt.*;
  */
 public class NapileMutableModuleExtension extends NapileModuleExtension implements MutableModuleExtensionWithSdk<NapileModuleExtension>
 {
-	@NotNull
-	private final NapileModuleExtension moduleExtension;
-
-	public NapileMutableModuleExtension(@NotNull String id, @NotNull Module module, @NotNull NapileModuleExtension moduleExtension)
+	public NapileMutableModuleExtension(@NotNull String id, @NotNull Module module)
 	{
 		super(id, module);
-		this.moduleExtension = moduleExtension;
-
-		commit(moduleExtension);
 	}
 
 	@Nullable
 	@Override
 	public JComponent createConfigurablePanel(@NotNull ModifiableRootModel modifiableRootModel, @Nullable Runnable runnable)
 	{
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.add(new ModuleExtensionWithSdkPanel(this, runnable), BorderLayout.NORTH);
-		return panel;
+		return wrapToNorth(new ModuleExtensionWithSdkPanel(this, runnable));
 	}
 
 	@NotNull
@@ -52,14 +43,8 @@ public class NapileMutableModuleExtension extends NapileModuleExtension implemen
 	}
 
 	@Override
-	public boolean isModified()
+	public boolean isModified(@NotNull NapileModuleExtension extension)
 	{
-		return isModifiedImpl(moduleExtension);
-	}
-
-	@Override
-	public void commit()
-	{
-		moduleExtension.commit(this);
+		return isModifiedImpl(extension);
 	}
 }

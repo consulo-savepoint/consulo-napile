@@ -37,8 +37,8 @@ public class NapileModuleExtensionProvider implements ModuleExtensionProvider<Na
 
 	@NotNull
 	@Override
-	public NapileMutableModuleExtension createMutable(@NotNull String s, @NotNull Module module, @NotNull NapileModuleExtension moduleExtension)
+	public NapileMutableModuleExtension createMutable(@NotNull String s, @NotNull Module module)
 	{
-		return new NapileMutableModuleExtension(s, module, moduleExtension);
+		return new NapileMutableModuleExtension(s, module);
 	}
 }
