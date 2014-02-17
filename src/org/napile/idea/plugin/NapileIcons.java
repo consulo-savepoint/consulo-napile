@@ -20,7 +20,6 @@ import javax.swing.Icon;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.util.IconLoader;
-import com.intellij.util.PlatformIcons;
 
 /**
  * @author Nikolay Krasko
@@ -45,8 +44,8 @@ public interface NapileIcons
 
 	Icon TYPE_PARAMETER = IconLoader.getIcon("/org/napile/icons/nodes/typeparameter.png");
 
-	Icon METHOD = PlatformIcons.METHOD_ICON;
-	Icon CONSTRUCTOR = PlatformIcons.METHOD_ICON; //TODO [VISTALL] new icon
+	Icon METHOD = AllIcons.Nodes.Method;
+	Icon CONSTRUCTOR = AllIcons.Nodes.Method;; //TODO [VISTALL] new icon
 
 	Icon C_HERITABLE = IconLoader.getIcon("/org/napile/icons/gutter/c_heritable.png");
 
