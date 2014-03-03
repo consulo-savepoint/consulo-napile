@@ -147,7 +147,7 @@ public class NapileInplaceVariableIntroducer extends InplaceVariableIntroducer<N
 								TemplateState templateState = TemplateManagerImpl.getTemplateState(myEditor);
 								if(templateState != null)
 								{
-									templateState.doReformat(myProperty.getTextRange());
+									//templateState.doReformat(myProperty.getTextRange());
 								}
 							}
 							else
