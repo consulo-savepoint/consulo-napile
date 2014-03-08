@@ -105,7 +105,11 @@
 		<renamePsiElementProcessor implementation="org.napile.idea.plugin.refactoring.rename.RenameNapileClassProcessor"/>
 		<renamePsiElementProcessor implementation="org.napile.idea.plugin.refactoring.rename.RenameNapileMethodProcessor"/>
 
-		<moduleExtensionProvider key="napile" implementationClass="org.napile.idea.plugin.module.extension.NapileModuleExtensionProvider" />
+		<moduleExtensionProvider key="napile"
+								 name="Napile"
+								 icon="/org/napile/icons/napile-logo16.png"
+								 immutableClass="org.napile.idea.plugin.module.extension.NapileModuleExtension"
+								 mutableClass="org.napile.idea.plugin.module.extension.NapileMutableModuleExtension" />
 
 		<extendWordSelectionHandler implementation="org.napile.idea.plugin.editor.wordSelection.NapileWordSelectioner" order="first"/>
 		<extendWordSelectionHandler implementation="org.napile.idea.plugin.editor.wordSelection.NapileStatementGroupSelectioner"/>

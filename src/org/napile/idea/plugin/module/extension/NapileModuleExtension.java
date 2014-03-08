@@ -8,8 +8,8 @@ import org.mustbe.consulo.roots.impl.ProductionResourceContentFolderTypeProvider
 import org.mustbe.consulo.roots.impl.TestContentFolderTypeProvider;
 import org.mustbe.consulo.roots.impl.TestResourceContentFolderTypeProvider;
 import org.napile.idea.plugin.sdk.NapileSdkType;
-import com.intellij.openapi.module.Module;
 import com.intellij.openapi.projectRoots.SdkType;
+import com.intellij.openapi.roots.ModifiableRootModel;
 
 /**
  * @author VISTALL
@@ -23,7 +23,7 @@ import com.intellij.openapi.projectRoots.SdkType;
 })
 public class NapileModuleExtension extends ModuleExtensionWithSdkImpl<NapileModuleExtension>
 {
-	public NapileModuleExtension(@NotNull String id, @NotNull Module module)
+	public NapileModuleExtension(@NotNull String id, @NotNull ModifiableRootModel module)
 	{
 		super(id, module);
 	}
