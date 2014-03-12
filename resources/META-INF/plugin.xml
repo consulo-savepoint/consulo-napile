@@ -53,6 +53,10 @@
 	</extensions>
 
 	<extensions defaultExtensionNs="com.intellij">
+		<copyright.updater filetype="NAPILE" implementationClass="org.napile.idea.plugin.editor.copyright.UpdateNapileCopyrightsProvider" />
+	</extensions>
+
+	<extensions defaultExtensionNs="com.intellij">
 		<applicationService serviceInterface="org.napile.compiler.lang.psi.stubs.elements.StubIndexService" serviceImplementation="org.napile.idea.plugin.stubindex.StubIndexServiceImpl"/>
 
 		<projectService serviceInterface="org.napile.idea.plugin.caches.NapileClassResolver" serviceImplementation="org.napile.idea.plugin.caches.NapileClassResolver"/>
