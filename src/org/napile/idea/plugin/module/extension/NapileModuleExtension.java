@@ -28,8 +28,9 @@ public class NapileModuleExtension extends ModuleExtensionWithSdkImpl<NapileModu
 		super(id, module);
 	}
 
+	@NotNull
 	@Override
-	protected Class<? extends SdkType> getSdkTypeClass()
+	public Class<? extends SdkType> getSdkTypeClass()
 	{
 		return NapileSdkType.class;
 	}
