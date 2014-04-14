@@ -47,7 +47,8 @@ public class NapileHighlighter extends SyntaxHighlighterBase
 		safeMap(keys, NapileTokens.INTEGER_LITERAL, NapileHighlightingColors.NUMBER);
 		safeMap(keys, NapileTokens.FLOAT_LITERAL, NapileHighlightingColors.NUMBER);
 
-		safeMap(keys, NapileTokens.OPERATIONS.minus(TokenSet.create(NapileTokens.IDENTIFIER)).minus(NapileTokens.KEYWORDS), NapileHighlightingColors.OPERATOR_SIGN);
+		TokenSet tokenSet = TokenSet.orSet(TokenSet.create(NapileTokens.IDENTIFIER), NapileTokens.KEYWORDS);
+		safeMap(keys, TokenSet.andNot(NapileTokens.OPERATIONS, tokenSet), NapileHighlightingColors.OPERATOR_SIGN);
 		safeMap(keys, NapileTokens.LPAR, NapileHighlightingColors.PARENTHESIS);
 		safeMap(keys, NapileTokens.RPAR, NapileHighlightingColors.PARENTHESIS);
 		safeMap(keys, NapileTokens.LBRACE, NapileHighlightingColors.BRACES);
