@@ -5,14 +5,16 @@
       <root url="jar://$PROJECT_DIR$/lib/java2napile.runtime-0.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/javax.inject.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/napile.asm-0.3.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/napile.compiler-core.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/napile.injection.protobuf.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/napile.injection.regexp.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/napile.injection.text.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/parboiled-core-1.1.4.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/parboiled-java-1.1.4.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/pegdown-1.2.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/asm-all-4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/antlr-4.0ea-complete.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/injection.protobuf.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/injection.regexp.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/injection.text.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/napile.compiler.core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/napile.jvm.jar!/" />
     </CLASSES>
     <DOCUMENTATION />
     <SOURCES />
