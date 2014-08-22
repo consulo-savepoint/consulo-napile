@@ -1,1 +1,1 @@
-![Build Status](http://must-be.org:8080/vulcan_web/statusImage?name=consulo-napile)
+![Build Status](http://must-be.org/vulcan/statusImage?name=consulo-napile)
