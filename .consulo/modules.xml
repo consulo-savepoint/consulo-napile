@@ -2,63 +2,73 @@
 <project version="4">
   <component name="ModuleManager">
     <modules>
-      <module name="consulo-napile" dirurl="file://$PROJECT_DIR$">
-        <extension id="consulo-plugin" sdk-module-name="" sdk-name="Consulo 1.SNAPSHOT" />
-        <extension id="java" sdk-module-name="" sdk-name="1.6" language-level-module-name="" language-level-name="JDK_1_6" special-dir-location="SOURCE_DIR" />
-        <content url="file://$MODULE_DIR$">
-          <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src" />
-          <content-folder type="PRODUCTION_RESOURCE" url="file://$MODULE_DIR$/resources" />
-          <content-folder type="EXCLUDED" url="file://$MODULE_DIR$/.consulo/sandbox" />
-        </content>
-        <orderEntry type="module-extension-sdk" extension-id="java" />
-        <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
-        <orderEntry type="sourceFolder" forTests="false" />
-        <orderEntry type="module" module-name="injection.api" />
-        <orderEntry type="library" name="napile.compiler-core" level="project" />
+      <module name="consulo-napile" dirurl="file://$PROJECT_DIR$" current-layer="Default">
+        <module-layer name="Default">
+          <extension id="consulo-plugin" sdk-module-name="" sdk-name="Consulo 1.SNAPSHOT" />
+          <extension id="java" sdk-module-name="" sdk-name="1.6" language-level-module-name="" language-level-name="JDK_1_6" special-dir-location="SOURCE_DIR" />
+          <content url="file://$MODULE_DIR$">
+            <content-folder type="EXCLUDED" url="file://$MODULE_DIR$/.consulo/sandbox" />
+            <content-folder type="PRODUCTION_RESOURCE" url="file://$MODULE_DIR$/resources" />
+            <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src" />
+          </content>
+          <orderEntry type="module-extension-sdk" extension-id="java" />
+          <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
+          <orderEntry type="sourceFolder" forTests="false" />
+          <orderEntry type="module" module-name="injection.api" />
+          <orderEntry type="library" name="napile.compiler-core" level="project" />
+        </module-layer>
       </module>
-      <module name="injection.api" dirurl="file://$PROJECT_DIR$/injection/injection.api">
-        <extension id="consulo-plugin" sdk-module-name="consulo-napile" sdk-name="" />
-        <extension id="java" sdk-module-name="consulo-napile" sdk-name="" language-level-module-name="consulo-napile" language-level-name="" special-dir-location="MODULE_DIR" />
-        <content url="file://$MODULE_DIR$">
-          <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src/main/java" />
-        </content>
-        <orderEntry type="module-extension-sdk" extension-id="java" />
-        <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
-        <orderEntry type="sourceFolder" forTests="false" />
-        <orderEntry type="library" exploded="" name="napile.compiler-core" level="project" />
+      <module name="injection.api" dirurl="file://$PROJECT_DIR$/injection/injection.api" current-layer="Default">
+        <module-layer name="Default">
+          <extension id="consulo-plugin" sdk-module-name="consulo-napile" sdk-name="" />
+          <extension id="java" sdk-module-name="consulo-napile" sdk-name="" language-level-module-name="consulo-napile" language-level-name="" special-dir-location="MODULE_DIR" />
+          <content url="file://$MODULE_DIR$">
+            <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src/main/java" />
+          </content>
+          <orderEntry type="module-extension-sdk" extension-id="java" />
+          <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
+          <orderEntry type="sourceFolder" forTests="false" />
+          <orderEntry type="library" exploded="" name="napile.compiler-core" level="project" />
+        </module-layer>
       </module>
-      <module name="injection.protobuf" dirurl="file://$PROJECT_DIR$/injection/injection.protobuf">
-        <extension id="consulo-plugin" sdk-module-name="consulo-napile" sdk-name="" />
-        <extension id="java" sdk-module-name="consulo-napile" sdk-name="" language-level-module-name="consulo-napile" language-level-name="" special-dir-location="MODULE_DIR" />
-        <content url="file://$MODULE_DIR$">
-          <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src/main/java" />
-        </content>
-        <orderEntry type="module-extension-sdk" extension-id="java" />
-        <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
-        <orderEntry type="sourceFolder" forTests="false" />
-        <orderEntry type="module" module-name="injection.api" />
+      <module name="injection.protobuf" dirurl="file://$PROJECT_DIR$/injection/injection.protobuf" current-layer="Default">
+        <module-layer name="Default">
+          <extension id="consulo-plugin" sdk-module-name="consulo-napile" sdk-name="" />
+          <extension id="java" sdk-module-name="consulo-napile" sdk-name="" language-level-module-name="consulo-napile" language-level-name="" special-dir-location="MODULE_DIR" />
+          <content url="file://$MODULE_DIR$">
+            <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src/main/java" />
+          </content>
+          <orderEntry type="module-extension-sdk" extension-id="java" />
+          <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
+          <orderEntry type="sourceFolder" forTests="false" />
+          <orderEntry type="module" module-name="injection.api" />
+        </module-layer>
       </module>
-      <module name="injection.regexp" dirurl="file://$PROJECT_DIR$/injection/injection.regexp">
-        <extension id="consulo-plugin" sdk-module-name="consulo-napile" sdk-name="" />
-        <extension id="java" sdk-module-name="consulo-napile" sdk-name="" language-level-module-name="consulo-napile" language-level-name="" special-dir-location="MODULE_DIR" />
-        <content url="file://$MODULE_DIR$">
-          <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src/main/java" />
-        </content>
-        <orderEntry type="module-extension-sdk" extension-id="java" />
-        <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
-        <orderEntry type="sourceFolder" forTests="false" />
-        <orderEntry type="module" module-name="injection.api" />
+      <module name="injection.regexp" dirurl="file://$PROJECT_DIR$/injection/injection.regexp" current-layer="Default">
+        <module-layer name="Default">
+          <extension id="consulo-plugin" sdk-module-name="consulo-napile" sdk-name="" />
+          <extension id="java" sdk-module-name="consulo-napile" sdk-name="" language-level-module-name="consulo-napile" language-level-name="" special-dir-location="MODULE_DIR" />
+          <content url="file://$MODULE_DIR$">
+            <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src/main/java" />
+          </content>
+          <orderEntry type="module-extension-sdk" extension-id="java" />
+          <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
+          <orderEntry type="sourceFolder" forTests="false" />
+          <orderEntry type="module" module-name="injection.api" />
+        </module-layer>
       </module>
-      <module name="injection.text" dirurl="file://$PROJECT_DIR$/injection/injection.text">
-        <extension id="consulo-plugin" sdk-module-name="consulo-napile" sdk-name="Consulo 1.SNAPSHOT" />
-        <extension id="java" sdk-module-name="consulo-napile" sdk-name="" language-level-module-name="consulo-napile" language-level-name="" special-dir-location="MODULE_DIR" />
-        <content url="file://$MODULE_DIR$">
-          <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src/main/java" />
-        </content>
-        <orderEntry type="module-extension-sdk" extension-id="java" />
-        <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
-        <orderEntry type="sourceFolder" forTests="false" />
-        <orderEntry type="module" module-name="injection.api" />
+      <module name="injection.text" dirurl="file://$PROJECT_DIR$/injection/injection.text" current-layer="Default">
+        <module-layer name="Default">
+          <extension id="consulo-plugin" sdk-module-name="consulo-napile" sdk-name="" />
+          <extension id="java" sdk-module-name="consulo-napile" sdk-name="" language-level-module-name="consulo-napile" language-level-name="" special-dir-location="MODULE_DIR" />
+          <content url="file://$MODULE_DIR$">
+            <content-folder type="PRODUCTION" url="file://$MODULE_DIR$/src/main/java" />
+          </content>
+          <orderEntry type="module-extension-sdk" extension-id="java" />
+          <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
+          <orderEntry type="sourceFolder" forTests="false" />
+          <orderEntry type="module" module-name="injection.api" />
+        </module-layer>
       </module>
     </modules>
   </component>

@@ -9,7 +9,7 @@ import org.mustbe.consulo.roots.impl.TestContentFolderTypeProvider;
 import org.mustbe.consulo.roots.impl.TestResourceContentFolderTypeProvider;
 import org.napile.idea.plugin.sdk.NapileSdkType;
 import com.intellij.openapi.projectRoots.SdkType;
-import com.intellij.openapi.roots.ModifiableRootModel;
+import com.intellij.openapi.roots.ModuleRootLayer;
 
 /**
  * @author VISTALL
@@ -23,7 +23,7 @@ import com.intellij.openapi.roots.ModifiableRootModel;
 })
 public class NapileModuleExtension extends ModuleExtensionWithSdkImpl<NapileModuleExtension>
 {
-	public NapileModuleExtension(@NotNull String id, @NotNull ModifiableRootModel module)
+	public NapileModuleExtension(@NotNull String id, @NotNull ModuleRootLayer module)
 	{
 		super(id, module);
 	}
