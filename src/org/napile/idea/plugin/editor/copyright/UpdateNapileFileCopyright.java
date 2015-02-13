@@ -19,27 +19,30 @@ package org.napile.idea.plugin.editor.copyright;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.mustbe.consulo.copyright.config.CopyrightFileConfig;
 import org.napile.compiler.lang.psi.NapileClass;
 import org.napile.compiler.lang.psi.NapileFile;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiComment;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import com.maddyhome.idea.copyright.CopyrightProfile;
-import com.maddyhome.idea.copyright.options.JavaOptions;
 import com.maddyhome.idea.copyright.psi.UpdatePsiFileCopyright;
 
 /**
  * @author VISTALL
  * @since 12:23/10.01.13
  */
-public class UpdateNapileFileCopyright extends UpdatePsiFileCopyright
+public class UpdateNapileFileCopyright extends UpdatePsiFileCopyright<CopyrightFileConfig>
 {
-	public UpdateNapileFileCopyright(Project project, Module module, VirtualFile root, CopyrightProfile options)
+	public static final int LOCATION_BEFORE_PACKAGE = 1;
+	public static final int LOCATION_BEFORE_IMPORT = 2;
+	public static final int LOCATION_BEFORE_CLASS = 3;
+
+	public UpdateNapileFileCopyright(@NotNull PsiFile psiFile, @NotNull CopyrightProfile copyrightProfile)
 	{
-		super(project, module, root, options);
+		super(psiFile, copyrightProfile);
 	}
 
 	@Override
@@ -61,25 +64,25 @@ public class UpdateNapileFileCopyright extends UpdatePsiFileCopyright
 
 		PsiElement first = file.getFirstChild();
 
-		int location = JavaOptions.LOCATION_BEFORE_PACKAGE;  //FIXME [VISTALL] hardcode because bad copyright API
+		int location = getLanguageOptions().getFileLocation();
 		if(pkg != null)
 		{
 			checkComments(first, pkg, true);
 			first = pkg;
 		}
-		else if(location == JavaOptions.LOCATION_BEFORE_PACKAGE)
+		else if(location == LOCATION_BEFORE_PACKAGE)
 		{
-			location = JavaOptions.LOCATION_BEFORE_IMPORT;
+			location = LOCATION_BEFORE_IMPORT;
 		}
 
 		if(imports != null && imports.length > 0)
 		{
-			checkComments(first, imports[0], location == JavaOptions.LOCATION_BEFORE_IMPORT);
+			checkComments(first, imports[0], location == LOCATION_BEFORE_IMPORT);
 			first = imports[0];
 		}
-		else if(location == JavaOptions.LOCATION_BEFORE_IMPORT)
+		else if(location == LOCATION_BEFORE_IMPORT)
 		{
-			location = JavaOptions.LOCATION_BEFORE_CLASS;
+			location = LOCATION_BEFORE_CLASS;
 		}
 
 		if(topclass != null)
@@ -89,7 +92,7 @@ public class UpdateNapileFileCopyright extends UpdatePsiFileCopyright
 			collectComments(topclass.getFirstChild(), topclass.getModifierList(), comments);
 			checkCommentsForTopClass(topclass, location, comments);
 		}
-		else if(location == JavaOptions.LOCATION_BEFORE_CLASS)
+		else if(location == LOCATION_BEFORE_CLASS)
 		{
 			// no package, no imports, no top level class
 		}
@@ -97,7 +100,7 @@ public class UpdateNapileFileCopyright extends UpdatePsiFileCopyright
 
 	protected void checkCommentsForTopClass(NapileClass topclass, int location, List<PsiComment> comments)
 	{
-		checkComments(topclass.getModifierList(), location == JavaOptions.LOCATION_BEFORE_CLASS, comments);
+		checkComments(topclass.getModifierList(), location == LOCATION_BEFORE_CLASS, comments);
 	}
 
 	@Nullable

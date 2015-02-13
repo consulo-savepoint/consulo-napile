@@ -16,23 +16,53 @@
 
 package org.napile.idea.plugin.editor.copyright;
 
+import javax.swing.JPanel;
+
+import org.jetbrains.annotations.NotNull;
+import org.mustbe.consulo.copyright.config.CopyrightFileConfig;
 import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.PsiFile;
 import com.maddyhome.idea.copyright.CopyrightProfile;
-import com.maddyhome.idea.copyright.psi.UpdateCopyright;
 import com.maddyhome.idea.copyright.psi.UpdateCopyrightsProvider;
+import com.maddyhome.idea.copyright.psi.UpdatePsiFileCopyright;
+import com.maddyhome.idea.copyright.ui.TemplateCommentPanel;
 
 /**
  * @author VISTALL
  * @since 12:22/10.01.13
  */
-public class UpdateNapileCopyrightsProvider extends UpdateCopyrightsProvider
+public class UpdateNapileCopyrightsProvider extends UpdateCopyrightsProvider<CopyrightFileConfig>
 {
+	@NotNull
 	@Override
-	public UpdateCopyright createInstance(Project project, Module module, VirtualFile file, FileType base, CopyrightProfile options)
+	public UpdatePsiFileCopyright<CopyrightFileConfig> createInstance(@NotNull PsiFile file, @NotNull CopyrightProfile copyrightProfile)
 	{
-		return new UpdateNapileFileCopyright(project, module, file, options);
+		return new UpdateNapileFileCopyright(file, copyrightProfile);
+	}
+
+	@NotNull
+	@Override
+	public CopyrightFileConfig createDefaultOptions()
+	{
+		return new CopyrightFileConfig();
+	}
+
+	@NotNull
+	@Override
+	public TemplateCommentPanel createConfigurable(@NotNull Project project, @NotNull TemplateCommentPanel parentPane, @NotNull FileType fileType)
+	{
+		return new TemplateCommentPanel(fileType, parentPane, project)
+		{
+			@Override
+			public void addAdditionalComponents(@NotNull JPanel additionalPanel)
+			{
+				addLocationInFile(new String[]{
+						"Before Package",
+						"Before Imports",
+						"Before Class"
+				});
+			}
+		};
 	}
 }
