@@ -13,7 +13,7 @@
           </content>
           <orderEntry type="module-extension-sdk" extension-id="java" />
           <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
-          <orderEntry type="sourceFolder" forTests="false" />
+          <orderEntry type="sourceFolder" />
           <orderEntry type="module" module-name="injection.api" />
           <orderEntry type="library" name="napile.compiler-core" level="project" />
         </module-layer>
@@ -27,7 +27,7 @@
           </content>
           <orderEntry type="module-extension-sdk" extension-id="java" />
           <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
-          <orderEntry type="sourceFolder" forTests="false" />
+          <orderEntry type="sourceFolder" />
           <orderEntry type="library" exploded="" name="napile.compiler-core" level="project" />
         </module-layer>
       </module>
@@ -40,7 +40,7 @@
           </content>
           <orderEntry type="module-extension-sdk" extension-id="java" />
           <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
-          <orderEntry type="sourceFolder" forTests="false" />
+          <orderEntry type="sourceFolder" />
           <orderEntry type="module" module-name="injection.api" />
         </module-layer>
       </module>
@@ -53,7 +53,7 @@
           </content>
           <orderEntry type="module-extension-sdk" extension-id="java" />
           <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
-          <orderEntry type="sourceFolder" forTests="false" />
+          <orderEntry type="sourceFolder" />
           <orderEntry type="module" module-name="injection.api" />
         </module-layer>
       </module>
@@ -66,11 +66,10 @@
           </content>
           <orderEntry type="module-extension-sdk" extension-id="java" />
           <orderEntry type="module-extension-sdk" extension-id="consulo-plugin" />
-          <orderEntry type="sourceFolder" forTests="false" />
+          <orderEntry type="sourceFolder" />
           <orderEntry type="module" module-name="injection.api" />
         </module-layer>
       </module>
     </modules>
   </component>
 </project>
-

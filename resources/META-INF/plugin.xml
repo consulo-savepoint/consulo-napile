@@ -115,6 +115,8 @@
 								 immutableClass="org.napile.idea.plugin.module.extension.NapileModuleExtension"
 								 mutableClass="org.napile.idea.plugin.module.extension.NapileMutableModuleExtension" />
 
+		<contentFolderSupportPatcher implementation="org.napile.idea.plugin.module.extension.NapileContentFolderSupportPatcher" />
+
 		<extendWordSelectionHandler implementation="org.napile.idea.plugin.editor.wordSelection.NapileWordSelectioner" order="first"/>
 		<extendWordSelectionHandler implementation="org.napile.idea.plugin.editor.wordSelection.NapileStatementGroupSelectioner"/>
 		<extendWordSelectionHandler implementation="org.napile.idea.plugin.editor.wordSelection.NapileCodeBlockSelectioner"/>

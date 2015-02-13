@@ -4,14 +4,10 @@ import java.io.File;
 
 import javax.swing.Icon;
 
-import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.napile.idea.plugin.NapileIcons;
-import com.intellij.openapi.projectRoots.AdditionalDataConfigurable;
 import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.projectRoots.SdkAdditionalData;
-import com.intellij.openapi.projectRoots.SdkModel;
 import com.intellij.openapi.projectRoots.SdkModificator;
 import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.openapi.roots.OrderRootType;
@@ -25,9 +21,10 @@ import com.intellij.openapi.vfs.util.ArchiveVfsUtil;
  */
 public class NapileSdkType extends SdkType
 {
+	@NotNull
 	public static NapileSdkType getInstance()
 	{
-		return findInstance(NapileSdkType.class);
+		return EP_NAME.findExtension(NapileSdkType.class);
 	}
 
 	public NapileSdkType()
@@ -73,20 +70,6 @@ public class NapileSdkType extends SdkType
 		return NapileIcons.LOGO_16_16;
 	}
 
-	@Nullable
-	@Override
-	public Icon getGroupIcon()
-	{
-		return getIcon();
-	}
-
-	@Nullable
-	@Override
-	public String suggestHomePath()
-	{
-		return null;
-	}
-
 	@Override
 	public boolean isValidSdkHome(String s)
 	{
@@ -101,28 +84,16 @@ public class NapileSdkType extends SdkType
 	}
 
 	@Override
-	public String suggestSdkName(String s, String s2)
+	public String suggestSdkName(String s, String sdkHome)
 	{
-		return new File(s2).getName();
+		return new File(sdkHome).getName();
 	}
 
-	@Nullable
-	@Override
-	public AdditionalDataConfigurable createAdditionalDataConfigurable(SdkModel sdkModel, SdkModificator sdkModificator)
-	{
-		return null;
-	}
 
 	@NotNull
 	@Override
 	public String getPresentableName()
 	{
 		return "Napile SDK";
-	}
-
-	@Override
-	public void saveAdditionalData(SdkAdditionalData sdkAdditionalData, Element element)
-	{
-
 	}
 }
