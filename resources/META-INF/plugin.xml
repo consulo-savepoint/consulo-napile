@@ -161,7 +161,6 @@
 					requireModuleExtensions="napile"/>
 
 		<applicationService serviceInterface="org.napile.idea.plugin.editor.NapileEditorOptions" serviceImplementation="org.napile.idea.plugin.editor.NapileEditorOptions"/>
-		<exportable serviceInterface="org.napile.idea.plugin.editor.NapileEditorOptions"/>
 		<editorAppearanceConfigurable instance="org.napile.idea.plugin.editor.NapileSettingEditorConfigurable"/>
 
 		<programRunner implementation="org.napile.idea.plugin.run.NapileProgramRunner"/>
