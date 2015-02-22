@@ -6,7 +6,7 @@
     <option name="ALT_CONSULO_SDK_PATH" />
     <java-sdk name="1.6" />
     <consulo-sdk name="Consulo 1.SNAPSHOT" />
-    <artifact name="dist" />
+    <artifact name="plugin" />
     <predefined_log_file id="IDEA_LOG" enabled="true" />
     <RunnerSettings RunnerId="Debug">
       <option name="DEBUG_PORT" value="" />
@@ -17,6 +17,7 @@
     <method>
       <option name="BuildArtifacts" enabled="true">
         <artifact name="dist" />
+        <artifact name="plugin" />
       </option>
     </method>
   </configuration>

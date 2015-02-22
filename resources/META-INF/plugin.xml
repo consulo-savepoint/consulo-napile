@@ -1,11 +1,11 @@
-<idea-plugin version="2">
+<idea-plugin>
 	<id>org.napile.idea.lang</id>
-
 	<name>napile : Language Support</name>
 	<description>Napile language support</description>
-	<version>1.0</version>
+	<version>SNAPSHOT</version>
 	<category>Custom Languages</category>
-	<vendor url="http://napile.org">napile.org</vendor>
+	<vendor>Must-Be.org</vendor>
+	<depends>com.intellij.xml</depends>
 
 	<project-components>
 		<component>
@@ -30,7 +30,8 @@
 			<keyboard-shortcut keymap="$default" first-keystroke="control shift Q"/>
 			<add-to-group group-id="RefactoringMenu" anchor="last"/>
 		</action>
-		<action id="CopyAsDiagnosticTest" class="org.napile.idea.plugin.actions.CopyAsDiagnosticTestAction" text="Copy Current File As Diagnostic Test">
+		<action id="CopyAsDiagnosticTest" class="org.napile.idea.plugin.actions.CopyAsDiagnosticTestAction"
+				text="Copy Current File As Diagnostic Test">
 			<keyboard-shortcut keymap="$default" first-keystroke="control alt shift T"/>
 			<add-to-group group-id="RefactoringMenu" anchor="last"/>
 		</action>
@@ -38,6 +39,10 @@
 
 		<action id="ConvertJavaToNapile" class="org.napile.idea.plugin.actions.ConvertJavaToNapileAction" text="Convert Java2Napile">
 			<add-to-group group-id="RefactoringMenu" anchor="last"/>
+		</action>
+
+		<action id="Napile.NewModuleFile" class="org.napile.idea.moduling.ide.actions.CreateNewModuleFileAction" require-module-extensions="napile">
+			<add-to-group group-id="NewGroup"/>
 		</action>
 	</actions>
 
@@ -48,21 +53,31 @@
 		</extensionPoint>
 	</extensionPoints>
 
+	<extensions defaultExtensionNs="com.intellij.xml.dom">
+		<fileDescription implementation="org.napile.idea.moduling.dom.impl.NapileModuleFileDescription"/>
+		<extender domClass="org.napile.idea.moduling.dom.Extensions" extenderClass="org.napile.idea.moduling.dom.impl.ExtensionDomExtender"/>
+	</extensions>
+
 	<extensions defaultExtensionNs="org.napile.idea.lang">
-		<quickFix diagnosticName="UNRESOLVED_REFERENCE" implementationClass="org.napile.idea.plugin.editor.highlight.quickFix.ImportClassQuickFixProvider"/>
+		<quickFix diagnosticName="UNRESOLVED_REFERENCE"
+				  implementationClass="org.napile.idea.plugin.editor.highlight.quickFix.ImportClassQuickFixProvider"/>
 	</extensions>
 
 	<extensions defaultExtensionNs="com.intellij">
-		<copyright.updater filetype="NAPILE" implementationClass="org.napile.idea.plugin.editor.copyright.UpdateNapileCopyrightsProvider" />
+		<copyright.updater filetype="NAPILE" implementationClass="org.napile.idea.plugin.editor.copyright.UpdateNapileCopyrightsProvider"/>
 	</extensions>
 
 	<extensions defaultExtensionNs="com.intellij">
-		<applicationService serviceInterface="org.napile.compiler.lang.psi.stubs.elements.StubIndexService" serviceImplementation="org.napile.idea.plugin.stubindex.StubIndexServiceImpl"/>
+		<applicationService serviceInterface="org.napile.compiler.lang.psi.stubs.elements.StubIndexService"
+							serviceImplementation="org.napile.idea.plugin.stubindex.StubIndexServiceImpl"/>
 
-		<projectService serviceInterface="org.napile.idea.plugin.caches.NapileClassResolver" serviceImplementation="org.napile.idea.plugin.caches.NapileClassResolver"/>
-		<moduleService serviceInterface="org.napile.idea.plugin.module.ModuleAnalyzer" serviceImplementation="org.napile.idea.plugin.module.impl.ModuleAnalyzerImpl"/>
+		<projectService serviceInterface="org.napile.idea.plugin.caches.NapileClassResolver"
+						serviceImplementation="org.napile.idea.plugin.caches.NapileClassResolver"/>
+		<moduleService serviceInterface="org.napile.idea.plugin.module.ModuleAnalyzer"
+					   serviceImplementation="org.napile.idea.plugin.module.impl.ModuleAnalyzerImpl"/>
 
 		<internalFileTemplate name="Napile Class"/>
+		<internalFileTemplate name="@module@"/>
 
 		<gotoSymbolContributor implementation="org.napile.idea.plugin.caches.NapileGotoSymbolContributor"/>
 		<gotoClassContributor implementation="org.napile.idea.plugin.caches.NapileGotoClassContributor"/>
@@ -83,7 +98,7 @@
 		<lang.findUsagesProvider language="NAPILE" implementationClass="org.napile.idea.plugin.findUsages.NapileFindUsagesProvider"/>
 		<lang.refactoringSupport language="NAPILE" implementationClass="org.napile.idea.plugin.refactoring.NapileRefactoringSupportProvider"/>
 		<qualifiedNameProvider implementation="org.napile.idea.plugin.actions.NapileQualifiedNameProvider"/>
-		<psi.packageSupportProvider implementation="org.napile.idea.plugin.psi.impl.NapilePackageSupportProvider" />
+		<psi.packageSupportProvider implementation="org.napile.idea.plugin.psi.impl.NapilePackageSupportProvider"/>
 
 		<refactoring.moveHandler implementation="org.napile.idea.plugin.refactoring.move.NapileMoveFilesOrDirectoriesHandler"/>
 		<refactoring.copyHandler implementation="org.napile.idea.plugin.refactoring.copy.NapileCopyClassHandler"/>
@@ -104,7 +119,8 @@
 
 		<completion.contributor language="NAPILE" implementationClass="org.napile.idea.plugin.editor.completion.NapileCompletionContributor"/>
 
-		<psi.referenceContributor language="NAPILE" order="after JetCompletionContributor" implementation="org.napile.idea.plugin.references.NapileReferenceContributor"/>
+		<psi.referenceContributor language="NAPILE" order="after JetCompletionContributor"
+								  implementation="org.napile.idea.plugin.references.NapileReferenceContributor"/>
 
 		<renamePsiElementProcessor implementation="org.napile.idea.plugin.refactoring.rename.RenameNapileClassProcessor"/>
 		<renamePsiElementProcessor implementation="org.napile.idea.plugin.refactoring.rename.RenameNapileMethodProcessor"/>
@@ -113,9 +129,9 @@
 								 name="Napile"
 								 icon="/org/napile/icons/napile-logo16.png"
 								 immutableClass="org.napile.idea.plugin.module.extension.NapileModuleExtension"
-								 mutableClass="org.napile.idea.plugin.module.extension.NapileMutableModuleExtension" />
+								 mutableClass="org.napile.idea.plugin.module.extension.NapileMutableModuleExtension"/>
 
-		<contentFolderSupportPatcher implementation="org.napile.idea.plugin.module.extension.NapileContentFolderSupportPatcher" />
+		<contentFolderSupportPatcher implementation="org.napile.idea.plugin.module.extension.NapileContentFolderSupportPatcher"/>
 
 		<extendWordSelectionHandler implementation="org.napile.idea.plugin.editor.wordSelection.NapileWordSelectioner" order="first"/>
 		<extendWordSelectionHandler implementation="org.napile.idea.plugin.editor.wordSelection.NapileStatementGroupSelectioner"/>
@@ -127,13 +143,17 @@
 
 		<codeInsight.lineMarkerProvider language="NAPILE" implementationClass="org.napile.idea.plugin.editor.lineMarker.NewLineMarkerProvider"/>
 		<codeInsight.lineMarkerProvider language="NAPILE" implementationClass="org.napile.idea.plugin.editor.lineMarker.RecursiveLineMarkerProvider"/>
-		<codeInsight.lineMarkerProvider language="NAPILE" implementationClass="org.napile.idea.plugin.editor.lineMarker.MethodSeparatorLineMarkerProvider"/>
+		<codeInsight.lineMarkerProvider language="NAPILE"
+										implementationClass="org.napile.idea.plugin.editor.lineMarker.MethodSeparatorLineMarkerProvider"/>
 		<iconDescriptorUpdater implementation="org.napile.idea.plugin.NapileIconProvider"/>
 		<colorProvider implementation="org.napile.idea.plugin.editor.lineMarker.NapileColorElementProvider"/>
 
-		<itemPresentationProvider implementationClass="org.napile.idea.plugin.editor.presentation.NapileMethodOrMacroPresenter" forClass="org.napile.compiler.lang.psi.NapileNamedMethodOrMacro"/>
-		<itemPresentationProvider implementationClass="org.napile.idea.plugin.editor.presentation.NapileClassPresenter" forClass="org.napile.compiler.lang.psi.NapileClass"/>
-		<itemPresentationProvider implementationClass="org.napile.idea.plugin.editor.presentation.NapileVariablePresenter" forClass="org.napile.compiler.lang.psi.NapileVariable"/>
+		<itemPresentationProvider implementationClass="org.napile.idea.plugin.editor.presentation.NapileMethodOrMacroPresenter"
+								  forClass="org.napile.compiler.lang.psi.NapileNamedMethodOrMacro"/>
+		<itemPresentationProvider implementationClass="org.napile.idea.plugin.editor.presentation.NapileClassPresenter"
+								  forClass="org.napile.compiler.lang.psi.NapileClass"/>
+		<itemPresentationProvider implementationClass="org.napile.idea.plugin.editor.presentation.NapileVariablePresenter"
+								  forClass="org.napile.compiler.lang.psi.NapileVariable"/>
 
 		<elementDescriptionProvider implementation="org.napile.idea.plugin.findUsages.NapileElementDescriptionProvider"/>
 		<findUsagesHandlerFactory implementation="org.napile.idea.plugin.findUsages.NapileFindUsagesHandlerFactory"/>
@@ -154,13 +174,14 @@
 		<referencesSearch implementation="org.napile.idea.plugin.search.NapileReferencesSearcher"/>
 
 		<compiler implementation="org.napile.idea.plugin.compiler.NapileCompiler"/>
-		<sdkType implementation="org.napile.idea.plugin.sdk.NapileSdkType" />
+		<sdkType implementation="org.napile.idea.plugin.sdk.NapileSdkType"/>
 		<toolWindow id="Napile" factoryClass="org.napile.idea.plugin.codeInsight.toolWindow.NapileInternalToolWindowFactory"
 					anchor="right"
 					icon="/org/napile/icons/napile-logo13.png"
 					requireModuleExtensions="napile"/>
 
-		<applicationService serviceInterface="org.napile.idea.plugin.editor.NapileEditorOptions" serviceImplementation="org.napile.idea.plugin.editor.NapileEditorOptions"/>
+		<applicationService serviceInterface="org.napile.idea.plugin.editor.NapileEditorOptions"
+							serviceImplementation="org.napile.idea.plugin.editor.NapileEditorOptions"/>
 		<editorAppearanceConfigurable instance="org.napile.idea.plugin.editor.NapileSettingEditorConfigurable"/>
 
 		<programRunner implementation="org.napile.idea.plugin.run.NapileProgramRunner"/>
@@ -185,5 +206,12 @@
 			<className>org.napile.idea.plugin.intentions.SpecifyTypeExplicitlyAction</className>
 			<category>Napile</category>
 		</intentionAction>
+
+		<localInspection groupName="Napile" language="XML" shortName="DomValidator" displayName="Moduling problems" enabledByDefault="true"
+						 level="ERROR" implementationClass="org.napile.idea.moduling.codeInspection.validator.DomValidator"/>
+
+		<treeStructureProvider implementation="org.napile.idea.moduling.projectView.TreeStructureProviderImpl"/>
+		<moduleService serviceInterface="org.napile.idea.moduling.resolve.ExtensionResolver"
+					   serviceImplementation="org.napile.idea.moduling.resolve.ExtensionResolver"/>
 	</extensions>
 </idea-plugin>

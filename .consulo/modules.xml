@@ -4,8 +4,9 @@
     <modules>
       <module name="consulo-napile" dirurl="file://$PROJECT_DIR$" current-layer="Default">
         <module-layer name="Default">
-          <extension id="consulo-plugin" sdk-module-name="" sdk-name="Consulo 1.SNAPSHOT" />
+          <extension id="consulo-plugin" sdk-module-name="" sdk-name="Consulo 1.SNAPSHOT" custom-plugin-dir-url="file://$MODULE_DIR$/dep" />
           <extension id="java" sdk-module-name="" sdk-name="1.6" language-level-module-name="" language-level-name="JDK_1_6" special-dir-location="SOURCE_DIR" />
+          <extension id="lombok" />
           <content url="file://$MODULE_DIR$">
             <content-folder type="EXCLUDED" url="file://$MODULE_DIR$/.consulo/sandbox" />
             <content-folder type="PRODUCTION_RESOURCE" url="file://$MODULE_DIR$/resources" />
@@ -16,6 +17,16 @@
           <orderEntry type="sourceFolder" />
           <orderEntry type="module" module-name="injection.api" />
           <orderEntry type="library" name="napile.compiler-core" level="project" />
+          <orderEntry type="module-library">
+            <library name="consulo:XML">
+              <binaries>
+                <root url="jar://$MODULE_DIR$/dep/xml/lib/jsr173_1.0_api.jar!/" />
+                <root url="jar://$MODULE_DIR$/dep/xml/lib/resolver.jar!/" />
+                <root url="jar://$MODULE_DIR$/dep/xml/lib/xerces.jar!/" />
+                <root url="jar://$MODULE_DIR$/dep/xml/lib/xml.jar!/" />
+              </binaries>
+            </library>
+          </orderEntry>
         </module-layer>
       </module>
       <module name="injection.api" dirurl="file://$PROJECT_DIR$/injection/injection.api" current-layer="Default">
