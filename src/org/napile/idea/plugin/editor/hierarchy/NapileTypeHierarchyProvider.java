@@ -2,9 +2,11 @@ package org.napile.idea.plugin.editor.hierarchy;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.mustbe.consulo.RequiredDispatchThread;
 import org.napile.compiler.lang.psi.NapileClass;
 import org.napile.compiler.lang.psi.NapileFile;
-import com.intellij.codeInsight.TargetElementUtilBase;
+import com.intellij.codeInsight.TargetElementUtil;
+import com.intellij.codeInsight.TargetElementUtilEx;
 import com.intellij.ide.hierarchy.HierarchyBrowser;
 import com.intellij.ide.hierarchy.HierarchyProvider;
 import com.intellij.ide.hierarchy.TypeHierarchyBrowserBase;
@@ -16,6 +18,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
+import com.intellij.util.containers.ContainerUtil;
 
 /**
  * Base from IDEA CE
@@ -24,22 +27,26 @@ public class NapileTypeHierarchyProvider implements HierarchyProvider
 {
 	@Nullable
 	@Override
+	@RequiredDispatchThread
 	public PsiElement getTarget(@NotNull DataContext dataContext)
 	{
 		final Project project = PlatformDataKeys.PROJECT.getData(dataContext);
 		if(project == null)
+		{
 			return null;
+		}
 
 		final Editor editor = PlatformDataKeys.EDITOR.getData(dataContext);
 		if(editor != null)
 		{
 			final PsiFile file = PsiDocumentManager.getInstance(project).getPsiFile(editor.getDocument());
 			if(file == null)
+			{
 				return null;
+			}
 
-			final PsiElement targetElement = TargetElementUtilBase.findTargetElement(editor, TargetElementUtilBase.ELEMENT_NAME_ACCEPTED |
-					TargetElementUtilBase.REFERENCED_ELEMENT_ACCEPTED |
-					TargetElementUtilBase.LOOKUP_ITEM_ACCEPTED);
+			final PsiElement targetElement = TargetElementUtil.findTargetElement(editor, ContainerUtil.newHashSet(TargetElementUtilEx
+					.ELEMENT_NAME_ACCEPTED, TargetElementUtilEx.REFERENCED_ELEMENT_ACCEPTED, TargetElementUtilEx.LOOKUP_ITEM_ACCEPTED));
 			if(targetElement instanceof NapileClass)
 			{
 				return targetElement;
@@ -80,7 +87,7 @@ public class NapileTypeHierarchyProvider implements HierarchyProvider
 	@Override
 	public void browserActivated(@NotNull HierarchyBrowser hierarchyBrowser)
 	{
-		final NapileTypeHierarchyBrowser browser = (NapileTypeHierarchyBrowser)hierarchyBrowser;
+		final NapileTypeHierarchyBrowser browser = (NapileTypeHierarchyBrowser) hierarchyBrowser;
 
 		browser.changeView(TypeHierarchyBrowserBase.TYPE_HIERARCHY_TYPE);
 	}
