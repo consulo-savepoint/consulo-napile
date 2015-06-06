@@ -16,6 +16,9 @@
 
 package org.napile.idea.plugin.codeInsight;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.mustbe.consulo.RequiredReadAction;
 import org.napile.compiler.lang.descriptors.CallableDescriptor;
 import org.napile.compiler.lang.descriptors.ClassifierDescriptor;
 import org.napile.compiler.lang.descriptors.DeclarationDescriptor;
@@ -27,16 +30,19 @@ import org.napile.compiler.lang.psi.NapileElement;
 import org.napile.compiler.lang.psi.NapileFile;
 import org.napile.idea.plugin.module.ModuleAnalyzerUtil;
 import com.intellij.codeInsight.navigation.actions.TypeDeclarationProvider;
+import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.PsiElement;
 
 /**
  * @author Evgeny Gerashchenko
  * @since 07.05.12
  */
-public class NapileTypeDeclarationProvider implements TypeDeclarationProvider
+public class NapileTypeDeclarationProvider extends TypeDeclarationProvider
 {
+	@RequiredReadAction
+	@Nullable
 	@Override
-	public PsiElement[] getSymbolTypeDeclarations(PsiElement symbol)
+	public PsiElement[] getSymbolTypeDeclarations(@NotNull PsiElement symbol, @Nullable Editor editor, int offset)
 	{
 		if(symbol instanceof NapileElement && symbol.getContainingFile() instanceof NapileFile)
 		{
