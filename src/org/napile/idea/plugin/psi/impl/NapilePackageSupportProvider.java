@@ -6,6 +6,7 @@ import org.consulo.psi.PsiPackageManager;
 import org.consulo.psi.PsiPackageSupportProvider;
 import org.jetbrains.annotations.NotNull;
 import org.napile.idea.plugin.module.extension.NapileModuleExtension;
+import com.intellij.openapi.module.Module;
 import com.intellij.psi.PsiManager;
 
 /**
@@ -18,6 +19,12 @@ public class NapilePackageSupportProvider implements PsiPackageSupportProvider
 	public boolean isSupported(@NotNull ModuleExtension moduleExtension)
 	{
 		return moduleExtension instanceof NapileModuleExtension;
+	}
+
+	@Override
+	public boolean isValidPackageName(@NotNull Module module, @NotNull String packageName)
+	{
+		return true;
 	}
 
 	@NotNull
