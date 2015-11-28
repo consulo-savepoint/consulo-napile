@@ -49,9 +49,9 @@ public class NapileTypeHierarchyTreeStructure extends NapileSubtypesHierarchyTre
 				}
 
 				final PsiElement element = BindingTraceUtil.descriptorToDeclaration(analyzeExhaust.getBindingTrace(), declarationDescriptor);
-				if(element != null && element != napileClass)
+				if(element instanceof NapileClass && element != napileClass)
 				{
-					NapileTypeHierarchyNodeDescriptor newDescriptor = new NapileTypeHierarchyNodeDescriptor(element.getProject(), parent, element, false);
+					NapileTypeHierarchyNodeDescriptor newDescriptor = new NapileTypeHierarchyNodeDescriptor(element.getProject(), parent, (NapileClass) element, false);
 					if(parent != null)
 					{
 						parent.setCachedChildren(new Object[]{newDescriptor});

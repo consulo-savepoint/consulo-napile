@@ -43,7 +43,11 @@ public class NapileSubtypesHierarchyTreeStructure extends HierarchyTreeStructure
 	{
 		NapileTypeHierarchyNodeDescriptor napileTypeHierarchyNodeDescriptor = (NapileTypeHierarchyNodeDescriptor) descriptor;
 
-		NapileClass napileClass = napileTypeHierarchyNodeDescriptor.getPsiClass();
+		NapileClass napileClass = (NapileClass) napileTypeHierarchyNodeDescriptor.getPsiElement();
+		if(napileClass == null)
+		{
+			return ArrayUtil.EMPTY_OBJECT_ARRAY;
+		}
 
 		final AnalyzeExhaust analyzeExhaust = ModuleAnalyzerUtil.lastAnalyze(napileClass.getContainingFile());
 
@@ -61,7 +65,7 @@ public class NapileSubtypesHierarchyTreeStructure extends HierarchyTreeStructure
 				final PsiElement element = BindingTraceUtil.descriptorToDeclaration(analyzeExhaust.getBindingTrace(), temp);
 				if(element != null && element != napileClass)
 				{
-					nodes.add(new NapileTypeHierarchyNodeDescriptor(myProject, descriptor, element, false));
+					nodes.add(new NapileTypeHierarchyNodeDescriptor(myProject, descriptor, (NapileClass) element, false));
 				}
 			}
 		}

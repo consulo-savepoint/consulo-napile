@@ -62,7 +62,7 @@ public class NapileTypeHierarchyBrowser extends TypeHierarchyBrowserBase
 	@Override
 	protected PsiElement getElementFromDescriptor(@NotNull HierarchyNodeDescriptor descriptor)
 	{
-		return descriptor instanceof NapileTypeHierarchyNodeDescriptor ? ((NapileTypeHierarchyNodeDescriptor) descriptor).getPsiClass() : null;
+		return descriptor instanceof NapileTypeHierarchyNodeDescriptor ? descriptor.getPsiElement() : null;
 	}
 
 	@Override

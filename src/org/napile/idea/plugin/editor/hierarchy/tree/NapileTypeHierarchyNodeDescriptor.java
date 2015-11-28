@@ -2,6 +2,7 @@ package org.napile.idea.plugin.editor.hierarchy.tree;
 
 import java.awt.Font;
 
+import org.mustbe.consulo.RequiredDispatchThread;
 import org.napile.compiler.lang.psi.NapileClass;
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.IdeBundle;
@@ -11,7 +12,6 @@ import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ui.util.CompositeAppearance;
 import com.intellij.openapi.util.Comparing;
-import com.intellij.psi.PsiElement;
 import com.intellij.ui.LayeredIcon;
 
 /**
@@ -20,24 +20,19 @@ import com.intellij.ui.LayeredIcon;
  */
 public class NapileTypeHierarchyNodeDescriptor extends HierarchyNodeDescriptor
 {
-	protected NapileTypeHierarchyNodeDescriptor(Project project, NodeDescriptor parentDescriptor, PsiElement element, boolean isBase)
+	protected NapileTypeHierarchyNodeDescriptor(Project project, NodeDescriptor parentDescriptor, NapileClass element, boolean isBase)
 	{
 		super(project, parentDescriptor, element, isBase);
 	}
 
-	@Override
-	public boolean isValid()
-	{
-		final PsiElement element = getPsiClass();
-		return element != null && element.isValid();
-	}
-
+	@RequiredDispatchThread
 	@Override
 	public final boolean update()
 	{
 		boolean changes = super.update();
 
-		if(myElement == null)
+		NapileClass napileClass = (NapileClass) getPsiElement();
+		if(napileClass == null)
 		{
 			final String invalidPrefix = IdeBundle.message("node.hierarchy.invalid");
 			if(!myHighlightedText.getText().startsWith(invalidPrefix))
@@ -54,8 +49,6 @@ public class NapileTypeHierarchyNodeDescriptor extends HierarchyNodeDescriptor
 			icon.setIcon(AllIcons.Hierarchy.Base, 1, -AllIcons.Hierarchy.Base.getIconWidth() / 2, 0);
 			setIcon(icon);
 		}
-
-		final NapileClass napileClass = getPsiClass();
 
 		final CompositeAppearance oldText = myHighlightedText;
 
@@ -75,10 +68,5 @@ public class NapileTypeHierarchyNodeDescriptor extends HierarchyNodeDescriptor
 			changes = true;
 		}
 		return changes;
-	}
-
-	public NapileClass getPsiClass()
-	{
-		return (NapileClass) myElement;
 	}
 }
